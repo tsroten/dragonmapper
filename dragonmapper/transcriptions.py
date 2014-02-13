@@ -203,11 +203,6 @@ def apinyin_syl_to_ipa(syl):
     return npinyin_syl_to_ipa(apinyin_syl_to_npinyin(syl))
 
 
-def _is_vowel(c):
-    """Check if the given character is a Pinyin vowel."""
-    return c.lower() in zhon.pinyin.vowels
-
-
 def _convert(s, re_pattern, syl_func, remove_apostrophes=False,
              separate_syllables=False):
     """Convert a string's syllables to a different transcription system."""
