@@ -333,7 +333,7 @@ def _is_pattern_match(ptn, s):
 
 def _is_pinyin(p, word_ptn):
     """Check if a string is valid Pinyin according to the given pattern."""
-    ptn = ('(?:%(word)s|[\s\t%(punctuation)s])+' %
+    ptn = ('(?:%(word)s|[ \t%(punctuation)s])+' %
            {'word': word_ptn, 'punctuation': zhon.pinyin.punctuation,
             })
     return _is_pattern_match(ptn, p)
