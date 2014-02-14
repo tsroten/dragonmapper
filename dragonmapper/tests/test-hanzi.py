@@ -51,11 +51,11 @@ class TestConversionFunctions(unittest.TestCase):
     apinyin = "àixǐhuan'ài。"
     apinyin_readings = '[ài][xǐ/xī/chì][huan/huān][ài]。'
     apinyin_segmented = 'ài xǐhuan ài。'
-    apinyin_segmented_readings = '[ài] xǐhuan [ài]。'
+    apinyin_segmented_readings = '[ài] [xǐhuan] [ài]。'
     npinyin = "ai4xi3huan5'ai4。"
     npinyin_readings = '[ai4][xi3/xi1/chi4][huan5/huan1][ai4]。'
     npinyin_segmented = 'ai4 xi3huan5 ai4。'
-    npinyin_segmented_readings = '[ai4] xi3huan5 [ai4]。'
+    npinyin_segmented_readings = '[ai4] [xi3huan5] [ai4]。'
     ipa = 'aɪ˥˩ ɕi˧˩˧ xwan aɪ˥˩。'
     zhuyin = 'ㄞˋ ㄒㄧˇ ㄏㄨㄢ˙ ㄞˋ。'
 
@@ -83,4 +83,4 @@ class TestConversionFunctions(unittest.TestCase):
     def test_word_readings(self):
         self.assertEqual(hanzi.to_pinyin('便宜'), 'biànyí')
         self.assertEqual(hanzi.to_pinyin('便宜', all_readings=True),
-                         'biànyí/piànyi')
+                         '[biànyí/piànyi]')

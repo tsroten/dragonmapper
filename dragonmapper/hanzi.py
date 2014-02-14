@@ -29,7 +29,7 @@ _SIMP_CHARS = set(list(zhon.cedict.simplified))
 _SHARED_CHARS = _TRAD_CHARS.intersection(_SIMP_CHARS)
 _ALL_CHARS = zhon.cedict.all
 
-_READING_SEPARATOR = '/'
+_SEPARATOR = '/'
 
 
 def _load_data():
@@ -172,13 +172,13 @@ def to_pinyin(hanzi, accented=True, delimiter=' ', all_readings=False):
             pinyin += _hanzi[0:start]
         _p = _hanzi_to_pinyin(m.group())
         if m.group() in _WORDS:  # The match was a multi-character word.
-            pinyin += _READING_SEPARATOR.join(_p) if all_readings else _p[0]
+            pinyin += '[%s]' % _SEPARATOR.join(_p) if all_readings else _p[0]
         else:  # The match wasn't a recognized word.
             for c in _p:  # Work through each character.
                 if isinstance(c, str):
                     pinyin += c  # Don't touch unrecognized characters.
                 elif isinstance(c, list) and all_readings:
-                    pinyin += '[%s]' % _READING_SEPARATOR.join(c)
+                        pinyin += '[%s]' % _SEPARATOR.join(c)
                 elif isinstance(c, list) and not all_readings:
                     if (pinyin and c[0][0] in zhon.pinyin.vowels and
                             pinyin[-1] in zhon.pinyin.lowercase):
