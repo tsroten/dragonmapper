@@ -1,0 +1,172 @@
+# -*- coding: utf-8 -*-
+"""Identification and transliteration functions for Chinese characters."""
+
+from __future__ import unicode_literals
+import re
+
+import zhon.cedict
+import zhon.hanzi
+import zhon.pinyin
+
+import dragonmapper.data
+import dragonmapper.transcriptions
+
+try:
+    str = unicode
+except NameError:
+    pass
+
+
+NONE = 0
+TRAD = TRADITIONAL = 1
+SIMP = SIMPLIFIED = 2
+BOTH = 3
+MIXED = 4
+
+
+_TRAD_CHARS = set(list(zhon.cedict.traditional))
+_SIMP_CHARS = set(list(zhon.cedict.simplified))
+_SHARED_CHARS = _TRAD_CHARS.intersection(_SIMP_CHARS)
+_ALL_CHARS = zhon.cedict.all
+
+_READING_SEPARATOR = '/'
+
+
+def _load_data():
+    """Load the word and character mapping data into a dictionary.
+
+    In the data files, each line is formatted like this:
+        HANZI   PINYIN_READING/PINYIN_READING
+
+    So, lines need to be split by '\t' and then the Pinyin readings need to be
+    split by '/'.
+
+    """
+    _data = {}
+    for d, f in (('words', 'hanzi_pinyin_words.tsv'),
+                 ('characters', 'hanzi_pinyin_characters.tsv')):
+        # Split the lines by tabs: [[hanzi, pinyin]...].
+        lines = [l.split('\t') for l in dragonmapper.data.load_data_file(f)]
+        # Make a dictionary: {hanzi: [pinyin, pinyin]...}.
+        _data[d] = {h: p.split('/') for h, p in lines}
+    return _data
+
+print("Loading word/character data files.")
+_HANZI_PINYIN_MAP = _load_data()
+_CHARACTERS = _HANZI_PINYIN_MAP['characters']
+_WORDS = _HANZI_PINYIN_MAP['words']
+
+
+def identify(s):
+    """Identify what kind of Chinese characters a string contains.
+
+    *s* is a string to examine. The string's Chinese characters are tested to
+    see if they are compatible with the Traditional or Simplified characters
+    systems, compatible with both, or contain a mixture of Traditional and
+    Simplified characters. The :data:`TRADITIONAL`, :data:`SIMPLIFIED`,
+    :data:`BOTH`, or :data:`MIXED` constants are returned to indicate the
+    string's identity. If *s* contains no Chinese characters, then :data:`NONE`
+    is returned.
+
+    All characters in a string that aren't found in the CC-CEDICT dictionary
+    are ignored.
+
+    Because the Traditional and Simplified Chinese character systems overlap, a
+    string containing Simplified characters could identify as
+    :data:`SIMPLIFIED` or :data:`BOTH` depending on if the characters are also
+    Traditional characters. To make testing the identity of a string easier,
+    the functions :func:`is_traditional` and :func:`is_simplified` are
+    provided.
+
+    """
+    ctext = set(re.sub('[^%s]' % _ALL_CHARS, '', s))
+    if not ctext:
+        return NONE
+    if ctext.issubset(_SHARED_CHARS):
+        return BOTH
+    if ctext.issubset(_TRAD_CHARS):
+        return TRAD
+    if ctext.issubset(_SIMP_CHARS):
+        return SIMP
+    return MIXED
+
+
+def is_chinese(s):
+    """Check if a string has Chinese characters in it.
+
+    This is equivalent to:
+        >>> identify('foo') in (TRADITIONAL, SIMPLIFIED, BOTH, MIXED)
+
+    """
+    return identify(s) in (TRADITIONAL, SIMPLIFIED, BOTH, MIXED)
+
+
+def is_traditional(s):
+    """Check if a string's Chinese characters are Traditional.
+
+    This is equivalent to:
+        >>> identify('foo') in (TRADITIONAL, BOTH)
+
+    """
+    return identify(s) in (TRADITIONAL, BOTH)
+
+
+def is_simplified(s):
+    """Check if a string's Chinese characters are Simplified.
+
+    This is equivalent to:
+        >>> identify('foo') in (SIMPLIFIED, BOTH)
+
+    """
+    return identify(s) in (SIMPLIFIED, BOTH)
+
+
+def _hanzi_to_pinyin(w):
+    """Return the Pinyin reading for a Chinese word."""
+    try:
+        return _HANZI_PINYIN_MAP['words'][w]
+    except KeyError:
+        return [_CHARACTERS.get(c, c) for c in w]
+
+
+def to_pinyin(hanzi, accented=True, delimiter=' ', all_readings=False):
+    """Convert a string's Chinese characters to Pinyin readings."""
+    _hanzi = hanzi
+    pinyin = ''
+    while _hanzi:
+        m = re.search('[^%s%s]+' % (delimiter, zhon.hanzi.non_stops), _hanzi)
+        if m is None and _hanzi:
+            # There are no more matches, but the given string isn't fully
+            # processed yet.
+            pinyin += _hanzi
+            break
+        start, end = m.span()
+        if start > 0:  # Handle punctuation and word delimiters.
+            pinyin += _hanzi[0:start]
+        _p = _hanzi_to_pinyin(m.group())
+        if m.group() in _WORDS:  # The match was a multi-character word.
+            pinyin += _READING_SEPARATOR.join(_p) if all_readings else _p[0]
+        else:  # The match wasn't a recognized word.
+            for c in _p:  # Work through each character.
+                if isinstance(c, str):
+                    pinyin += c  # Don't touch unrecognized characters.
+                elif isinstance(c, list) and all_readings:
+                    pinyin += '[%s]' % _READING_SEPARATOR.join(c)
+                elif isinstance(c, list) and not all_readings:
+                    if (pinyin and c[0][0] in zhon.pinyin.vowels and
+                            pinyin[-1] in zhon.pinyin.lowercase):
+                        # Add an apostrophe to separate syllables.
+                        pinyin += "'"
+                    pinyin += c[0]
+        _hanzi = _hanzi[end:]
+    if accented:
+        return pinyin
+    else:
+        return dragonmapper.transcriptions.apinyin_to_npinyin(pinyin)
+
+
+def to_zhuyin(hanzi, delimiter=' ', all_readings=False):
+    """Convert a string's Chinese characters to Zhuyin readings."""
+    npinyin = to_pinyin(hanzi, False, delimiter, all_readings)
+    zhuyin = dragonmapper.transcriptions.npinyin_to_zhuyin(npinyin)
+    return zhuyin
