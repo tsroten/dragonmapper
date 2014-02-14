@@ -324,6 +324,21 @@ def to_zhuyin(s):
         raise ValueError("String is not a valid Chinese transcription.")
 
 
+def to_ipa(s):
+    """Convert a string to IPA."""
+    i = identify(s)
+    if i == IPA:
+        return s
+    elif i == ACCENTED_PINYIN:
+        return apinyin_to_ipa(s)
+    elif i == NUMBERED_PINYIN:
+        return npinyin_to_ipa(s)
+    elif i == ZHUYIN:
+        return zhuyin_to_ipa(s)
+    else:
+        raise ValueError("String is not a valid Chinese transcription.")
+
+
 def _is_pattern_match(ptn, s):
     """Check if a re pattern expression matches an entire string."""
     m = re.match(ptn, s, re.I)
