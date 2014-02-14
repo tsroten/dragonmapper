@@ -81,6 +81,6 @@ class TestConversionFunctions(unittest.TestCase):
                          self.npinyin_segmented_readings)
 
     def test_word_readings(self):
-        self.assertEqual(hanzi.to_pinyin('便宜'), 'biànyí')
+        self.assertEqual(hanzi.to_pinyin('便宜'), 'piànyi')
         self.assertEqual(hanzi.to_pinyin('便宜', all_readings=True),
-                         '[biànyí/piànyi]')
+                         '[piànyi/biànyí]')
