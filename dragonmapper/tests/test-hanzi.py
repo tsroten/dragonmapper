@@ -13,35 +13,35 @@ class TestIdentifyFunctions(unittest.TestCase):
     simplified = '神称旱地为地，称水的聚处为海。神看着是好的。'
     both = '你好！'
     mixed = '車车'
-    none = 'Hello. There are no Chinese characters in this string.'
+    unknown = 'Hello. There are no Chinese characters in this string.'
 
     def test_identify(self):
         self.assertEqual(hanzi.identify(self.traditional), hanzi.TRADITIONAL)
         self.assertEqual(hanzi.identify(self.simplified), hanzi.SIMPLIFIED)
         self.assertEqual(hanzi.identify(self.both), hanzi.BOTH)
         self.assertEqual(hanzi.identify(self.mixed), hanzi.MIXED)
-        self.assertEqual(hanzi.identify(self.none), hanzi.NONE)
+        self.assertEqual(hanzi.identify(self.unknown), hanzi.UNKNOWN)
 
     def test_is_chinese(self):
         self.assertTrue(hanzi.is_chinese(self.traditional))
         self.assertTrue(hanzi.is_chinese(self.both))
         self.assertTrue(hanzi.is_chinese(self.simplified))
         self.assertTrue(hanzi.is_chinese(self.mixed))
-        self.assertFalse(hanzi.is_chinese(self.none))
+        self.assertFalse(hanzi.is_chinese(self.unknown))
 
     def test_is_traditional(self):
         self.assertTrue(hanzi.is_traditional(self.traditional))
         self.assertTrue(hanzi.is_traditional(self.both))
         self.assertFalse(hanzi.is_traditional(self.simplified))
         self.assertFalse(hanzi.is_traditional(self.mixed))
-        self.assertFalse(hanzi.is_traditional(self.none))
+        self.assertFalse(hanzi.is_traditional(self.unknown))
 
     def test_is_simplified(self):
         self.assertTrue(hanzi.is_simplified(self.simplified))
         self.assertTrue(hanzi.is_simplified(self.both))
         self.assertFalse(hanzi.is_simplified(self.traditional))
         self.assertFalse(hanzi.is_simplified(self.mixed))
-        self.assertFalse(hanzi.is_simplified(self.none))
+        self.assertFalse(hanzi.is_simplified(self.unknown))
 
 
 class TestConversionFunctions(unittest.TestCase):

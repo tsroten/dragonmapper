@@ -17,7 +17,7 @@ except NameError:
     pass
 
 
-NONE = 0
+UNKNOWN = 0
 TRAD = TRADITIONAL = 1
 SIMP = SIMPLIFIED = 2
 BOTH = 3
@@ -81,7 +81,7 @@ def identify(s):
     """
     ctext = set(re.sub('[^%s]' % _ALL_CHARS, '', s))
     if not ctext:
-        return NONE
+        return UNKNOWN
     if ctext.issubset(_SHARED_CHARS):
         return BOTH
     if ctext.issubset(_TRAD_CHARS):
