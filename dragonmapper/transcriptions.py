@@ -14,6 +14,7 @@ UNKNOWN = 0
 APINYIN = ACCENTED_PINYIN = 1
 NPINYIN = NUMBERED_PINYIN = 2
 ZHUYIN = 3
+IPA = 4
 
 _NPINYIN_VOWELS = 'aeiou\u00FC'
 
@@ -34,6 +35,9 @@ _ZHUYIN_TONES = {
 _IPA_TONES = {
     '1': '˥', '2': '˧˥', '3': '˧˩˧', '4': '˥˩', '5': ''
 }
+
+_IPA_CHARACTERS = 'AIŋmPɑœɔɕəɛaɤefɨiɪklɯnopstuwxyɻʂʈʊʐɥʰj'
+_IPA_MARKS = '˩˧˥'
 
 
 def _load_data():
@@ -355,14 +359,23 @@ def is_zhuyin(z):
     return _is_pattern_match(ptn, z)
 
 
+def is_ipa(i):
+    """Check if a given string consists of valid Chinese IPA."""
+    ptn = ('(?:[%(characters)s]+[%(marks)s]*|[ \t%(punctuation)s])+' %
+           {'characters': _IPA_CHARACTERS, 'marks': _IPA_MARKS,
+            'punctuation': zhon.pinyin.punctuation})
+    return _is_pattern_match(ptn, i)
+
+
 def identify(s):
     """Identify a given string's transcription system.
 
     *s* is the string to identify. The string is checked to see if its
     contents are valid accented Pinyin, numbered Pinyin, or Zhuyin. The
-    :data:`ACCENTED_PINYIN`, :data:`NUMBERED_PINYIN`, and :data:`ZHUYIN`
-    constants are returned to indicate the string's identity. If *s* is not a
-    valid transcription system, then :data:`UNKNOWN` is returned.
+    :data:`ACCENTED_PINYIN`, :data:`NUMBERED_PINYIN`, :data:`ZHUYIN`, and
+    :data:`IPA` constants are returned to indicate the string's identity.
+    If *s* is not a valid transcription system, then :data:`UNKNOWN` is
+    returned.
 
     """
     if is_apinyin(s):
@@ -371,5 +384,7 @@ def identify(s):
         return NUMBERED_PINYIN
     elif is_zhuyin(s):
         return ZHUYIN
+    elif is_ipa(s):
+        return IPA
     else:
         return UNKNOWN

@@ -12,37 +12,50 @@ class TestIdentifyFunctions(unittest.TestCase):
     npinyin = 'fa1zhan3 ni3hao3'
     apinyin = 'fāzhǎnnǐhǎo'
     zhuyin = 'ㄝ ㄦ ㄒㄧㄣ'
+    ipa = 'fa˥ ʈʂan˧˩˧ ni˧˩˧ xɑʊ˧˩˧'
     unknown = 'blahblah'
 
     def test_identify(self):
         self.assertEqual(trans.identify(self.npinyin), trans.NPINYIN)
         self.assertEqual(trans.identify(self.apinyin), trans.APINYIN)
         self.assertEqual(trans.identify(self.zhuyin), trans.ZHUYIN)
+        self.assertEqual(trans.identify(self.ipa), trans.IPA)
         self.assertEqual(trans.identify(self.unknown), trans.UNKNOWN)
 
     def test_is_pinyin(self):
         self.assertTrue(trans.is_pinyin(self.npinyin))
         self.assertTrue(trans.is_pinyin(self.apinyin))
         self.assertFalse(trans.is_pinyin(self.zhuyin))
+        self.assertFalse(trans.is_pinyin(self.ipa))
         self.assertFalse(trans.is_pinyin(self.unknown))
 
     def test_is_npinyin(self):
         self.assertTrue(trans.is_npinyin(self.npinyin))
         self.assertFalse(trans.is_npinyin(self.apinyin))
         self.assertFalse(trans.is_npinyin(self.zhuyin))
+        self.assertFalse(trans.is_npinyin(self.ipa))
         self.assertFalse(trans.is_npinyin(self.unknown))
 
     def test_is_apinyin(self):
         self.assertTrue(trans.is_apinyin(self.apinyin))
         self.assertFalse(trans.is_apinyin(self.npinyin))
         self.assertFalse(trans.is_apinyin(self.zhuyin))
+        self.assertFalse(trans.is_apinyin(self.ipa))
         self.assertFalse(trans.is_apinyin(self.unknown))
 
     def test_is_zhuyin(self):
         self.assertTrue(trans.is_zhuyin(self.zhuyin))
         self.assertFalse(trans.is_zhuyin(self.npinyin))
         self.assertFalse(trans.is_zhuyin(self.apinyin))
+        self.assertFalse(trans.is_zhuyin(self.ipa))
         self.assertFalse(trans.is_zhuyin(self.unknown))
+
+    def test_is_ipa(self):
+        self.assertTrue(trans.is_ipa(self.ipa))
+        self.assertFalse(trans.is_ipa(self.npinyin))
+        self.assertFalse(trans.is_ipa(self.apinyin))
+        self.assertFalse(trans.is_ipa(self.zhuyin))
+        self.assertFalse(trans.is_ipa(self.unknown))
 
 
 class TestConvertFunctions(unittest.TestCase):
