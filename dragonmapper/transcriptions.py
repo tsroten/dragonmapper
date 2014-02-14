@@ -128,10 +128,11 @@ def npinyin_syl_to_apinyin(syl):
     """Convert a numbered Pinyin syllable to an accented Pinyin syllable.
 
     It implements the following algorithm to determine where to place tone
-        marks:
-        1. If the syllable has an 'a', 'e', or 'o' (in that order), put the
-            tone mark over that vowel.
-        2. Otherwise, put the tone mark on the last vowel.
+    marks:
+
+    1. If the syllable has an 'a', 'e', or 'o' (in that order), put the
+        tone mark over that vowel.
+    2. Otherwise, put the tone mark on the last vowel.
 
     """
     lsyl, case_mem = _mem_lower_case(syl)
@@ -199,9 +200,10 @@ def apinyin_syl_to_npinyin(syl):
     This function assumes the syllable is valid Pinyin.
 
     Implements the following algorithm:
-        1. If the syllable has an accent mark, convert that vowel to a
-            regular vowel and add the tone to the end of the syllable.
-        2. Otherwise, assume the syllable is tone 5 (no accent marks).
+
+    1. If the syllable has an accent mark, convert that vowel to a
+        regular vowel and add the tone to the end of the syllable.
+    2. Otherwise, assume the syllable is tone 5 (no accent marks).
 
     """
     if syl[0] == '\u00B7':
