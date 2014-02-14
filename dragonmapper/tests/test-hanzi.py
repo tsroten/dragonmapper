@@ -56,6 +56,8 @@ class TestConversionFunctions(unittest.TestCase):
     npinyin_readings = '[ai4][xi3/xi1/chi4][huan5/huan1][ai4]。'
     npinyin_segmented = 'ai4 xi3huan5 ai4。'
     npinyin_segmented_readings = '[ai4] xi3huan5 [ai4]。'
+    ipa = 'aɪ˥˩ ɕi˧˩˧ xwan aɪ˥˩。'
+    zhuyin = 'ㄞˋ ㄒㄧˇ ㄏㄨㄢ˙ ㄞˋ。'
 
     def test_accented_pinyin(self):
         self.assertEqual(hanzi.to_pinyin(self.chinese), self.apinyin)
