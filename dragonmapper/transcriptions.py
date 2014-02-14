@@ -38,19 +38,22 @@ _IPA_TONES = {
 
 _IPA_CHARACTERS = 'AIŋmPɑœɔɕəɛaɤefɨiɪklɯnopstuwxyɻʂʈʊʐɥʰj'
 _IPA_MARKS = '˩˧˥'
+_IPA_SYL = '[%(characters)s]+[%(marks)s]*' % {'characters': _IPA_CHARACTERS,
+                                              'marks': _IPA_MARKS}
 
 
 def _load_data():
     """Load the transcription mapping data into a dictionary."""
     lines = dragonmapper.data.load_data_file('transcriptions.csv')
-    mapping = {}
+    pinyin_map, zhuyin_map, ipa_map = {}, {}, {}
     for line in lines:
         p, z, i = line.split(',')
-        mapping[p] = {'Zhuyin': z, 'IPA': i}
-        mapping[z] = {'Pinyin': p, 'IPA': i}
-    return mapping
+        pinyin_map[p] = {'Zhuyin': z, 'IPA': i}
+        zhuyin_map[z] = {'Pinyin': p, 'IPA': i}
+        ipa_map[i] = {'Pinyin': p, 'Zhuyin': z}
+    return pinyin_map, zhuyin_map, ipa_map
 
-_TRANSCRIPTION_MAP = _load_data()
+_PINYIN_MAP, _ZHUYIN_MAP, _IPA_MAP = _load_data()
 
 
 def _npinyin_vowel_to_apinyin(vowel, tone):
@@ -98,6 +101,19 @@ def _parse_zhuyin_syl(syllable):
     return syl, tone
 
 
+def _parse_ipa_syl(syllable):
+    """Return the syllable and tone of an IPA syllable."""
+    _tone = re.search('[%(marks)s]+' % {'marks': _IPA_MARKS}, syllable)
+    if not _tone:
+        syl, tone = syllable, '5'
+    else:
+        for tone, mark in _IPA_TONES.items():
+            if _tone.group() == mark:
+                break
+        syl = syllable[0:_tone.start()]
+    return syl, tone
+
+
 def _mem_lower_case(s):
     """Convert a string to lowercase and remember its original case."""
     return s.lower(), [c.islower() for c in s]
@@ -141,7 +157,7 @@ def npinyin_syl_to_zhuyin(syl):
     """Convert a numbered Pinyin syllable to a Zhuyin syllable."""
     _syl, tone = _parse_npinyin_syl(syl)
     try:
-        zsyl = _TRANSCRIPTION_MAP[_syl.lower()]['Zhuyin']
+        zsyl = _PINYIN_MAP[_syl.lower()]['Zhuyin']
     except IndexError:
         raise ValueError('Not a valid syllable: %s' % syl)
     return zsyl + _ZHUYIN_TONES[tone]
@@ -151,7 +167,7 @@ def npinyin_syl_to_ipa(syl):
     """Convert a numbered Pinyin syllable to an IPA syllable."""
     _syl, tone = _parse_npinyin_syl(syl)
     try:
-        isyl = _TRANSCRIPTION_MAP[_syl.lower()]['IPA']
+        isyl = _PINYIN_MAP[_syl.lower()]['IPA']
     except IndexError:
         raise ValueError('Not a valid syllable: %s' % syl)
     return isyl + _IPA_TONES[tone]
@@ -161,7 +177,7 @@ def zhuyin_syl_to_npinyin(syl):
     """Convert a Zhuyin syllable to a numbered Pinyin syllable."""
     _syl, tone = _parse_zhuyin_syl(syl)
     try:
-        psyl = _TRANSCRIPTION_MAP[_syl]['Pinyin']
+        psyl = _ZHUYIN_MAP[_syl]['Pinyin']
     except IndexError:
         raise ValueError('Not a valid syllable: %s' % syl)
     return psyl + tone
@@ -205,6 +221,26 @@ def apinyin_syl_to_zhuyin(syl):
 def apinyin_syl_to_ipa(syl):
     """Convert an accented Pinyin syllable to an IPA syllable."""
     return npinyin_syl_to_ipa(apinyin_syl_to_npinyin(syl))
+
+
+def ipa_syl_to_npinyin(syl):
+    """Convert an IPA syllable to a numbered Pinyin syllable."""
+    _syl, tone = _parse_ipa_syl(syl)
+    try:
+        psyl = _IPA_MAP[_syl]['Pinyin']
+    except IndexError:
+        raise ValueError('Not a valid syllable: %s' % syl)
+    return psyl + tone
+
+
+def ipa_syl_to_apinyin(syl):
+    """Convert an IPA syllable to an accented Pinyin syllable."""
+    return npinyin_syl_to_apinyin(ipa_syl_to_npinyin(syl))
+
+
+def ipa_syl_to_zhuyin(syl):
+    """Convert an IPA syllable to a Zhuyin syllable."""
+    return npinyin_syl_to_zhuyin(ipa_syl_to_npinyin(syl))
 
 
 def _convert(s, re_pattern, syl_func, remove_apostrophes=False,
@@ -280,6 +316,21 @@ def apinyin_to_ipa(p):
     return _convert(p, zhon.pinyin.syl, apinyin_syl_to_ipa, True, True)
 
 
+def ipa_to_npinyin(i):
+    """Convert all IPA syllables in a string to numbered Pinyin."""
+    return _convert(i, _IPA_SYL, ipa_syl_to_npinyin)
+
+
+def ipa_to_apinyin(i):
+    """Convert all IPA syllables in a string to accented Pinyin."""
+    return _convert(i, _IPA_SYL, ipa_syl_to_apinyin)
+
+
+def ipa_to_zhuyin(i):
+    """Convert all IPA syllables in a string to Zhuyin."""
+    return _convert(i, _IPA_SYL, ipa_syl_to_zhuyin)
+
+
 def to_pinyin(s, accented=True):
     """Convert a string to Pinyin."""
     return to_apinyin(s) if accented else to_npinyin(s)
@@ -294,6 +345,8 @@ def to_apinyin(s):
         return npinyin_to_apinyin(s)
     elif i == ZHUYIN:
         return zhuyin_to_apinyin(s)
+    elif i == IPA:
+        return ipa_to_apinyin(s)
     else:
         raise ValueError("String is not a valid Chinese transcription.")
 
@@ -307,6 +360,8 @@ def to_npinyin(s):
         return apinyin_to_npinyin(s)
     elif i == ZHUYIN:
         return zhuyin_to_npinyin(s)
+    elif i == IPA:
+        return ipa_to_npinyin(s)
     else:
         raise ValueError("String is not a valid Chinese transcription.")
 
@@ -320,6 +375,8 @@ def to_zhuyin(s):
         return apinyin_to_zhuyin(s)
     elif i == NUMBERED_PINYIN:
         return npinyin_to_zhuyin(s)
+    elif i == IPA:
+        return ipa_to_zhuyin(s)
     else:
         raise ValueError("String is not a valid Chinese transcription.")
 
@@ -376,9 +433,8 @@ def is_zhuyin(z):
 
 def is_ipa(i):
     """Check if a given string consists of valid Chinese IPA."""
-    ptn = ('(?:[%(characters)s]+[%(marks)s]*|[ \t%(punctuation)s])+' %
-           {'characters': _IPA_CHARACTERS, 'marks': _IPA_MARKS,
-            'punctuation': zhon.pinyin.punctuation})
+    ptn = ('(?:%(syl)s|[ \t%(punctuation)s])+' %
+           {'syl': _IPA_SYL, 'punctuation': zhon.pinyin.punctuation})
     return _is_pattern_match(ptn, i)
 
 

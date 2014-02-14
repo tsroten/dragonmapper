@@ -87,6 +87,17 @@ class TestConvertFunctions(unittest.TestCase):
     def test_zhuyin_to_ipa(self):
         self.assertEqual(trans.zhuyin_to_ipa(self.zhuyin), self.ipa)
 
+    def test_ipa_to_numbered(self):
+        self.assertEqual(trans.ipa_to_npinyin(self.ipa),
+                         self.npinyin_spaced.lower())
+
+    def test_ipa_to_pinyin(self):
+        self.assertEqual(trans.ipa_to_apinyin(self.ipa),
+                         self.apinyin_spaced.lower())
+
+    def test_ipa_to_zhuyin(self):
+        self.assertEqual(trans.ipa_to_zhuyin(self.ipa), self.zhuyin)
+
     def test_pinyin_to_zhuyin(self):
         self.assertEqual(trans.apinyin_to_zhuyin(self.apinyin), self.zhuyin)
 
