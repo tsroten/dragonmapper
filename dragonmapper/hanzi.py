@@ -141,7 +141,23 @@ def _hanzi_to_pinyin(w):
 
 
 def to_pinyin(hanzi, accented=True, delimiter=' ', all_readings=False):
-    """Convert a string's Chinese characters to Pinyin readings."""
+    """Convert a string's Chinese characters to Pinyin readings.
+
+    *hanzi* is a string containing Chinese characters. *accented* is a
+    :data:`bool` indicating whether to return accented or numbered Pinyin
+    readings.
+
+    *delimiter* is the character used to indicate word boundaries in *hanzi*.
+    This is used to differentiate between words and characters so that a more
+    accurate Pinyin reading can be returned.
+
+    *all_readings* is a :data:`bool` indicating whether or not to return all
+    possible readings in the case of words/characters that have multiple
+    readings.
+
+    Characters not recognized as Chinese are left untouched.
+
+    """
     _hanzi = hanzi
     pinyin = ''
     while _hanzi:
@@ -181,3 +197,10 @@ def to_zhuyin(hanzi, delimiter=' ', all_readings=False):
     npinyin = to_pinyin(hanzi, False, delimiter, all_readings)
     zhuyin = dragonmapper.transcriptions.npinyin_to_zhuyin(npinyin)
     return zhuyin
+
+
+def to_ipa(hanzi, delimiter=' ', all_readings=False):
+    """Convert a string's Chinese characters to IPA."""
+    npinyin = to_pinyin(hanzi, False, delimiter, all_readings)
+    ipa = dragonmapper.transcriptions.npinyin_to_ipa(npinyin)
+    return ipa
