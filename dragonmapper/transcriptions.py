@@ -323,7 +323,7 @@ def to_zhuyin(s):
 def _is_pattern_match(ptn, s):
     """Check if a re pattern expression matches an entire string."""
     m = re.match(ptn, s, re.I)
-    return m.group() == s if m else None
+    return m.group() == s if m else False
 
 
 def _is_pinyin(p, word_ptn):
