@@ -161,7 +161,7 @@ def to_pinyin(hanzi, accented=True, delimiter=' ', all_readings=False):
     _hanzi = hanzi
     pinyin = ''
     while _hanzi:
-        m = re.search('[^%s%s]+' % (delimiter, zhon.hanzi.non_stops), _hanzi)
+        m = re.search('[^%s%s]+' % (delimiter, zhon.hanzi.punctuation), _hanzi)
         if m is None and _hanzi:
             # There are no more matches, but the given string isn't fully
             # processed yet.
