@@ -70,14 +70,16 @@ class TestConversionFunctions(unittest.TestCase):
                          self.apinyin_segmented_readings)
 
     def test_numbered_pinyin(self):
-        self.assertEqual(hanzi.to_pinyin(self.chinese, False), self.npinyin)
-        self.assertEqual(hanzi.to_pinyin(self.chinese, False,
-                                         all_readings=True),
+        self.assertEqual(hanzi.to_pinyin(self.chinese, accented=False),
+                         self.npinyin)
+        self.assertEqual(hanzi.to_pinyin(self.chinese, all_readings=True,
+                                         accented=False),
                          self.npinyin_readings)
-        self.assertEqual(hanzi.to_pinyin(self.chinese_segmented, False),
+        self.assertEqual(hanzi.to_pinyin(self.chinese_segmented,
+                                         accented=False),
                          self.npinyin_segmented)
-        self.assertEqual(hanzi.to_pinyin(self.chinese_segmented, False,
-                                         all_readings=True),
+        self.assertEqual(hanzi.to_pinyin(self.chinese_segmented,
+                                         all_readings=True, accented=False),
                          self.npinyin_segmented_readings)
 
     def test_word_readings(self):

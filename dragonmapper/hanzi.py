@@ -145,7 +145,7 @@ def _hanzi_to_pinyin(w):
         return [_CHARACTERS.get(c, c) for c in w]
 
 
-def to_pinyin(hanzi, accented=True, delimiter=' ', all_readings=False):
+def to_pinyin(hanzi, delimiter=' ', all_readings=False, accented=True):
     """Convert a string's Chinese characters to Pinyin readings.
 
     *hanzi* is a string containing Chinese characters. *accented* is a
@@ -219,13 +219,13 @@ def to_pinyin(hanzi, accented=True, delimiter=' ', all_readings=False):
 
 def to_zhuyin(hanzi, delimiter=' ', all_readings=False):
     """Convert a string's Chinese characters to Zhuyin readings."""
-    npinyin = to_pinyin(hanzi, False, delimiter, all_readings)
+    npinyin = to_pinyin(hanzi, delimiter, all_readings, False)
     zhuyin = dragonmapper.transcriptions.npinyin_to_zhuyin(npinyin)
     return zhuyin
 
 
 def to_ipa(hanzi, delimiter=' ', all_readings=False):
     """Convert a string's Chinese characters to IPA."""
-    npinyin = to_pinyin(hanzi, False, delimiter, all_readings)
+    npinyin = to_pinyin(hanzi, delimiter, all_readings, False)
     ipa = dragonmapper.transcriptions.npinyin_to_ipa(npinyin)
     return ipa
