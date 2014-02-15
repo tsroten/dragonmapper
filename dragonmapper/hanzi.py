@@ -182,7 +182,7 @@ def to_pinyin(hanzi, accented=True, delimiter=' ', all_readings=False):
         _p = _hanzi_to_pinyin(m.group())
 
         # Process the returned word readings.
-        if m.group() in _WORDS:  # The match was a multi-character word.
+        if m.group() in _WORDS:
             pinyin += '[%s]' % _SEPARATOR.join(_p) if all_readings else _p[0]
 
         # Process the returned character readings.
