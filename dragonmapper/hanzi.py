@@ -160,32 +160,52 @@ def to_pinyin(hanzi, accented=True, delimiter=' ', all_readings=False):
     """
     _hanzi = hanzi
     pinyin = ''
+
+    # Process the given string.
     while _hanzi:
+
+        # Get the next match in the given string.
         m = re.search('[^%s%s]+' % (delimiter, zhon.hanzi.punctuation), _hanzi)
+
+        # There are no more matches, but the string isn't finished yet.
         if m is None and _hanzi:
-            # There are no more matches, but the given string isn't fully
-            # processed yet.
             pinyin += _hanzi
             break
+
         start, end = m.span()
-        if start > 0:  # Handle punctuation and word delimiters.
+
+        # Process the punctuation marks that occur before the match.
+        if start > 0:
             pinyin += _hanzi[0:start]
+
+        # Get the Chinese word/character readings.
         _p = _hanzi_to_pinyin(m.group())
+
+        # Process the returned word readings.
         if m.group() in _WORDS:  # The match was a multi-character word.
             pinyin += '[%s]' % _SEPARATOR.join(_p) if all_readings else _p[0]
-        else:  # The match wasn't a recognized word.
-            for c in _p:  # Work through each character.
+
+        # Process the returned character readings.
+        else:
+            # Process each character individually.
+            for c in _p:
+                # Don't touch unrecognized characters.
                 if isinstance(c, str):
-                    pinyin += c  # Don't touch unrecognized characters.
+                    pinyin += c
+                # Format multiple readings.
                 elif isinstance(c, list) and all_readings:
                         pinyin += '[%s]' % _SEPARATOR.join(c)
+                # Select and format the most common reading.
                 elif isinstance(c, list) and not all_readings:
+                    # Add an apostrophe to separate syllables.
                     if (pinyin and c[0][0] in zhon.pinyin.vowels and
                             pinyin[-1] in zhon.pinyin.lowercase):
-                        # Add an apostrophe to separate syllables.
                         pinyin += "'"
                     pinyin += c[0]
+
+        # Move ahead in the given string.
         _hanzi = _hanzi[end:]
+
     if accented:
         return pinyin
     else:
