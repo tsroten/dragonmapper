@@ -100,7 +100,7 @@ def has_chinese(s):
     """Check if a string has Chinese characters in it.
 
     This is a faster version of:
-        >>> identify('foo') in (TRADITIONAL, SIMPLIFIED, BOTH, MIXED)
+        >>> identify('foo') is not UNKNOWN
 
     """
     return bool(_get_hanzi(s))
