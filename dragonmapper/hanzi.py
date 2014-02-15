@@ -57,6 +57,11 @@ _CHARACTERS = _HANZI_PINYIN_MAP['characters']
 _WORDS = _HANZI_PINYIN_MAP['words']
 
 
+def _get_hanzi(s):
+    """Extract a string's Chinese characters."""
+    return set(re.sub('[^%s]' % _ALL_CHARS, '', s))
+
+
 def identify(s):
     """Identify what kind of Chinese characters a string contains.
 
@@ -79,7 +84,7 @@ def identify(s):
     provided.
 
     """
-    ctext = set(re.sub('[^%s]' % _ALL_CHARS, '', s))
+    ctext = _get_hanzi(s)
     if not ctext:
         return UNKNOWN
     if ctext.issubset(_SHARED_CHARS):
@@ -91,14 +96,14 @@ def identify(s):
     return MIXED
 
 
-def is_chinese(s):
+def has_chinese(s):
     """Check if a string has Chinese characters in it.
 
-    This is equivalent to:
+    This is a faster version of:
         >>> identify('foo') in (TRADITIONAL, SIMPLIFIED, BOTH, MIXED)
 
     """
-    return identify(s) in (TRADITIONAL, SIMPLIFIED, BOTH, MIXED)
+    return bool(_get_hanzi(s))
 
 
 def is_traditional(s):

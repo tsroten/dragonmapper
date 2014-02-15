@@ -22,12 +22,12 @@ class TestIdentifyFunctions(unittest.TestCase):
         self.assertEqual(hanzi.identify(self.mixed), hanzi.MIXED)
         self.assertEqual(hanzi.identify(self.unknown), hanzi.UNKNOWN)
 
-    def test_is_chinese(self):
-        self.assertTrue(hanzi.is_chinese(self.traditional))
-        self.assertTrue(hanzi.is_chinese(self.both))
-        self.assertTrue(hanzi.is_chinese(self.simplified))
-        self.assertTrue(hanzi.is_chinese(self.mixed))
-        self.assertFalse(hanzi.is_chinese(self.unknown))
+    def test_has_chinese(self):
+        self.assertTrue(hanzi.has_chinese(self.traditional))
+        self.assertTrue(hanzi.has_chinese(self.both))
+        self.assertTrue(hanzi.has_chinese(self.simplified))
+        self.assertTrue(hanzi.has_chinese(self.mixed))
+        self.assertFalse(hanzi.has_chinese(self.unknown))
 
     def test_is_traditional(self):
         self.assertTrue(hanzi.is_traditional(self.traditional))
