@@ -328,13 +328,13 @@ def _convert(s, re_pattern, syllable_function, remove_apostrophes=False,
     return new
 
 
-def npinyin_to_apinyin(s):
+def numbered_pinyin_to_accented_pinyin(s):
     """Convert all numbered Pinyin syllables in *s* to accented Pinyin."""
     return _convert(s, zhon.pinyin.syllable,
                     numbered_pinyin_syllable_to_accented_pinyin)
 
 
-def apinyin_to_npinyin(s):
+def accented_pinyin_to_numbered_pinyin(s):
     """Convert all accented Pinyin syllables in *s* to numbered Pinyin."""
     return _convert(s, zhon.pinyin.syllable,
                     accented_pinyin_syllable_to_numbered_pinyin)
@@ -410,9 +410,9 @@ def to_pinyin(s, accented=True):
     identity = identify(s)
     if identity == PINYIN:
         if _has_accented_vowels(s):
-            return s if accented else apinyin_to_npinyin(s)
+            return s if accented else accented_pinyin_to_numbered_pinyin(s)
         else:
-            return npinyin_to_apinyin(s) if accented else s
+            return numbered_pinyin_to_accented_pinyin(s) if accented else s
     elif identity == ZHUYIN:
         return zhuyin_to_pinyin(s, accented=accented)
     elif identity == IPA:
