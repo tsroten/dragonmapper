@@ -57,7 +57,6 @@ def _load_data():
         data[name] = {hanzi: pinyin.split('/') for hanzi, pinyin in lines}
     return data
 
-print("Loading word/character data files.")
 _HANZI_PINYIN_MAP = _load_data()
 _CHARACTERS = _HANZI_PINYIN_MAP['characters']
 _WORDS = _HANZI_PINYIN_MAP['words']
