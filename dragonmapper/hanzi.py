@@ -9,7 +9,11 @@ import zhon.hanzi
 import zhon.pinyin
 
 import dragonmapper.data
-import dragonmapper.transcriptions
+from dragonmapper.transcriptions import (
+    accented_pinyin_to_numbered_pinyin,
+    pinyin_to_ipa,
+    pinyin_to_zhuyin
+)
 
 try:
     str = unicode
@@ -24,12 +28,13 @@ BOTH = 3
 MIXED = 4
 
 
-_TRAD_CHARS = set(list(zhon.cedict.traditional))
-_SIMP_CHARS = set(list(zhon.cedict.simplified))
-_SHARED_CHARS = _TRAD_CHARS.intersection(_SIMP_CHARS)
-_ALL_CHARS = zhon.cedict.all
+_TRADITIONAL_CHARACTERS = set(list(zhon.cedict.traditional))
+_SIMPLIFIED_CHARACTERS = set(list(zhon.cedict.simplified))
+_SHARED_CHARACTERS = _TRADITIONAL_CHARACTERS.intersection(
+    _SIMPLIFIED_CHARACTERS)
+_ALL_CHARACTERS = zhon.cedict.all
 
-_SEPARATOR = '/'
+_READING_SEPARATOR = '/'
 
 
 def _load_data():
@@ -42,14 +47,15 @@ def _load_data():
     split by '/'.
 
     """
-    _data = {}
-    for d, f in (('words', 'hanzi_pinyin_words.tsv'),
-                 ('characters', 'hanzi_pinyin_characters.tsv')):
+    data = {}
+    for name, file_name in (('words', 'hanzi_pinyin_words.tsv'),
+                            ('characters', 'hanzi_pinyin_characters.tsv')):
         # Split the lines by tabs: [[hanzi, pinyin]...].
-        lines = [l.split('\t') for l in dragonmapper.data.load_data_file(f)]
+        lines = [line.split('\t') for line in
+                 dragonmapper.data.load_data_file(file_name)]
         # Make a dictionary: {hanzi: [pinyin, pinyin]...}.
-        _data[d] = {h: p.split('/') for h, p in lines}
-    return _data
+        data[name] = {hanzi: pinyin.split('/') for hanzi, pinyin in lines}
+    return data
 
 print("Loading word/character data files.")
 _HANZI_PINYIN_MAP = _load_data()
@@ -59,7 +65,7 @@ _WORDS = _HANZI_PINYIN_MAP['words']
 
 def _get_hanzi(s):
     """Extract a string's Chinese characters."""
-    return set(re.sub('[^%s]' % _ALL_CHARS, '', s))
+    return set(re.sub('[^%s]' % _ALL_CHARACTERS, '', s))
 
 
 def identify(s):
@@ -84,15 +90,15 @@ def identify(s):
     provided.
 
     """
-    ctext = _get_hanzi(s)
-    if not ctext:
+    chinese = _get_hanzi(s)
+    if not chinese:
         return UNKNOWN
-    if ctext.issubset(_SHARED_CHARS):
+    if chinese.issubset(_SHARED_CHARACTERS):
         return BOTH
-    if ctext.issubset(_TRAD_CHARS):
-        return TRAD
-    if ctext.issubset(_SIMP_CHARS):
-        return SIMP
+    if chinese.issubset(_TRADITIONAL_CHARACTERS):
+        return TRADITIONAL
+    if chinese.issubset(_SIMPLIFIED_CHARACTERS):
+        return SIMPLIFIED
     return MIXED
 
 
@@ -142,13 +148,13 @@ def _hanzi_to_pinyin(hanzi):
     try:
         return _HANZI_PINYIN_MAP['words'][hanzi]
     except KeyError:
-        return [_CHARACTERS.get(c, c) for c in hanzi]
+        return [_CHARACTERS.get(character, character) for character in hanzi]
 
 
-def to_pinyin(hanzi, delimiter=' ', all_readings=False, accented=True):
+def to_pinyin(s, delimiter=' ', all_readings=False, accented=True):
     """Convert a string's Chinese characters to Pinyin readings.
 
-    *hanzi* is a string containing Chinese characters. *accented* is a
+    *s* is a string containing Chinese characters. *accented* is a
     :data:`bool` indicating whether to return accented or numbered Pinyin
     readings.
 
@@ -163,69 +169,74 @@ def to_pinyin(hanzi, delimiter=' ', all_readings=False, accented=True):
     Characters not recognized as Chinese are left untouched.
 
     """
-    _hanzi = hanzi
+    hanzi = s
     pinyin = ''
 
     # Process the given string.
-    while _hanzi:
+    while hanzi:
 
         # Get the next match in the given string.
-        m = re.search('[^%s%s]+' % (delimiter, zhon.hanzi.punctuation), _hanzi)
+        match = re.search('[^%s%s]+' % (delimiter, zhon.hanzi.punctuation),
+                          hanzi)
 
         # There are no more matches, but the string isn't finished yet.
-        if m is None and _hanzi:
-            pinyin += _hanzi
+        if match is None and hanzi:
+            pinyin += hanzi
             break
 
-        start, end = m.span()
+        match_start, match_end = match.span()
 
         # Process the punctuation marks that occur before the match.
-        if start > 0:
-            pinyin += _hanzi[0:start]
+        if match_start > 0:
+            pinyin += hanzi[0:match_start]
 
         # Get the Chinese word/character readings.
-        _p = _hanzi_to_pinyin(m.group())
+        readings = _hanzi_to_pinyin(match.group())
 
         # Process the returned word readings.
-        if m.group() in _WORDS:
-            pinyin += '[%s]' % _SEPARATOR.join(_p) if all_readings else _p[0]
+        if match.group() in _WORDS:
+            if all_readings:
+                reading = '[%s]' % _READING_SEPARATOR.join(readings)
+            else:
+                reading = readings[0]
+            pinyin += reading
 
         # Process the returned character readings.
         else:
             # Process each character individually.
-            for c in _p:
+            for character in readings:
                 # Don't touch unrecognized characters.
-                if isinstance(c, str):
-                    pinyin += c
+                if isinstance(character, str):
+                    pinyin += character
                 # Format multiple readings.
-                elif isinstance(c, list) and all_readings:
-                        pinyin += '[%s]' % _SEPARATOR.join(c)
+                elif isinstance(character, list) and all_readings:
+                        pinyin += '[%s]' % _READING_SEPARATOR.join(character)
                 # Select and format the most common reading.
-                elif isinstance(c, list) and not all_readings:
+                elif isinstance(character, list) and not all_readings:
                     # Add an apostrophe to separate syllables.
-                    if (pinyin and c[0][0] in zhon.pinyin.vowels and
+                    if (pinyin and character[0][0] in zhon.pinyin.vowels and
                             pinyin[-1] in zhon.pinyin.lowercase):
                         pinyin += "'"
-                    pinyin += c[0]
+                    pinyin += character[0]
 
         # Move ahead in the given string.
-        _hanzi = _hanzi[end:]
+        hanzi = hanzi[match_end:]
 
     if accented:
         return pinyin
     else:
-        return dragonmapper.transcriptions.apinyin_to_npinyin(pinyin)
+        return accented_pinyin_to_numbered_pinyin(pinyin)
 
 
-def to_zhuyin(hanzi, delimiter=' ', all_readings=False):
+def to_zhuyin(s, delimiter=' ', all_readings=False):
     """Convert a string's Chinese characters to Zhuyin readings."""
-    npinyin = to_pinyin(hanzi, delimiter, all_readings, False)
-    zhuyin = dragonmapper.transcriptions.npinyin_to_zhuyin(npinyin)
+    numbered_pinyin = to_pinyin(s, delimiter, all_readings, False)
+    zhuyin = pinyin_to_zhuyin(numbered_pinyin)
     return zhuyin
 
 
-def to_ipa(hanzi, delimiter=' ', all_readings=False):
+def to_ipa(s, delimiter=' ', all_readings=False):
     """Convert a string's Chinese characters to IPA."""
-    npinyin = to_pinyin(hanzi, delimiter, all_readings, False)
-    ipa = dragonmapper.transcriptions.npinyin_to_ipa(npinyin)
+    numbered_pinyin = to_pinyin(s, delimiter, all_readings, False)
+    ipa = pinyin_to_ipa(numbered_pinyin)
     return ipa
