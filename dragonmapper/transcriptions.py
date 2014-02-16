@@ -66,21 +66,21 @@ def _has_accented_vowels(s):
     return bool(re.search('[%s]' % _ACCENTED_VOWELS, s))
 
 
-def _numbered_pinyin_vowel_to_accented_pinyin(vowel, tone):
+def _numbered_vowel_to_accented(vowel, tone):
     """Convert a numbered Pinyin vowel to an accented Pinyin vowel."""
     if isinstance(tone, int):
         tone = str(tone)
     return _PINYIN_TONES[vowel + tone]
 
 
-def _accented_pinyin_vowel_to_numbered_pinyin(vowel):
+def _accented_vowel_to_numbered(vowel):
     """Convert an accented Pinyin vowel to a numbered Pinyin vowel."""
     for numbered_vowel, accented_vowel in _PINYIN_TONES.items():
         if vowel == accented_vowel:
             return tuple(numbered_vowel)
 
 
-def _parse_numbered_pinyin_syllable(unparsed_syllable):
+def _parse_numbered_syllable(unparsed_syllable):
     """Return the syllable and tone of a numbered Pinyin syllable."""
     tone_number = unparsed_syllable[-1]
     if not tone_number.isdigit():
@@ -94,7 +94,7 @@ def _parse_numbered_pinyin_syllable(unparsed_syllable):
     return syllable, tone
 
 
-def _parse_accented_pinyin_syllable(unparsed_syllable):
+def _parse_accented_syllable(unparsed_syllable):
     """Return the syllable and tone of an accented Pinyin syllable.
 
     Any accented vowels are returned without their accents.
@@ -111,7 +111,7 @@ def _parse_accented_pinyin_syllable(unparsed_syllable):
         return unparsed_syllable[1:], '5'
     for character in unparsed_syllable:
         if character in _ACCENTED_VOWELS:
-            vowel, tone = _accented_pinyin_vowel_to_numbered_pinyin(character)
+            vowel, tone = _accented_vowel_to_numbered(character)
             return unparsed_syllable.replace(character, vowel), tone
     return unparsed_syllable, '5'
 
@@ -124,9 +124,9 @@ def _parse_pinyin_syllable(unparsed_syllable):
     """
 
     if _has_accented_vowels(unparsed_syllable):
-        return _parse_accented_pinyin_syllable(unparsed_syllable)
+        return _parse_accented_syllable(unparsed_syllable)
     else:
-        return _parse_numbered_pinyin_syllable(unparsed_syllable)
+        return _parse_numbered_syllable(unparsed_syllable)
 
 
 def _parse_zhuyin_syllable(unparsed_syllable):
@@ -169,7 +169,7 @@ def _restore_case(s, memory):
     return ''.join([c if memory[i] else c.upper() for i, c in enumerate(s)])
 
 
-def numbered_pinyin_syllable_to_accented_pinyin(s):
+def numbered_syllable_to_accented(s):
     """Convert numbered Pinyin syllable *syl* to an accented Pinyin syllable.
 
     It implements the following algorithm to determine where to place tone
@@ -180,32 +180,33 @@ def numbered_pinyin_syllable_to_accented_pinyin(s):
     2. Otherwise, put the tone mark on the last vowel.
 
     """
-    lowercase_syllable, case_memory = _lower_case(s)
     if s == 'r5':
         return 'r'  # Special case for 'r' suffix.
+
+    lowercase_syllable, case_memory = _lower_case(s)
     if re.search('[%s]' % _UNACCENTED_VOWELS, lowercase_syllable) is None:
         return s
-    syllable, tone = _parse_numbered_pinyin_syllable(lowercase_syllable)
+    syllable, tone = _parse_numbered_syllable(lowercase_syllable)
     syllable = re.sub('u:|v', '\u00fc', syllable)
     if 'a' in syllable:
-        accented_a = _numbered_pinyin_vowel_to_accented_pinyin('a', tone)
+        accented_a = _numbered_vowel_to_accented('a', tone)
         accented_syllable = syllable.replace('a', accented_a)
     elif 'e' in syllable:
-        accented_e = _numbered_pinyin_vowel_to_accented_pinyin('e', tone)
+        accented_e = _numbered_vowel_to_accented('e', tone)
         accented_syllable = syllable.replace('e', accented_e)
     elif 'o' in syllable:
-        accented_o = _numbered_pinyin_vowel_to_accented_pinyin('o', tone)
+        accented_o = _numbered_vowel_to_accented('o', tone)
         accented_syllable = syllable.replace('o', accented_o)
     else:
         vowel = syllable[max(map(syllable.rfind, _UNACCENTED_VOWELS))]
-        accented_vowel = _numbered_pinyin_vowel_to_accented_pinyin(vowel, tone)
+        accented_vowel = _numbered_vowel_to_accented(vowel, tone)
         accented_syllable = syllable.replace(vowel, accented_vowel)
     return _restore_case(accented_syllable, case_memory)
 
 
-def accented_pinyin_syllable_to_numbered_pinyin(s):
+def accented_syllable_to_numbered(s):
     """Convert accented Pinyin syllable *s* to a numbered Pinyin syllable."""
-    return ''.join(_parse_accented_pinyin_syllable(s))
+    return ''.join(_parse_accented_syllable(s))
 
 
 def pinyin_syllable_to_zhuyin(s):
@@ -228,7 +229,7 @@ def pinyin_syllable_to_ipa(s):
     return ipa_syllable + _IPA_TONES[tone]
 
 
-def _zhuyin_syllable_to_numbered_pinyin(s):
+def _zhuyin_syllable_to_numbered(s):
     """Convert Zhuyin syllable *s* to a numbered Pinyin syllable."""
     zhuyin_syllable, tone = _parse_zhuyin_syllable(s)
     try:
@@ -238,10 +239,10 @@ def _zhuyin_syllable_to_numbered_pinyin(s):
     return pinyin_syllable + tone
 
 
-def _zhuyin_syllable_to_accented_pinyin(s):
+def _zhuyin_syllable_to_accented(s):
     """Convert Zhuyin syllable *s* to an accented Pinyin syllable."""
-    numbered_pinyin = _zhuyin_syllable_to_numbered_pinyin(s)
-    return numbered_pinyin_syllable_to_accented_pinyin(numbered_pinyin)
+    numbered_pinyin = _zhuyin_syllable_to_numbered(s)
+    return numbered_syllable_to_accented(numbered_pinyin)
 
 
 def zhuyin_syllable_to_pinyin(s, accented=True):
@@ -252,18 +253,18 @@ def zhuyin_syllable_to_pinyin(s, accented=True):
 
     """
     if accented:
-        return _zhuyin_syllable_to_accented_pinyin(s)
+        return _zhuyin_syllable_to_accented(s)
     else:
-        return _zhuyin_syllable_to_numbered_pinyin(s)
+        return _zhuyin_syllable_to_numbered(s)
 
 
 def zhuyin_syllable_to_ipa(s):
     """Convert Zhuyin syllable *s* to an IPA syllable."""
-    numbered_pinyin = _zhuyin_syllable_to_numbered_pinyin(s)
+    numbered_pinyin = _zhuyin_syllable_to_numbered(s)
     return pinyin_syllable_to_ipa(numbered_pinyin)
 
 
-def _ipa_syllable_to_numbered_pinyin(s):
+def _ipa_syllable_to_numbered(s):
     """Convert IPA syllable *s* to a numbered Pinyin syllable."""
     ipa_syllable, tone = _parse_ipa_syllable(s)
     try:
@@ -273,10 +274,10 @@ def _ipa_syllable_to_numbered_pinyin(s):
     return pinyin_syllable + tone
 
 
-def _ipa_syllable_to_accented_pinyin(s):
+def _ipa_syllable_to_accented(s):
     """Convert IPA syllable *s* to an accented Pinyin syllable."""
-    numbered_pinyin = _ipa_syllable_to_numbered_pinyin(s)
-    return numbered_pinyin_syllable_to_accented_pinyin(numbered_pinyin)
+    numbered_pinyin = _ipa_syllable_to_numbered(s)
+    return numbered_syllable_to_accented(numbered_pinyin)
 
 
 def ipa_syllable_to_pinyin(s, accented=True):
@@ -287,14 +288,14 @@ def ipa_syllable_to_pinyin(s, accented=True):
 
     """
     if accented:
-        return _ipa_syllable_to_accented_pinyin(s)
+        return _ipa_syllable_to_accented(s)
     else:
-        return _ipa_syllable_to_numbered_pinyin(s)
+        return _ipa_syllable_to_numbered(s)
 
 
 def ipa_syllable_to_zhuyin(s):
     """Convert IPA syllable *s* to a Zhuyin syllable."""
-    numbered_pinyin = _ipa_syllable_to_numbered_pinyin(s)
+    numbered_pinyin = _ipa_syllable_to_numbered(s)
     return pinyin_syllable_to_zhuyin(numbered_pinyin)
 
 
@@ -328,16 +329,14 @@ def _convert(s, re_pattern, syllable_function, remove_apostrophes=False,
     return new
 
 
-def numbered_pinyin_to_accented_pinyin(s):
+def numbered_to_accented(s):
     """Convert all numbered Pinyin syllables in *s* to accented Pinyin."""
-    return _convert(s, zhon.pinyin.syllable,
-                    numbered_pinyin_syllable_to_accented_pinyin)
+    return _convert(s, zhon.pinyin.syllable, numbered_syllable_to_accented)
 
 
-def accented_pinyin_to_numbered_pinyin(s):
+def accented_to_numbered(s):
     """Convert all accented Pinyin syllables in *s* to numbered Pinyin."""
-    return _convert(s, zhon.pinyin.syllable,
-                    accented_pinyin_syllable_to_numbered_pinyin)
+    return _convert(s, zhon.pinyin.syllable, accented_syllable_to_numbered)
 
 
 def pinyin_to_zhuyin(s):
@@ -370,9 +369,9 @@ def zhuyin_to_pinyin(s, accented=True):
 
     """
     if accented:
-        function = _zhuyin_syllable_to_accented_pinyin
+        function = _zhuyin_syllable_to_accented
     else:
-        function = _zhuyin_syllable_to_numbered_pinyin
+        function = _zhuyin_syllable_to_numbered
     return _convert(s, zhon.zhuyin.syllable, function)
 
 
@@ -389,9 +388,9 @@ def ipa_to_pinyin(s, accented=True):
 
     """
     if accented:
-        function = _ipa_syllable_to_accented_pinyin
+        function = _ipa_syllable_to_accented
     else:
-        function = _ipa_syllable_to_numbered_pinyin
+        function = _ipa_syllable_to_numbered
     return _convert(s, _IPA_SYLLABLE, function)
 
 
@@ -410,9 +409,9 @@ def to_pinyin(s, accented=True):
     identity = identify(s)
     if identity == PINYIN:
         if _has_accented_vowels(s):
-            return s if accented else accented_pinyin_to_numbered_pinyin(s)
+            return s if accented else accented_to_numbered(s)
         else:
-            return numbered_pinyin_to_accented_pinyin(s) if accented else s
+            return numbered_to_accented(s) if accented else s
     elif identity == ZHUYIN:
         return zhuyin_to_pinyin(s, accented=accented)
     elif identity == IPA:

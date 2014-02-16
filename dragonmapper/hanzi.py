@@ -10,7 +10,7 @@ import zhon.pinyin
 
 import dragonmapper.data
 from dragonmapper.transcriptions import (
-    accented_pinyin_to_numbered_pinyin,
+    accented_to_numbered,
     pinyin_to_ipa,
     pinyin_to_zhuyin
 )
@@ -225,7 +225,7 @@ def to_pinyin(s, delimiter=' ', all_readings=False, accented=True):
     if accented:
         return pinyin
     else:
-        return accented_pinyin_to_numbered_pinyin(pinyin)
+        return accented_to_numbered(pinyin)
 
 
 def to_zhuyin(s, delimiter=' ', all_readings=False):
