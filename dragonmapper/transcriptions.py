@@ -78,21 +78,21 @@ def _apinyin_vowel_to_npinyin(vowel):
             return numbered[0], numbered[1]
 
 
-def _parse_npinyin_syl(syllable):
+def _parse_npinyin_syl(unparsed_syl):
     """Return the syllable and tone of a numbered Pinyin syllable."""
-    tone = syllable[-1]
+    tone = unparsed_syl[-1]
     if not tone.isdigit():
-        syl, tone = syllable, '5'
+        syl, tone = unparsed_syl, '5'
     elif tone == '0':
-        syl, tone = syllable[:-1], '5'
+        syl, tone = unparsed_syl[:-1], '5'
     elif tone in '12345':
-        syl = syllable[:-1]
+        syl = unparsed_syl[:-1]
     else:
-        raise ValueError("Invalid syllable: %s" % syllable)
+        raise ValueError("Invalid syllable: %s" % unparsed_syl)
     return syl, tone
 
 
-def _parse_apinyin_syl(syllable):
+def _parse_apinyin_syl(unparsed_syl):
     """Return the syllable and tone of an accented Pinyin syllable.
 
     Any accented vowels are returned without their accents.
@@ -104,53 +104,53 @@ def _parse_apinyin_syl(syllable):
     2. Otherwise, assume the syllable is tone 5 (no accent marks).
 
     """
-    if syllable[0] == '\u00B7':
-        return syllable[1:], '5'  # Special case for middle dot tone mark.
-    for c in syllable:
+    if unparsed_syl[0] == '\u00B7':
+        return unparsed_syl[1:], '5'  # Special case for middle dot tone mark.
+    for c in unparsed_syl:
         if c in _ACCENTED_VOWELS:
             vowel, tone = _apinyin_vowel_to_npinyin(c)
-            return syllable.replace(c, vowel), tone
-    return syllable, '5'
+            return unparsed_syl.replace(c, vowel), tone
+    return unparsed_syl, '5'
 
 
-def _parse_pinyin_syl(syllable):
+def _parse_pinyin_syl(unparsed_syl):
     """Return the syllable and tone of a Pinyin syllable.
 
     Accented vowels are returned with the accents removed.
 
     """
 
-    if _has_accented_vowels(syllable):
-        return _parse_apinyin_syl(syllable)
+    if _has_accented_vowels(unparsed_syl):
+        return _parse_apinyin_syl(unparsed_syl)
     else:
-        return _parse_npinyin_syl(syllable)
+        return _parse_npinyin_syl(unparsed_syl)
 
 
-def _parse_zhuyin_syl(syllable):
+def _parse_zhuyin_syl(unparsed_syl):
     """Return the syllable and tone of a Zhuyin syllable."""
-    tone = syllable[-1]
+    tone = unparsed_syl[-1]
     if tone in zhon.zhuyin.characters:
-        syl, tone = syllable, '1'
+        syl, tone = unparsed_syl, '1'
     elif tone in zhon.zhuyin.marks:
         for num, mark in _ZHUYIN_TONES.items():
             if tone == mark:
-                syl, tone = syllable[:-1], num
+                syl, tone = unparsed_syl[:-1], num
     else:
-        raise ValueError("Invalid syllable: %s" % syllable)
+        raise ValueError("Invalid syllable: %s" % unparsed_syl)
 
     return syl, tone
 
 
-def _parse_ipa_syl(syllable):
+def _parse_ipa_syl(unparsed_syl):
     """Return the syllable and tone of an IPA syllable."""
-    _tone = re.search('[%(marks)s]+' % {'marks': _IPA_MARKS}, syllable)
+    _tone = re.search('[%(marks)s]+' % {'marks': _IPA_MARKS}, unparsed_syl)
     if not _tone:
-        syl, tone = syllable, '5'
+        syl, tone = unparsed_syl, '5'
     else:
         for tone, mark in _IPA_TONES.items():
             if _tone.group() == mark:
                 break
-        syl = syllable[0:_tone.start()]
+        syl = unparsed_syl[0:_tone.start()]
     return syl, tone
 
 
@@ -310,46 +310,46 @@ def _convert(s, re_pattern, syl_func, remove_apostrophes=False,
     return n
 
 
-def npinyin_to_apinyin(n):
+def npinyin_to_apinyin(s):
     """Convert all numbered Pinyin syllables in a string to accented Pinyin."""
-    return _convert(n, zhon.pinyin.syl, npinyin_syl_to_apinyin)
+    return _convert(s, zhon.pinyin.syl, npinyin_syl_to_apinyin)
 
 
-def apinyin_to_npinyin(p):
+def apinyin_to_npinyin(s):
     """Convert all accented Pinyin syllables in a string to numbered Pinyin."""
-    return _convert(p, zhon.pinyin.syl, apinyin_syl_to_npinyin)
+    return _convert(s, zhon.pinyin.syl, apinyin_syl_to_npinyin)
 
 
-def pinyin_to_zhuyin(p):
+def pinyin_to_zhuyin(s):
     """Convert all Pinyin syllables in a string to Zhuyin."""
-    return _convert(p, zhon.pinyin.syl, pinyin_syl_to_zhuyin, True, True)
+    return _convert(s, zhon.pinyin.syl, pinyin_syl_to_zhuyin, True, True)
 
 
-def pinyin_to_ipa(p):
+def pinyin_to_ipa(s):
     """Convert all Pinyin syllables in a string to IPA."""
-    return _convert(p, zhon.pinyin.syl, pinyin_syl_to_ipa, True, True)
+    return _convert(s, zhon.pinyin.syl, pinyin_syl_to_ipa, True, True)
 
 
-def zhuyin_to_pinyin(z, accented=True):
+def zhuyin_to_pinyin(s, accented=True):
     """Convert all Zhuyin syllables in a string to Pinyin."""
-    return _convert(z, zhon.zhuyin.syl, _zhuyin_syl_to_apinyin if accented else
+    return _convert(s, zhon.zhuyin.syl, _zhuyin_syl_to_apinyin if accented else
                     _zhuyin_syl_to_npinyin)
 
 
-def zhuyin_to_ipa(z):
+def zhuyin_to_ipa(s):
     """Convert all Zhuyin syllables in a string to IPA."""
-    return _convert(z, zhon.zhuyin.syl, zhuyin_syl_to_ipa)
+    return _convert(s, zhon.zhuyin.syl, zhuyin_syl_to_ipa)
 
 
-def ipa_to_pinyin(i, accented=True):
+def ipa_to_pinyin(s, accented=True):
     """Convert all IPA syllables in a string to Pinyin."""
-    return _convert(i, _IPA_SYL, _ipa_syl_to_apinyin if accented else
+    return _convert(s, _IPA_SYL, _ipa_syl_to_apinyin if accented else
                     _ipa_syl_to_npinyin)
 
 
-def ipa_to_zhuyin(i):
+def ipa_to_zhuyin(s):
     """Convert all IPA syllables in a string to Zhuyin."""
-    return _convert(i, _IPA_SYL, ipa_syl_to_zhuyin)
+    return _convert(s, _IPA_SYL, ipa_syl_to_zhuyin)
 
 
 def to_pinyin(s, accented=True):
@@ -408,17 +408,17 @@ def is_pinyin(p):
     return _is_pattern_match(ptn, p)
 
 
-def is_zhuyin(z):
+def is_zhuyin(s):
     """Check if a given string consists of valid Zhuyin."""
     ptn = '(?:%(syl)s|\s)+' % {'syl': zhon.zhuyin.syl}
-    return _is_pattern_match(ptn, z)
+    return _is_pattern_match(ptn, s)
 
 
-def is_ipa(i):
+def is_ipa(s):
     """Check if a given string consists of valid Chinese IPA."""
     ptn = ('(?:%(syl)s|[ \t%(punctuation)s])+' %
            {'syl': _IPA_SYL, 'punctuation': zhon.pinyin.punctuation})
-    return _is_pattern_match(ptn, i)
+    return _is_pattern_match(ptn, s)
 
 
 def identify(s):
