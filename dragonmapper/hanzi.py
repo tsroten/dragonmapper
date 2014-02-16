@@ -150,7 +150,17 @@ def _hanzi_to_pinyin(hanzi):
         return [_CHARACTERS.get(character, character) for character in hanzi]
 
 
-def to_pinyin(s, delimiter=' ', all_readings=False, accented=True):
+def _enclose_readings(container, readings):
+    """Enclose a reading within a container, e.g. '[]'."""
+    container_start, container_end = tuple(container)
+    enclosed_readings = '%(container_start)s%(readings)s%(container_end)s' % {
+        'container_start': container_start, 'container_end': container_end,
+        'readings': readings}
+    return enclosed_readings
+
+
+def to_pinyin(s, delimiter=' ', all_readings=False, container='[]',
+              accented=True):
     """Convert a string's Chinese characters to Pinyin readings.
 
     *s* is a string containing Chinese characters. *accented* is a
@@ -163,7 +173,9 @@ def to_pinyin(s, delimiter=' ', all_readings=False, accented=True):
 
     *all_readings* is a boolean value indicating whether or not to return all
     possible readings in the case of words/characters that have multiple
-    readings.
+    readings. *container* is a two character string that is used to
+    enclose words/characters if *all_readings* is ``True``. The default
+    ``'[]'`` is used like this: ``'[READING1/READING2]'``.
 
     Characters not recognized as Chinese are left untouched.
 
@@ -195,7 +207,8 @@ def to_pinyin(s, delimiter=' ', all_readings=False, accented=True):
         # Process the returned word readings.
         if match.group() in _WORDS:
             if all_readings:
-                reading = '[%s]' % _READING_SEPARATOR.join(readings)
+                reading = _enclose_readings(container,
+                                            _READING_SEPARATOR.join(readings))
             else:
                 reading = readings[0]
             pinyin += reading
@@ -209,7 +222,8 @@ def to_pinyin(s, delimiter=' ', all_readings=False, accented=True):
                     pinyin += character
                 # Format multiple readings.
                 elif isinstance(character, list) and all_readings:
-                        pinyin += '[%s]' % _READING_SEPARATOR.join(character)
+                    pinyin += _enclose_readings(
+                        container, _READING_SEPARATOR.join(character))
                 # Select and format the most common reading.
                 elif isinstance(character, list) and not all_readings:
                     # Add an apostrophe to separate syllables.
@@ -227,7 +241,7 @@ def to_pinyin(s, delimiter=' ', all_readings=False, accented=True):
         return accented_to_numbered(pinyin)
 
 
-def to_zhuyin(s, delimiter=' ', all_readings=False):
+def to_zhuyin(s, delimiter=' ', all_readings=False, container='[]'):
     """Convert a string's Chinese characters to Zhuyin readings.
 
     *s* is a string containing Chinese characters.
@@ -238,17 +252,19 @@ def to_zhuyin(s, delimiter=' ', all_readings=False):
 
     *all_readings* is a boolean value indicating whether or not to return all
     possible readings in the case of words/characters that have multiple
-    readings.
+    readings. *container* is a two character string that is used to
+    enclose words/characters if *all_readings* is ``True``. The default
+    ``'[]'`` is used like this: ``'[READING1/READING2]'``.
 
     Characters not recognized as Chinese are left untouched.
 
     """
-    numbered_pinyin = to_pinyin(s, delimiter, all_readings, False)
+    numbered_pinyin = to_pinyin(s, delimiter, all_readings, container, False)
     zhuyin = pinyin_to_zhuyin(numbered_pinyin)
     return zhuyin
 
 
-def to_ipa(s, delimiter=' ', all_readings=False):
+def to_ipa(s, delimiter=' ', all_readings=False, container='[]'):
     """Convert a string's Chinese characters to IPA.
 
     *s* is a string containing Chinese characters.
@@ -259,11 +275,13 @@ def to_ipa(s, delimiter=' ', all_readings=False):
 
     *all_readings* is a boolean value indicating whether or not to return all
     possible readings in the case of words/characters that have multiple
-    readings.
+    readings. *container* is a two character string that is used to
+    enclose words/characters if *all_readings* is ``True``. The default
+    ``'[]'`` is used like this: ``'[READING1/READING2]'``.
 
     Characters not recognized as Chinese are left untouched.
 
     """
-    numbered_pinyin = to_pinyin(s, delimiter, all_readings, False)
+    numbered_pinyin = to_pinyin(s, delimiter, all_readings, container, False)
     ipa = pinyin_to_ipa(numbered_pinyin)
     return ipa

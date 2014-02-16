@@ -86,3 +86,8 @@ class TestConversionFunctions(unittest.TestCase):
         self.assertEqual(hanzi.to_pinyin('便宜'), 'piànyi')
         self.assertEqual(hanzi.to_pinyin('便宜', all_readings=True),
                          '[piànyi/biànyí]')
+
+    def test_custom_container(self):
+        apinyin = self.apinyin_readings.replace('[', '(').replace(']', ')')
+        self.assertEqual(hanzi.to_pinyin(self.chinese, all_readings=True,
+                                         container='()'), apinyin)
