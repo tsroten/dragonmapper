@@ -170,7 +170,7 @@ def _restore_case(s, memory):
 
 
 def numbered_syllable_to_accented(s):
-    """Convert numbered Pinyin syllable *syl* to an accented Pinyin syllable.
+    """Convert numbered Pinyin syllable *s* to an accented Pinyin syllable.
 
     It implements the following algorithm to determine where to place tone
     marks:
@@ -483,6 +483,16 @@ def identify(s):
     string's identity.
     If *s* is not a valid transcription system, then :data:`UNKNOWN` is
     returned.
+
+    When checking for valid Pinyin or Zhuyin, testing is done on a syllable
+    level, not a character level. For example, just because a string is
+    composed of characters used in Pinyin, doesn't mean that it will identify
+    as Pinyin; it must actually consist of valid Pinyin syllables. The same
+    applies for Zhuyin.
+
+    When checking for IPA, testing is only done on a character level. In other
+    words, a string just needs to consist of Chinese IPA characters in order
+    to identify as IPA.
 
     """
     if is_pinyin(s):

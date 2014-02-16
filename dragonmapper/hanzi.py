@@ -76,8 +76,8 @@ def identify(s):
     systems, compatible with both, or contain a mixture of Traditional and
     Simplified characters. The :data:`TRADITIONAL`, :data:`SIMPLIFIED`,
     :data:`BOTH`, or :data:`MIXED` constants are returned to indicate the
-    string's identity. If *s* contains no Chinese characters, then :data:`NONE`
-    is returned.
+    string's identity. If *s* contains no Chinese characters, then
+    :data:`UNKNOWN` is returned.
 
     All characters in a string that aren't found in the CC-CEDICT dictionary
     are ignored.
@@ -155,14 +155,14 @@ def to_pinyin(s, delimiter=' ', all_readings=False, accented=True):
     """Convert a string's Chinese characters to Pinyin readings.
 
     *s* is a string containing Chinese characters. *accented* is a
-    :data:`bool` indicating whether to return accented or numbered Pinyin
+    boolean value indicating whether to return accented or numbered Pinyin
     readings.
 
-    *delimiter* is the character used to indicate word boundaries in *hanzi*.
+    *delimiter* is the character used to indicate word boundaries in *s*.
     This is used to differentiate between words and characters so that a more
-    accurate Pinyin reading can be returned.
+    accurate reading can be returned.
 
-    *all_readings* is a :data:`bool` indicating whether or not to return all
+    *all_readings* is a boolean value indicating whether or not to return all
     possible readings in the case of words/characters that have multiple
     readings.
 
@@ -229,14 +229,42 @@ def to_pinyin(s, delimiter=' ', all_readings=False, accented=True):
 
 
 def to_zhuyin(s, delimiter=' ', all_readings=False):
-    """Convert a string's Chinese characters to Zhuyin readings."""
+    """Convert a string's Chinese characters to Zhuyin readings.
+
+    *s* is a string containing Chinese characters.
+
+    *delimiter* is the character used to indicate word boundaries in *s*.
+    This is used to differentiate between words and characters so that a more
+    accurate reading can be returned.
+
+    *all_readings* is a boolean value indicating whether or not to return all
+    possible readings in the case of words/characters that have multiple
+    readings.
+
+    Characters not recognized as Chinese are left untouched.
+
+    """
     numbered_pinyin = to_pinyin(s, delimiter, all_readings, False)
     zhuyin = pinyin_to_zhuyin(numbered_pinyin)
     return zhuyin
 
 
 def to_ipa(s, delimiter=' ', all_readings=False):
-    """Convert a string's Chinese characters to IPA."""
+    """Convert a string's Chinese characters to IPA.
+
+    *s* is a string containing Chinese characters.
+
+    *delimiter* is the character used to indicate word boundaries in *s*.
+    This is used to differentiate between words and characters so that a more
+    accurate reading can be returned.
+
+    *all_readings* is a boolean value indicating whether or not to return all
+    possible readings in the case of words/characters that have multiple
+    readings.
+
+    Characters not recognized as Chinese are left untouched.
+
+    """
     numbered_pinyin = to_pinyin(s, delimiter, all_readings, False)
     ipa = pinyin_to_ipa(numbered_pinyin)
     return ipa
