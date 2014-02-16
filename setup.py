@@ -25,7 +25,8 @@ setup(
         ],
     keywords=['chinese', 'mandarin', 'transcription', 'pinyin', 'zhuyin',
               'ipa', 'convert', 'bopomofo'],
-    packages=['dragonmapper'],
+    packages=['dragonmapper', 'dragonmapper.data'],
+    package_data={'dragonmapper': ['data/*.tsv', 'data/*.csv']},
     test_suite='dragonmapper.tests',
     install_requires=['zhon>=1.1.3'],
 )
