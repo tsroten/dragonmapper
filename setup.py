@@ -6,7 +6,7 @@ with open('README.rst') as f:
 
 setup(
     name='dragonmapper',
-    version='0.1dev',
+    version='0.1',
     author='Thomas Roten',
     author_email='thomas@roten.us',
     url='https://github.com/tsroten/dragonmapper',
@@ -23,6 +23,7 @@ setup(
         'Intended Audience :: Developers',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
+        'Topic :: Text Processing :: Linguistic',
         ],
     keywords=['chinese', 'mandarin', 'transcription', 'pinyin', 'zhuyin',
               'ipa', 'convert', 'bopomofo', 'hanzi', 'characters', 'readings'],
