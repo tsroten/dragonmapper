@@ -15,7 +15,6 @@ to import Dragon Mapper's :mod:`dragonmapper.hanzi` module:
 .. code:: python
 
     >>> from dragonmapper import hanzi
-    Loading word/character data files.
 
 It will take a second or two for Dragon Mapper to load the CC-CEDICT and
 Unihan data into memory.
