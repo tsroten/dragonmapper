@@ -23,6 +23,7 @@ setup(
         'Intended Audience :: Developers',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
+        'Topic :: Text Processing :: Linguistic',
         ],
     keywords=['chinese', 'mandarin', 'transcription', 'pinyin', 'zhuyin',
               'ipa', 'convert', 'bopomofo', 'hanzi', 'characters', 'readings'],
