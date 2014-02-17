@@ -187,7 +187,7 @@ def numbered_syllable_to_accented(s):
     if re.search('[%s]' % _UNACCENTED_VOWELS, lowercase_syllable) is None:
         return s
     syllable, tone = _parse_numbered_syllable(lowercase_syllable)
-    syllable = re.sub('u:|v', '\u00fc', syllable)
+    syllable = syllable.replace('v', '\u00fc')
     if 'a' in syllable:
         accented_a = _numbered_vowel_to_accented('a', tone)
         accented_syllable = syllable.replace('a', accented_a)

@@ -125,9 +125,8 @@ things to note:
 * When converting from Pinyin to Zhuyin or IPA, all syllable-separating
   apostrophes are removed. Those that don't separate syllables (like quotation
   marks) are left untouched.
-* In Pinyin, ``'u:'``, ``'v'``, and ``'ü'`` are considered to be the same
-  vowel: ``'ü'``. The ``*_to_pinyin`` functions all output that vowel as
-  ``'ü'``.
+* In Pinyin, ``'v'`` is considered another way to write ``'ü'``. The
+  ``*_to_pinyin`` functions all output that vowel as ``'ü'``.
 
 These conversion functions come in two flavors: functions that convert
 individual syllabes and functions that convert sentence-style text. If you
