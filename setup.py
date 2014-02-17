@@ -10,7 +10,8 @@ setup(
     author='Thomas Roten',
     author_email='thomas@roten.us',
     url='https://github.com/tsroten/dragonmapper',
-    description='Converts to/from Chinese transcription systems',
+    description=('Identification and conversion functions for Chinese'
+                 'text processing'),
     long_description=long_description,
     platforms='any',
     classifiers=[
@@ -24,7 +25,7 @@ setup(
         'Programming Language :: Python :: 3',
         ],
     keywords=['chinese', 'mandarin', 'transcription', 'pinyin', 'zhuyin',
-              'ipa', 'convert', 'bopomofo'],
+              'ipa', 'convert', 'bopomofo', 'hanzi', 'characters', 'readings'],
     packages=['dragonmapper', 'dragonmapper.data'],
     package_data={'dragonmapper': ['data/*.tsv', 'data/*.csv']},
     test_suite='dragonmapper.tests',
