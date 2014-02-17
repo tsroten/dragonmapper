@@ -10,7 +10,7 @@ setup(
     author='Thomas Roten',
     author_email='thomas@roten.us',
     url='https://github.com/tsroten/dragonmapper',
-    description=('Identification and conversion functions for Chinese'
+    description=('Identification and conversion functions for Chinese '
                  'text processing'),
     long_description=long_description,
     platforms='any',
