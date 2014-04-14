@@ -33,8 +33,8 @@ functions for Chinese text processing.
 Install
 -------
 
-Dragon Mapper supports Python 2.7 and 3. The only additional requirement is
-`Zhon <https://github.com/tsroten/zhon>`_.
+Dragon Mapper supports Python 2.7 and 3. `Zhon <https://github.com/tsroten/zhon>`_
+and `Hanzi Identifier <https://github.com/tsroten/hanzidentifier>`_ are also required.
 
 Just use pip:
 
