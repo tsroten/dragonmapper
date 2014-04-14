@@ -181,6 +181,17 @@ Let's try to identify which transcription system a string is:
     >>> transcriptions.is_ipa(s)
     False
 
+The functions above operate on a syllable-level to check whether or not a Pinyin or Zhuyin
+string is valid. However, this can take awhile, so if you don't need to validate a string
+on the syllable-level, consider validating it on a character-level with
+:func:`~dragonmapper.transcriptions.is_pinyin_compatible` or :func:`~dragonmapper.transcriptions.is_zhuyin_compatible`
+
+.. code:: python
+
+    >>> s = 'Wǒ shì yīgè měiguórén.'
+    >>> transcriptions.is_pinyin_compatible(s)
+    True
+
 
 Converting Transcription Systems
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

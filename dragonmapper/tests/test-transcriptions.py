@@ -43,6 +43,20 @@ class TestIdentifyFunctions(unittest.TestCase):
         self.assertFalse(trans.is_ipa(self.zhuyin))
         self.assertFalse(trans.is_ipa(self.unknown))
 
+    def test_is_pinyin_compatible(self):
+        self.assertFalse(trans.is_pinyin_compatible(self.ipa))
+        self.assertTrue(trans.is_pinyin_compatible(self.numbered_pinyin))
+        self.assertTrue(trans.is_pinyin_compatible(self.accented_pinyin))
+        self.assertFalse(trans.is_pinyin_compatible(self.zhuyin))
+        self.assertTrue(trans.is_pinyin_compatible(self.unknown))
+
+    def test_is_zhuyin_compatible(self):
+        self.assertFalse(trans.is_zhuyin_compatible(self.ipa))
+        self.assertFalse(trans.is_zhuyin_compatible(self.numbered_pinyin))
+        self.assertFalse(trans.is_zhuyin_compatible(self.accented_pinyin))
+        self.assertTrue(trans.is_zhuyin_compatible(self.zhuyin))
+        self.assertFalse(trans.is_zhuyin_compatible(self.unknown))
+
 
 class TestConvertFunctions(unittest.TestCase):
 

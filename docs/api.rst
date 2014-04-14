@@ -152,6 +152,15 @@ names of the module-level constants.
 
 .. autofunction:: is_ipa
 
+The above functions :func:`is_pinyin` and :func:`is_zhuyin` check for valid
+syllables. This takes more time than checking on the character-level, but is more
+accurate. If you want to simply know if a string is compatible with Pinyin or Zhuyin,
+but don't need to know if each syllable is actually valid, then use these functions:
+
+.. autofunction:: is_pinyin_compatible
+
+.. autofunction:: is_zhuyin_compatible
+
 Converting Chinese Transcriptions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
