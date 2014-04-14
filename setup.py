@@ -30,5 +30,5 @@ setup(
     packages=['dragonmapper', 'dragonmapper.data'],
     package_data={'dragonmapper': ['data/*.tsv', 'data/*.csv']},
     test_suite='dragonmapper.tests',
-    install_requires=['zhon>=1.1.3'],
+    install_requires=['zhon>=1.1.3', 'hanzidentifier>=1.0'],
 )

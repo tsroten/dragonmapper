@@ -23,6 +23,11 @@ aren't saying, "This string of Chinese *is* Simplified Chinese and *not*
 Traditional Chinese." Instead, see it as identifying the string as *compatible*
 with the Simplified Chinese character system.
 
+.. NOTE::
+
+    These identification functions and constants are imported from the
+    `Hanzi Identifier <https://github.com/tsroten/hanzidentifier>`_ library.
+
 The following constants are used as return values for :func:`identify`.
 
 .. data:: UNKNOWN
@@ -51,13 +56,48 @@ The following constants are used as return values for :func:`identify`.
     Indicates that a string contains Chinese characters that are found
     exclusively in Traditional and Simplified Chinese.
 
-.. autofunction:: identify
+.. function:: identify
 
-.. autofunction:: has_chinese
+    Identify what kind of Chinese characters a string contains.
 
-.. autofunction:: is_traditional
+    *s* is a string to examine. The string's Chinese characters are tested to
+    see if they are compatible with the Traditional or Simplified characters
+    systems, compatible with both, or contain a mixture of Traditional and
+    Simplified characters. The :data:`TRADITIONAL`, :data:`SIMPLIFIED`,
+    :data:`BOTH`, or :data:`MIXED` constants are returned to indicate the
+    string's identity. If *s* contains no Chinese characters, then
+    :data:`UNKNOWN` is returned.
 
-.. autofunction:: is_simplified
+    All characters in a string that aren't found in the CC-CEDICT dictionary
+    are ignored.
+
+    Because the Traditional and Simplified Chinese character systems overlap, a
+    string containing Simplified characters could identify as
+    :data:`SIMPLIFIED` or :data:`BOTH` depending on if the characters are also
+    Traditional characters. To make testing the identity of a string easier,
+    the functions :func:`is_traditional`, :func:`is_simplified`, and
+    :func:`has_chinese` are provided.
+
+.. function:: has_chinese
+
+    Check if a string has Chinese characters in it.
+
+    This is a faster version of:
+        >>> identify('foo') is not UNKNOWN
+
+.. function:: is_traditional
+
+    Check if a string's Chinese characters are Traditional.
+
+    This is equivalent to:
+        >>> identify('foo') in (TRADITIONAL, BOTH)
+
+.. function:: is_simplified
+
+    Check if a string's Chinese characters are Simplified.
+
+    This is equivalent to:
+        >>> identify('foo') in (SIMPLIFIED, BOTH)
 
 
 Transcribing Chinese Characters
