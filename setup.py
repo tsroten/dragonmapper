@@ -6,7 +6,7 @@ with open('README.rst') as f:
 
 setup(
     name='dragonmapper',
-    version='0.1',
+    version='0.2dev',
     author='Thomas Roten',
     author_email='thomas@roten.us',
     url='https://github.com/tsroten/dragonmapper',
