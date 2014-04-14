@@ -6,11 +6,11 @@ with open('README.rst') as f:
 
 setup(
     name='dragonmapper',
-    version='0.1',
+    version='0.2',
     author='Thomas Roten',
     author_email='thomas@roten.us',
     url='https://github.com/tsroten/dragonmapper',
-    description=('Identification and conversion functions for Chinese'
+    description=('Identification and conversion functions for Chinese '
                  'text processing'),
     long_description=long_description,
     platforms='any',
@@ -30,5 +30,5 @@ setup(
     packages=['dragonmapper', 'dragonmapper.data'],
     package_data={'dragonmapper': ['data/*.tsv', 'data/*.csv']},
     test_suite='dragonmapper.tests',
-    install_requires=['zhon>=1.1.3'],
+    install_requires=['zhon>=1.1.3', 'hanzidentifier>=1.0'],
 )

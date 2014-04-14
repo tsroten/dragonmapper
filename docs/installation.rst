@@ -2,7 +2,8 @@ Installation
 ============
 
 Installing Dragon Mapper is easy. Make sure you have Python 2.7 or 3 along
-with `Zhon <https://github.com/tsroten/zhon>`_. Then use
+with `Zhon <https://github.com/tsroten/zhon>`_ and
+`Hanzi Identifier <https://github.com/tsroten/hanzidentifier>`_. Then use
 `pip <http://www.pip-installer.org/>`_:
 
 .. code:: bash
@@ -56,6 +57,6 @@ run tox:
     $ pip install tox
     $ tox
 
-Dragon Mapper's ``tox.ini`` file is configured to run tests using Python 2.7
-and 3.3. It will also build the documentation (requires
+Dragon Mapper's ``tox.ini`` file is configured to run tests using Python 2.7, 3.3,
+and 3.4. It will also build the documentation (requires
 `Sphinx <http://sphinx-doc.org>`_).

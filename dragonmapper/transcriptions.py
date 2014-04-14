@@ -452,18 +452,46 @@ def _is_pattern_match(re_pattern, s):
     return match.group() == s if match else False
 
 
-def is_pinyin(p):
+def is_pinyin(s):
     """Check if *s* consists of valid Pinyin."""
     re_pattern = ('(?:%(word)s|[ \t%(punctuation)s])+' %
                   {'word': zhon.pinyin.word,
                    'punctuation': zhon.pinyin.punctuation})
-    return _is_pattern_match(re_pattern, p)
+    return _is_pattern_match(re_pattern, s)
+
+
+def is_pinyin_compatible(s):
+    """Checks if *s* is consists of Pinyin-compatible characters.
+
+    This does not check if *s* contains valid Pinyin syllables; for that
+    see :func:`is_pinyin`.
+
+    This function checks that all characters in *s* exist in
+    :data:`zhon.pinyin.printable`.
+
+    """
+    return _is_pattern_match('[%s]+' % zhon.pinyin.printable, s)
 
 
 def is_zhuyin(s):
     """Check if *s* consists of valid Zhuyin."""
     re_pattern = '(?:%(syllable)s|\s)+' % {'syllable': zhon.zhuyin.syl}
     return _is_pattern_match(re_pattern, s)
+
+
+def is_zhuyin_compatible(s):
+    """Checks if *s* is consists of Zhuyin-compatible characters.
+
+    This does not check if *s* contains valid Zhuyin syllables; for that
+    see :func:`is_zhuyin`.
+
+    Besides Zhuyin characters and tone marks, spaces are also accepted.
+    This function checks that all characters in *s* exist in
+    :data:`zhon.zhuyin.characters`, :data:`zhon.zhuyin.marks`, or ``' '``.
+
+    """
+    printable_zhuyin = zhon.zhuyin.characters + zhon.zhuyin.marks + ' '
+    return _is_pattern_match('[%s]+' % printable_zhuyin, s)
 
 
 def is_ipa(s):
