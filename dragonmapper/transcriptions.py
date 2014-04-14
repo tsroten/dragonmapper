@@ -452,12 +452,12 @@ def _is_pattern_match(re_pattern, s):
     return match.group() == s if match else False
 
 
-def is_pinyin(p):
+def is_pinyin(s):
     """Check if *s* consists of valid Pinyin."""
     re_pattern = ('(?:%(word)s|[ \t%(punctuation)s])+' %
                   {'word': zhon.pinyin.word,
                    'punctuation': zhon.pinyin.punctuation})
-    return _is_pattern_match(re_pattern, p)
+    return _is_pattern_match(re_pattern, s)
 
 
 def is_pinyin_compatible(s):
