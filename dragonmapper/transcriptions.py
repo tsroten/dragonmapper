@@ -166,7 +166,12 @@ def _lower_case(s):
 
 def _restore_case(s, memory):
     """Restore a lowercase string's characters to their original case."""
-    return ''.join([c if memory[i] else c.upper() for i, c in enumerate(s)])
+    cased_s = []
+    for i, c in enumerate(s):
+        if i + 1 > len(memory):
+            break
+        cased_s.append(c if memory[i] else c.upper())
+    return ''.join(cased_s)
 
 
 def numbered_syllable_to_accented(s):
@@ -206,7 +211,13 @@ def numbered_syllable_to_accented(s):
 
 def accented_syllable_to_numbered(s):
     """Convert accented Pinyin syllable *s* to a numbered Pinyin syllable."""
-    return ''.join(_parse_accented_syllable(s))
+    if s[0] == '\u00B7':
+        lowercase_syllable, case_memory = _lower_case(s[1:])
+        lowercase_syllable = '\u00B7' + lowercase_syllable
+    else:
+        lowercase_syllable, case_memory = _lower_case(s)
+    numbered_syllable, tone = _parse_accented_syllable(lowercase_syllable)
+    return _restore_case(numbered_syllable, case_memory) + tone
 
 
 def pinyin_syllable_to_zhuyin(s):

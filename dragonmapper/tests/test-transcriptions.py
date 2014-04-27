@@ -122,3 +122,9 @@ class TestConvertFunctions(unittest.TestCase):
     def test_handle_middle_dot(self):
         self.assertEqual(trans.to_pinyin('ān\u00B7jing', accented=False),
                          'an1jing5')
+
+    def test_issue_2(self):
+        accented = 'Ān'
+        numbered = 'An1'
+        self.assertEqual(numbered,
+                         trans.accented_syllable_to_numbered(accented))
