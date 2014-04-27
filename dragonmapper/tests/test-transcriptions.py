@@ -139,3 +139,8 @@ class TestConvertFunctions(unittest.TestCase):
                           invalid_syllable)
         self.assertRaises(ValueError, trans._ipa_syllable_to_numbered,
                           invalid_syllable)
+
+    def test_issue_4(self):
+        numbered = 'lv4'
+        accented = 'lǜ'
+        self.assertEqual(accented, trans.numbered_to_accented(numbered))
