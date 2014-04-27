@@ -128,3 +128,14 @@ class TestConvertFunctions(unittest.TestCase):
         numbered = 'An1'
         self.assertEqual(numbered,
                          trans.accented_syllable_to_numbered(accented))
+
+    def test_issue_3(self):
+        invalid_syllable = 'zef'
+        self.assertRaises(ValueError, trans.pinyin_syllable_to_zhuyin,
+                          invalid_syllable)
+        self.assertRaises(ValueError, trans.pinyin_syllable_to_ipa,
+                          invalid_syllable)
+        self.assertRaises(ValueError, trans._zhuyin_syllable_to_numbered,
+                          invalid_syllable)
+        self.assertRaises(ValueError, trans._ipa_syllable_to_numbered,
+                          invalid_syllable)

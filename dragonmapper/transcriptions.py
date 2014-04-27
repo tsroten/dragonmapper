@@ -225,7 +225,7 @@ def pinyin_syllable_to_zhuyin(s):
     pinyin_syllable, tone = _parse_pinyin_syllable(s)
     try:
         zhuyin_syllable = _PINYIN_MAP[pinyin_syllable.lower()]['Zhuyin']
-    except IndexError:
+    except KeyError:
         raise ValueError('Not a valid syllable: %s' % s)
     return zhuyin_syllable + _ZHUYIN_TONES[tone]
 
@@ -235,7 +235,7 @@ def pinyin_syllable_to_ipa(s):
     pinyin_syllable, tone = _parse_pinyin_syllable(s)
     try:
         ipa_syllable = _PINYIN_MAP[pinyin_syllable.lower()]['IPA']
-    except IndexError:
+    except KeyError:
         raise ValueError('Not a valid syllable: %s' % s)
     return ipa_syllable + _IPA_TONES[tone]
 
@@ -245,7 +245,7 @@ def _zhuyin_syllable_to_numbered(s):
     zhuyin_syllable, tone = _parse_zhuyin_syllable(s)
     try:
         pinyin_syllable = _ZHUYIN_MAP[zhuyin_syllable]['Pinyin']
-    except IndexError:
+    except KeyError:
         raise ValueError('Not a valid syllable: %s' % s)
     return pinyin_syllable + tone
 
@@ -280,7 +280,7 @@ def _ipa_syllable_to_numbered(s):
     ipa_syllable, tone = _parse_ipa_syllable(s)
     try:
         pinyin_syllable = _IPA_MAP[ipa_syllable]['Pinyin']
-    except IndexError:
+    except KeyError:
         raise ValueError('Not a valid syllable: %s' % s)
     return pinyin_syllable + tone
 
