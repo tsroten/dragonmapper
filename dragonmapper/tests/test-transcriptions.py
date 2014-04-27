@@ -144,3 +144,13 @@ class TestConvertFunctions(unittest.TestCase):
         numbered = 'lv4'
         accented = 'lǜ'
         self.assertEqual(accented, trans.numbered_to_accented(numbered))
+
+    def test_issue_5(self):
+        numbered = 'guang3er2'
+        accented = "guǎng'ér"
+        self.assertEqual(accented, trans.numbered_to_accented(numbered))
+
+        # Make sure that extra apostrophes aren't added.
+        numbered1 = "xi1'an1"
+        accented1 = "xī'ān"
+        self.assertEqual(accented1, trans.numbered_to_accented(numbered1))

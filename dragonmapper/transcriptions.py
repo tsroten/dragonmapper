@@ -310,8 +310,8 @@ def ipa_syllable_to_zhuyin(s):
     return pinyin_syllable_to_zhuyin(numbered_pinyin)
 
 
-def _convert(s, re_pattern, syllable_function, remove_apostrophes=False,
-             separate_syllables=False):
+def _convert(s, re_pattern, syllable_function, add_apostrophes=False,
+             remove_apostrophes=False, separate_syllables=False):
     """Convert a string's syllables to a different transcription system."""
     original = s
     new = ''
@@ -334,6 +334,9 @@ def _convert(s, re_pattern, syllable_function, remove_apostrophes=False,
         else:  # Matched syllable starts immediately.
             if new and separate_syllables:  # Separate syllables by a space.
                 new += ' '
+            elif (new and add_apostrophes and
+                    match.group()[0] in _UNACCENTED_VOWELS):
+                new += "'"
         # Convert the matched syllable.
         new += syllable_function(match.group())
         original = original[match_end:]
@@ -342,7 +345,8 @@ def _convert(s, re_pattern, syllable_function, remove_apostrophes=False,
 
 def numbered_to_accented(s):
     """Convert all numbered Pinyin syllables in *s* to accented Pinyin."""
-    return _convert(s, zhon.pinyin.syllable, numbered_syllable_to_accented)
+    return _convert(s, zhon.pinyin.syllable, numbered_syllable_to_accented,
+                    add_apostrophes=True)
 
 
 def accented_to_numbered(s):
