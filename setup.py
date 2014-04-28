@@ -13,9 +13,14 @@ if sys.argv[-1] == 'publish':
     os.system('python setup.py sdist upload')
     sys.exit()
 
-with open('README.rst') as f:
-    long_description = f.read()
 
+def open_file(filename):
+    """Open and read the file *filename*."""
+    with open(filename) as f:
+        return f.read()
+
+readme = open_file('README.rst')
+history = open_file('CHANGES.rst').replace('.. :changelog:', '')
 
 setup(
     name='dragonmapper',
@@ -25,7 +30,7 @@ setup(
     url='https://github.com/tsroten/dragonmapper',
     description=('Identification and conversion functions for Chinese '
                  'text processing'),
-    long_description=long_description,
+    long_description=readme + '\n\n' + history,
     platforms='any',
     classifiers=[
         'Programming Language :: Python',
