@@ -335,7 +335,7 @@ def _convert(s, re_pattern, syllable_function, add_apostrophes=False,
             if new and separate_syllables:  # Separate syllables by a space.
                 new += ' '
             elif (new and add_apostrophes and
-                    match.group()[0] in _UNACCENTED_VOWELS):
+                    match.group()[0].lower() in _UNACCENTED_VOWELS):
                 new += "'"
         # Convert the matched syllable.
         new += syllable_function(match.group())

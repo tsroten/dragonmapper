@@ -154,3 +154,8 @@ class TestConvertFunctions(unittest.TestCase):
         numbered1 = "xi1'an1"
         accented1 = "xī'ān"
         self.assertEqual(accented1, trans.numbered_to_accented(numbered1))
+
+        # Make sure that uppercase is handled correctly.
+        numbered1 = 'Yong3Er2'
+        accented1 = "Yǒng'Ér"
+        self.assertEqual(accented1, trans.numbered_to_accented(numbered1))
