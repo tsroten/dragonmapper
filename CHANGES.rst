@@ -3,6 +3,11 @@
 Change Log
 ----------
 
+0.2.3 (2014-04-28)
+++++++++++++++++++
+
+* Fixes #6. Adds -r suffix syllable to transcription mapping data.
+
 0.2.2 (2014-04-28)
 ++++++++++++++++++
 
