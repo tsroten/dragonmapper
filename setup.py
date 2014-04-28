@@ -9,6 +9,8 @@ try:
 except ImportError:
     from distutils.core import setup
 
+import dragonmapper
+
 if sys.argv[-1] == 'publish':
     os.system('python setup.py sdist upload')
     sys.exit()
@@ -24,7 +26,7 @@ history = open_file('CHANGES.rst').replace('.. :changelog:', '')
 
 setup(
     name='dragonmapper',
-    version='0.2',
+    version=dragonmapper.__version__,
     author='Thomas Roten',
     author_email='thomas@roten.us',
     url='https://github.com/tsroten/dragonmapper',
