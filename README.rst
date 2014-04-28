@@ -1,8 +1,22 @@
+=============
 Dragon Mapper
 =============
 
+.. image:: https://badge.fury.io/py/dragonmapper.png
+    :target: http://badge.fury.io/py/dragonmapper
+    
+.. image:: https://travis-ci.org/tsroten/dragonmapper.png?branch=develop
+        :target: https://travis-ci.org/tsroten/dragonmapper
+
 Dragon Mapper is a Python library that provides identification and conversion
 functions for Chinese text processing.
+
+* Documentation: http://dragonmapper.rtfd.org
+* GitHub: https://github.com/tsroten/dragonmapper
+* Free software: MIT license
+
+Features
+--------
 
 * Convert between Chinese characters, Pinyin, Zhuyin, and the International
   Phonetic Alphabet.
@@ -29,33 +43,10 @@ functions for Chinese text processing.
     >>> dragonmapper.transcriptions.pinyin_to_ipa(s)
     'wɔ˧˩˧ ʂɨ˥˩ i˥ kɤ˥˩ meɪ˧˩˧ kwɔ˧˥ ʐən˧˥.'
 
-
-Install
--------
-
-Dragon Mapper supports Python 2.7 and 3. `Zhon <https://github.com/tsroten/zhon>`_
-and `Hanzi Identifier <https://github.com/tsroten/hanzidentifier>`_ are also required.
-
-Just use pip:
-
-.. code:: bash
-
-    $ pip install dragonmapper
-
-
-Documentation
--------------
-
-Dragon Mapper includes complete and easy-to-read `documentation <https://dragonmapper.readthedocs.org/>`_. Check it out for a gentle introduction or the full API details.
-
-Bugs/Feature Requests
----------------------
-
-Dragon Mapper uses its `GitHub Issues page
-<https://github.com/tsroten/dragonmapper/issues>`_ to track bugs, feature
-requests, and support questions.
-
-License
--------
-
-Dragon Mapper is released under the OSI-approved `MIT License <http://opensource.org/licenses/MIT>`_. See the file LICENSE.txt for more information.
+Getting Started
+---------------
+* `Install Dragon Mapper <http://dragonmapper.readthedocs.org/en/latest/installation.html>`_
+* Read `Dragon Mapper's tutorial <http://dragonmapper.readthedocs.org/en/latest/tutorial.html>`_
+* Report bugs and ask questions via `GitHub Issues <https://github.com/tsroten/dragonmapper>`_
+* Refer to the `API documentation <http://dragonmapper.readthedocs.org/en/latest/api.html>`_ when you need more technical information
+* `Contribute <http://dragonmapper.readthedocs.org/en/latest/contributing.html>`_ documentation, code, or feedback

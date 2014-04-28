@@ -4,9 +4,7 @@
 from __future__ import unicode_literals
 import re
 
-from hanzidentifier import (UNKNOWN, BOTH, MIXED, TRADITIONAL, SIMPLIFIED,
-                            TRAD, SIMP, identify, is_simplified,
-                            is_traditional, has_chinese)
+import hanzidentifier
 import zhon.hanzi
 import zhon.pinyin
 
@@ -16,6 +14,16 @@ from dragonmapper.transcriptions import (
     pinyin_to_ipa,
     pinyin_to_zhuyin
 )
+
+UNKNOWN = hanzidentifier.UNKNOWN
+BOTH = hanzidentifier.BOTH
+MIXED = hanzidentifier.MIXED
+TRAD = TRADITIONAL = hanzidentifier.TRADITIONAL
+SIMP = SIMPLIFIED = hanzidentifier.SIMPLIFIED
+identify = hanzidentifier.identify
+is_simplified = hanzidentifier.is_simplified
+is_traditional = hanzidentifier.is_traditional
+has_chinese = hanzidentifier.has_chinese
 
 try:
     str = unicode
