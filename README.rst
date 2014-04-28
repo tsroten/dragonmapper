@@ -43,13 +43,6 @@ Features
     >>> dragonmapper.transcriptions.pinyin_to_ipa(s)
     'wɔ˧˩˧ ʂɨ˥˩ i˥ kɤ˥˩ meɪ˧˩˧ kwɔ˧˥ ʐən˧˥.'
 
-Support
--------
-
-Dragon Mapper uses its
-`GitHub Issues page <https://github.com/tsroten/dragonmapper/issues>`_
-to track bugs, feature requests, and support questions.
-
 Getting Started
 ---------------
 * `Install Dragon Mapper <http://dragonmapper.readthedocs.org/en/latest/installation.html>`_
