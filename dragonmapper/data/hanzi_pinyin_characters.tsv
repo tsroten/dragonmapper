@@ -861,7 +861,7 @@
 苾	bì/bié/mì
 蔽	bì/biē/piē
 𨚍	bì/bèi
-鐴	bì/bèi/bì
+鐴	bì/bèi
 𦤫	bì/bí
 薜	bì/bò/bó/bài/pì
 䮡	bì/bó
@@ -878,7 +878,7 @@
 𢘍	bì/fú
 䀣	bì/mà
 𩲢	bì/mèi
-殍	bì/piǎo piǎo/bì/piǎo
+殍	bì/piǎo piǎo/piǎo
 䩛	bì/pèi
 𤜻	bì/pí
 庳	bì/pí
@@ -1345,7 +1345,7 @@
 泍	bēn/bèn
 逩	bēn/bèn
 奔	bēn/bèn/fèn
-栟	bēn/bīng bīng/bēn
+栟	bēn/bīng bīng
 伻	bēng
 𦅈	bēng
 𣂤	bēng
@@ -1770,17 +1770,17 @@
 妛	chi
 麶	chi
 酬	chou/chóu
-臭	choù/xiù/chòu
-躊	choú/chóu
-踌	choú/chóu
-绸	choú/chóu
-愁	choú/chóu/qiǎo/jiū
-稠	choú/chóu/tiáo/diào
-綢	choú/chóu/tāo/diào
-仇	choú/qiú/chóu/jū
-抽	choū/chōu
-丑	choǔ/chǒu
-瞅	choǔ/chǒu
+臭	chòu/xiù
+躊	chóu
+踌	chóu
+绸	chóu
+愁	chóu/qiǎo/jiū
+稠	chóu/tiáo/diào
+綢	chóu/tāo/diào
+仇	chóu/qiú/jū
+抽	chōu
+丑	chǒu
+瞅	chǒu
 榋	chu
 璴	chu
 蟵	chu
@@ -3162,7 +3162,7 @@
 竀	chēng/chèng
 噌	chēng/cēng
 僜	chēng/dèng/dēng/téng
-鎗	chēng/qiāng/qiāng/qiàng
+鎗	chēng/qiāng/qiàng
 䟫	chēng/shàng
 樘	chēng/táng
 瞠	chēng/zhèng
@@ -3602,8 +3602,8 @@
 䮞	chǔn
 䐏	chǔn/shǔn
 茐	cong
-湊	coù/còu
-凑	coù/còu
+湊	còu
+凑	còu
 乼	cui
 窜	cuàn
 熶	cuàn
@@ -4827,14 +4827,14 @@
 鮗	dong
 艔	dou
 乧	dou
-豆	doù/dòu
-逗	doù/dòu/zhù/tóu/qí
-斗	doù/dǒu/zhǔ/dòu
-兜	doū/dōu
-都	doū/dū/dōu
-蚪	doǔ/dǒu
-抖	doǔ/dǒu
-陡	doǔ/dǒu
+豆	dòu
+逗	dòu/zhù/tóu/qí
+斗	dòu/dǒu/zhǔ
+兜	dōu
+都	dōu/dū
+蚪	dǒu
+抖	dǒu
+陡	dǒu
 碷	dun
 枤	duo
 𦕰	duo
@@ -5262,7 +5262,7 @@
 甔	dàn/dān
 澹	dàn/dān/shàn/tán
 馾	dàn/dǎn
-癉	dàn/dǎn/dān/dǎn/tán
+癉	dàn/dǎn/dān/tán
 𣛱	dàn/lǎn
 膻	dàn/shān
 嘾	dàn/tán
@@ -5356,7 +5356,7 @@
 纛	dào/dú
 菿	dào/dǎo
 倒	dào/dǎo
-燾	dào/tāo/tāo
+燾	dào/tāo
 箌	dào/zhào
 翢	dào/zhōu
 匒	dá
@@ -6394,7 +6394,7 @@
 琒	feng
 覅	fiào
 梻	fo
-否	foǔ/fǒu/pǐ
+否	fǒu/pǐ
 覄	fu
 酜	fu
 禣	fu
@@ -7513,18 +7513,18 @@
 掶	geng
 慐	gong
 蚣	gong/zhōng/gōng
-够	goù/gòu
-購	goù/gòu
-构	goù/gòu
-购	goù/gòu
-夠	goù/gòu
-構	goù/gòu/jué
-沟	goū/gōu
-钩	goū/gōu
-勾	goū/gōu/gòu
-鉤	goū/gōu/gòu/qú
-溝	goū/gōu/gǎng/kòu
-狗	goǔ/gǒu
+够	gòu
+購	gòu
+构	gòu
+购	gòu
+夠	gòu
+構	gòu/jué
+沟	gōu
+钩	gōu
+勾	gōu/gòu
+鉤	gōu/gòu/qú
+溝	gōu/gǎng/kòu
+狗	gǒu
 傦	gu
 峠	gu
 篐	gu
@@ -9069,12 +9069,12 @@
 靍	he
 鵆	heng
 涥	heng
-候	hou/hoù/hòu
-厚	hoù/hòu
-后	hoù/hòu
-猴	hoú/hóu
-喉	hoú/hóu
-吼	hoǔ/hǒu
+候	hou/hòu
+厚	hòu
+后	hòu
+猴	hóu
+喉	hóu
+吼	hǒu
 鯱	hu
 粐	hu
 錿	hu
@@ -10213,7 +10213,7 @@
 𢔈	hán
 䈄	hán
 㖤	hán
-𣵷	hán/gàn gàn/hán
+𣵷	hán/gàn gàn
 𤭙	hán/gān
 𠥴	hán/gān
 虷	hán/gān
@@ -12551,7 +12551,7 @@
 𤃭	jiǎo
 𣩓	jiǎo
 劋	jiǎo/chāo
-摷	jiǎo/chāo chāo/jiǎo
+摷	jiǎo/chāo chāo
 勦	jiǎo/chāo/cháo
 餃	jiǎo/jiào
 䚩	jiǎo/jiào/qiáo
@@ -14304,9 +14304,9 @@
 垰	ka
 嵙	ke
 躻	kong
-寇	koù/kòu
-扣	koù/kòu
-口	koǔ/kou/kǒu
+寇	kòu
+扣	kòu
+口	kǒu/kou
 舿	kua
 圦	kuai
 鑧	kuan
@@ -16009,12 +16009,12 @@
 窿	long/lóng
 喽	lou/lóu
 嘍	lou/lǒu/lóu
-陋	loù/lòu
-漏	loù/lòu/lóu
-楼	loú/lóu
-樓	loú/lóu/lǘ
-摟	loǔ/lōu/lǒu
-搂	loǔ/lǒu
+陋	lòu
+漏	lòu/lóu
+楼	lóu
+樓	lóu/lǘ
+摟	lǒu/lōu
+搂	lǒu
 鈩	lu
 枦	lu
 舮	lu
@@ -17627,7 +17627,7 @@
 屸	lóng/hóng
 笼	lóng/long/lǒng
 籠	lóng/long/lǒng
-靇	lóng/líng líng/lóng
+靇	lóng/líng líng
 豅	lóng/lòng
 䮾	lóng/lòng
 襱	lóng/lòng
@@ -18634,9 +18634,9 @@
 怽	mo
 尛	mo
 麿	mo
-謀	moú/mou/móu
-谋	moú/mou/móu
-某	moǔ/méi/mǒu
+謀	móu/mou
+谋	móu/mou
+某	mǒu/méi
 凩	mu
 拇	mu/mǔ
 閁	mà
@@ -20442,7 +20442,7 @@
 𦳐	nài/nà
 螚	nài/nái/něng
 耐	nài/néng
-㮏	nài/nì/nà nà/nài/nì
+㮏	nài/nì/nà nà
 耏	nài/ér
 𤿏	nàn
 㬮	nàn
@@ -21008,9 +21008,9 @@
 𪏸	nǐ/chī
 聻	nǐ/jiàn
 𡥦	nǐ/jìn
-𡥨	nǐ/jìn jìn/nǐ
+𡥨	nǐ/jìn jìn
 檷	nǐ/mí
-禰	nǐ/mí/nǐ/xiǎn
+禰	nǐ/mí/xiǎn
 鉨	nǐ/niě/xǐ
 𨀀	nǐ/niǎn
 伲	nǐ/nì
@@ -21064,11 +21064,11 @@
 女	n̈ǔ/n̈u/nǚ/nǜ/rǔ
 筽	o
 藲	ou
-鸥	oū/ōu
-欧	oū/ōu
-鷗	oū/ōu
-歐	oū/ǒu/ōu
-偶	oǔ/ǒu
+鸥	ōu
+欧	ōu
+鷗	ōu
+歐	ōu/ǒu
+偶	ǒu
 鵥	pan
 萢	pao
 褜	pao
@@ -21204,7 +21204,7 @@
 𪅃	piǎo/piāo
 泼	po/pō
 潑	po/pō/bō
-剖	poū/pōu
+剖	pōu
 贌	pu
 巬	pu
 巭	pu
@@ -22067,7 +22067,7 @@
 驞	pīn
 㡦	pīn
 拼	pīn/bìng bìng
-姘	pīn/pín pín/pīn
+姘	pīn/pín pín
 𢬵	pīn/pān/biàn/fān
 𥭢	pīng
 𦥚	pīng
@@ -24194,7 +24194,7 @@
 𧼒	qǐn
 𩓒	qǐn
 寢	qǐn
-鋟	qǐn/qiān/qiān/qīn/jìn
+鋟	qǐn/qiān/qīn/jìn
 梫	qǐn/qīn
 苘	qǐng
 庼	qǐng
@@ -24238,9 +24238,9 @@
 綛	ren
 躵	ren
 穃	rong
-肉	roù/ròu/rù
-柔	roú/róu
-揉	roú/róu
+肉	ròu/rù
+柔	róu
+揉	róu
 扖	ru
 杁	ru
 込	ru
@@ -24895,18 +24895,18 @@
 識	shi/shí/zhì
 扌	shou
 獣	shou
-瘦	shoù/shòu
-壽	shoù/shòu
-兽	shoù/shòu
-寿	shoù/shòu
-獸	shoù/shòu
-授	shoù/shòu
-受	shoù/shòu/dào
-售	shoù/shòu/shú
-收	shoū/shōu
-手	shoǔ/shou/shǒu
-首	shoǔ/shǒu
-守	shoǔ/shǒu/shòu
+瘦	shòu
+壽	shòu
+兽	shòu
+寿	shòu
+獸	shòu
+授	shòu
+受	shòu/dào
+售	shòu/shú
+收	shōu
+手	shǒu/shou
+首	shǒu
+守	shǒu/shòu
 瀭	shu
 鱰	shu
 糬	shu
@@ -26396,8 +26396,8 @@
 鎹	song
 枩	song
 嗽	sou/shuò/shù/sòu
-艘	soū/sōu
-搜	soū/sōu/xiāo/sòu/shǎo
+艘	sōu
+搜	sōu/xiāo/sòu/shǎo
 鯂	su
 訴	su/sù
 诉	su/sù
@@ -27563,7 +27563,7 @@
 填	tián/tiǎn/chén/zhèn
 緂	tián/tǎn/chān
 盷	tián/xián/mín
-寘	tián/zhì zhì/tián/zhì
+寘	tián/zhì zhì/zhì
 𡠊	tiáo
 龆	tiáo
 㟘	tiáo
@@ -27726,11 +27726,11 @@
 誂	tiǎo/diào
 朓	tiǎo/tiào/yóu
 窕	tiǎo/tiāo
-透	toù/tòu/shū
-頭	toú/tou/tóu
-头	toú/tou/tóu
-投	toú/tóu/dòu
-偷	toū/tōu
+透	tòu/shū
+頭	tóu/tou
+头	tóu/tou
+投	tóu/dòu
+偷	tōu
 汢	tu
 莵	tu
 涂	tu/tú/chú/yé
@@ -32106,8 +32106,8 @@
 选	xuǎn
 𦌔	xuǎn
 癣	xuǎn
-暅	xuǎn/gèng gèng/xuǎn/gèng
-顈	xuǎn/jiōng jiǒng/xiàn/xuǎn/jiōng
+暅	xuǎn/gèng gèng/gèng
+顈	xuǎn/jiōng jiǒng/xiàn/jiōng
 𩘒	xuǎn/juān
 選	xuǎn/xuàn/suàn/shuā
 咺	xuǎn/xuān
@@ -32902,7 +32902,7 @@
 谿	xī/jī
 忚	xī/liě
 腊	xī/là
-卤	xī/lǔ lǔ/xī/lǔ
+卤	xī/lǔ lǔ/lǔ
 𤷡	xī/nüè
 咭	xī/qià/jī
 𨵎	xī/qí
@@ -33282,29 +33282,29 @@
 牗	you
 孧	you
 蒏	you
-友	you/yoǔ/yǒu
-誘	yoù/yòu
-诱	yoù/yòu
-又	yoù/yòu
-右	yoù/yòu
-佑	yoù/yòu
-幼	yoù/yòu/yào
-游	yoú/liú/yóu
-犹	yoú/yòu/yóu
-铀	yoú/yóu
-尤	yoú/yóu
-邮	yoú/yóu
-郵	yoú/yóu/chuí
-猶	yoú/yóu/yáo
-油	yoú/yóu/yòu
-由	yoú/yóu/yāo
-鈾	yoú/zhòu/yóu
-忧	yoū/yòu/yōu
-优	yoū/yóu/yōu
-優	yoū/yōu
-憂	yoū/yōu
-悠	yoū/yōu
-有	yoǔ/yǒu/yòu/wěi
+友	you/yǒu
+誘	yòu
+诱	yòu
+又	yòu
+右	yòu
+佑	yòu
+幼	yòu/yào
+游	yóu/liú
+犹	yóu/yòu
+铀	yóu
+尤	yóu
+邮	yóu
+郵	yóu/chuí
+猶	yóu/yáo
+油	yóu/yòu
+由	yóu/yāo
+鈾	yóu/zhòu
+忧	yōu/yòu
+优	yōu/yóu
+優	yōu
+憂	yōu
+悠	yōu
+有	yǒu/yòu/wěi
 澚	yu
 荢	yu
 挧	yu
@@ -34733,7 +34733,7 @@
 圪	yì/gē
 屹	yì/gē
 𣎅	yì/huān
-欥	yì/huān/yù yù/yì/huān
+欥	yì/huān/yù yù
 幆	yì/kài
 𨽹	yì/lì
 㱞	yì/lā
@@ -35825,7 +35825,7 @@
 謣	yú/xū
 踰	yú/yáo/chū
 餘	yú/yé
-㳛	yú/yóu yóu/yú
+㳛	yú/yóu yóu
 輿	yú/yù
 𦏻	yú/yù
 兪	yú/yù/shù/shū/zhū
@@ -37080,21 +37080,21 @@
 炿	zhou
 駲	zhou
 帚	zhou/zhǒu
-晝	zhoù/zhòu
-驟	zhoù/zhòu
-皱	zhoù/zhòu
-咒	zhoù/zhòu
-宙	zhoù/zhòu
-昼	zhoù/zhòu
-骤	zhoù/zhòu
-皺	zhoù/zhòu/zhōu
-轴	zhoú/zhóu
-軸	zhoú/zhóu/zhú/zhòu
-州	zhoū/zhōu
-周	zhoū/zhōu
-舟	zhoū/zhōu
-洲	zhoū/zhōu
-粥	zhoū/zhōu/yù
+晝	zhòu
+驟	zhòu
+皱	zhòu
+咒	zhòu
+宙	zhòu
+昼	zhòu
+骤	zhòu
+皺	zhòu/zhōu
+轴	zhóu
+軸	zhóu/zhú/zhòu
+州	zhōu
+周	zhōu
+舟	zhōu
+洲	zhōu
+粥	zhōu/yù
 墸	zhu
 庒	zhuang
 缀	zhui/zhuì
@@ -39395,9 +39395,9 @@
 子	zi/zǐ
 潈	zong
 鯐	zou
-揍	zoù/còu/zòu
-奏	zoù/zòu/còu
-走	zoǔ/zǒu
+揍	zòu/còu
+奏	zòu/còu
+走	zǒu
 鎺	zu
 穝	zui
 枠	zui
@@ -40293,7 +40293,7 @@
 𨖋	zǎn/zhì
 揝	zǎn/zuàn
 喒	zǎn/zán/zà/zan/zá
-撍	zǎn/zān/zēn/qián qián/zān/zēn/zǎn
+撍	zǎn/zān/zēn/qián qián
 趲	zǎn/zū
 驵	zǎng
 駔	zǎng/zù/zǔ
@@ -40317,7 +40317,7 @@
 𧎮	zǎo
 璪	zǎo
 澡	zǎo/cāo
-璅	zǎo/suǒ suǒ/zǎo/suǒ
+璅	zǎo/suǒ suǒ/suǒ
 䲃	zǎo/suǒ/cháo
 繰	zǎo/sāo/qiāo
 蚤	zǎo/zhǎo
