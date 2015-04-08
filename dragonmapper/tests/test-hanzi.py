@@ -54,3 +54,9 @@ class TestConversionFunctions(unittest.TestCase):
         apinyin = self.apinyin_readings.replace('[', '(').replace(']', ')')
         self.assertEqual(hanzi.to_pinyin(self.chinese, all_readings=True,
                                          container='()'), apinyin)
+
+    def test_issue_7(self):
+        reading = hanzi.to_pinyin('手')
+        self.assertEqual('shǒu', reading)
+        reading = hanzi.to_pinyin('收')
+        self.assertEqual('shōu', reading)

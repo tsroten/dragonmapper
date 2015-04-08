@@ -316,7 +316,7 @@ def _convert(s, re_pattern, syllable_function, add_apostrophes=False,
     original = s
     new = ''
     while original:
-        match = re.search(re_pattern, original, re.IGNORECASE)
+        match = re.search(re_pattern, original, re.IGNORECASE | re.UNICODE)
         if match is None and original:
             # There are no more matches, but the given string isn't fully
             # processed yet.
