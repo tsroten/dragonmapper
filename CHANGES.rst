@@ -3,6 +3,13 @@
 Change Log
 ----------
 
+0.2.4 (2015-04-08)
+++++++++++++++++++
+
+# Fixes #8. Adds re.UNICODE to transcription conversion.
+# Fixes misformatted readings for certain characters.
+* Fixes #7. Fixes incorrect Unihan Database readings for the 'ou' vowel combinations.
+
 0.2.3 (2014-04-28)
 ++++++++++++++++++
 
