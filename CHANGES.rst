@@ -3,6 +3,11 @@
 Change Log
 ----------
 
+0.2.5 (2015-08-06)
+++++++++++++++++++
+
+* Fixes #9. Uses io.open() in setup.py with UTF-8 encoding.
+
 0.2.4 (2015-04-08)
 ++++++++++++++++++
 
