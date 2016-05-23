@@ -60,3 +60,8 @@ class TestConversionFunctions(unittest.TestCase):
         self.assertEqual('shǒu', reading)
         reading = hanzi.to_pinyin('收')
         self.assertEqual('shōu', reading)
+
+    def test_issue_10(self):
+        """Incorrect readings for 女."""
+        reading = hanzi.to_pinyin('女')
+        self.assertEqual('nǚ', reading)
