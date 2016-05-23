@@ -47,7 +47,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'Dragon Mapper'
-copyright = '2015, Thomas Roten'
+copyright = '2016, Thomas Roten'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

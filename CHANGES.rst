@@ -3,6 +3,14 @@
 Change Log
 ----------
 
+0.2.6 (2016-05-23)
+++++++++++++++++++
+
+* Fixes reading for 女. Fixes #10.
+* Add a note about Unicode string for Python 2 users.
+* Bumps required hanzidentifier version.
+* Fix umlaut on "l" consonant. Fixes #14.
+
 0.2.5 (2015-08-06)
 ++++++++++++++++++
 
