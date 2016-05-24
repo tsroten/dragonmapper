@@ -4,7 +4,7 @@ Dragon Mapper
 
 .. image:: https://badge.fury.io/py/dragonmapper.png
     :target: http://badge.fury.io/py/dragonmapper
-    
+
 .. image:: https://travis-ci.org/tsroten/dragonmapper.png?branch=develop
         :target: https://travis-ci.org/tsroten/dragonmapper
 
@@ -22,6 +22,7 @@ Features
   Phonetic Alphabet.
 * Identify a string as Traditional or Simplified Chinese, Pinyin, Zhuyin, or
   the International Phonetic Alphabet.
+* Output HTML based on the above.
 
 .. code:: python
 
@@ -42,6 +43,19 @@ Features
     'ㄨㄛˇ ㄕˋ ㄧ ㄍㄜˋ ㄇㄟˇ ㄍㄨㄛˊ ㄖㄣˊ.'
     >>> dragonmapper.transcriptions.pinyin_to_ipa(s)
     'wɔ˧˩˧ ʂɨ˥˩ i˥ kɤ˥˩ meɪ˧˩˧ kwɔ˧˥ ʐən˧˥.'
+
+.. code:: python
+
+    >>> s = "我是加拿大人"
+    >>> zh = hanzi.to_zhuyin(s).split(' ')
+    >>> zh
+    ['ㄨㄛˇ', 'ㄕˋ', 'ㄐㄧㄚ', 'ㄋㄚˊ', 'ㄉㄚˋ', 'ㄖㄣˊ']
+    >>> h = dragonmapper.html.to_html(s, right=zh)
+    >>> print(h)
+
+.. image:: http://s33.postimg.org/nzsw0y4qn/Screenshot_from_2016_05_24_01_17_00.png
+        :target: http://postimg.org/image/6z9zs9rp7/http://postimg.org/image/6z9zs9rp7/
+
 
 Getting Started
 ---------------
