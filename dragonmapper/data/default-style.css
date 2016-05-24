@@ -11,7 +11,7 @@ Default CSS style for dragonmapper
 .zhuyin{
     font-size: 0.6em;
     line-height: 1em;
-    text-align: left;
+    text-align: center;
     vertical-align: middle;
 }
 .pinyin{
