@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 """Formatting Chinese into HTML with dragonmapper's functions"""
 
-"""
-See recomended CSS style:
-DRAGONMAPPER_DIR/style.css
-"""
 
 from __future__ import unicode_literals
 from dragonmapper import hanzi, transcriptions
+
+
+"""See recomended CSS style: DRAGONMAPPER_DIR/style.css"""
 
 
 _indentation = 0
