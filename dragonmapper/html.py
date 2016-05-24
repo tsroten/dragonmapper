@@ -8,7 +8,7 @@ DRAGONMAPPER_DIR/style.css
 
 from dragonmapper import hanzi, transcriptions
 
-_indentation = 1
+_indentation = 0
 _line_html = ""
 
 def _identify(s):
@@ -66,8 +66,11 @@ def to_html(characters,
      ... of the character
     *indentation* specifies how many extra tab spaces there should be.
     """
+    
     global _indentation
-    _indentation = indentation+1
+    global _line_html
+    _indentation = indentation
+    _line_html = ""
 
     center = characters
 
@@ -131,4 +134,4 @@ if __name__ == '__main__':
     zi = "你好我叫顏毅"
     zh = hanzi.to_zhuyin(zi).split(" ")
     pi = transcriptions.zhuyin_to_pinyin(hanzi.to_zhuyin(zi)).split(" ")
-    print to_html(zi, bottom=pi, right=zh)
+    print(to_html(zi, bottom=pi, right=zh))
