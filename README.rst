@@ -52,6 +52,7 @@ Features
     ['ㄨㄛˇ', 'ㄕˋ', 'ㄐㄧㄚ', 'ㄋㄚˊ', 'ㄉㄚˋ', 'ㄖㄣˊ']
     >>> h = dragonmapper.html.to_html(s, right=zh)
     >>> print(h)
+* When put in an HTML file, with proper styling, it will look like this:
 
 .. image:: http://s33.postimg.org/nzsw0y4qn/Screenshot_from_2016_05_24_01_17_00.png
         :target: http://postimg.org/image/6z9zs9rp7/
