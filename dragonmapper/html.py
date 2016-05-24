@@ -1,4 +1,4 @@
-# *-* coding utf8 -*-
+# -*- coding: utf-8 -*-
 """Formatting Chinese into HTML with dragonmapper's functions"""
 
 """
@@ -6,12 +6,16 @@ See recomended CSS style:
 DRAGONMAPPER_DIR/style.css
 """
 
+from __future__ import unicode_literals
 from dragonmapper import hanzi, transcriptions
 
+
 _indentation = 0
-_line_html = ""
+_line_html = ''
+
 
 def _identify(s):
+
     """
     Returns string of text type for HTML/CSS.
 
@@ -28,7 +32,9 @@ def _identify(s):
         elif c == transcriptions.UNKNOWN:
             return "unknown"
 
+
 def _stackify(s):
+
     """
     Stack string for HTML formatting on the left and right of characters.
 
@@ -37,10 +43,12 @@ def _stackify(s):
 
     temp_s = ""
     for c in s:
-        temp_s += c+"<br>"
+        temp_s += c + "<br>"
     return temp_s
 
+
 def _html_add(s, tabs=0):
+
     """
     Wrapper for _line_html+="..."
 
@@ -49,7 +57,8 @@ def _html_add(s, tabs=0):
     """
 
     global _line_html
-    _line_html+=(("\n")+("\t"*(tabs+_indentation)))+s
+    _line_html += (("\n")+("\t"*(tabs+_indentation)))+s
+
 
 def to_html(characters,
             bottom=None,
@@ -57,6 +66,7 @@ def to_html(characters,
             left=None,
             top=None,
             indentation=0):
+
     """
     Returns valid HTML for the Chinese characters, and (assumed) phonetic ...
      ... notations provided, on any given side.
@@ -66,7 +76,7 @@ def to_html(characters,
      ... of the character
     *indentation* specifies how many extra tab spaces there should be.
     """
-    
+
     global _indentation
     global _line_html
     _indentation = indentation
@@ -78,23 +88,21 @@ def to_html(characters,
     _html_add("<tobdy>", 1)
 
     if bottom is None:
-        bottom = ["" for a,e in enumerate(center)]
+        bottom = ["" for a, e in enumerate(center)]
     if right is None:
-        right = ["" for a,e in enumerate(center)]
+        right = ["" for a, e in enumerate(center)]
     if left is None:
-        left = ["" for a,e in enumerate(center)]
+        left = ["" for a, e in enumerate(center)]
     if top is None:
-        top = ["" for a,e in enumerate(center)]
+        top = ["" for a, e in enumerate(center)]
 
     for y in range(0, 3):
         _html_add("<tr>", 2)
         char_num = 0
         for i in range(0, len(center)*3):
-            x = i%3
+            x = i % 3
             text = ""
             text_type = "unknown"
-            #print("Y: {0}\nI: {1}\nX: {2}\nCN: {3}".format(y, i, x, char_num))
-
             # top
             if x == 1 and y == 0:
                 text_type = _identify(top[char_num])
@@ -131,7 +139,7 @@ def to_html(characters,
     return _line_html
 
 if __name__ == '__main__':
-    zi = "你好我叫顏毅"
+    zi = '你好我叫顏毅'
     zh = hanzi.to_zhuyin(zi).split(" ")
     pi = transcriptions.zhuyin_to_pinyin(hanzi.to_zhuyin(zi)).split(" ")
     print(to_html(zi, bottom=pi, right=zh))
