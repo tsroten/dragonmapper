@@ -16,19 +16,19 @@ class TestHtmlFuctions(unittest.TestCase):
     zh = ['ㄨㄛˇ', 'ㄐㄧㄠˋ', 'ㄧㄢˊ', 'ㄧˋ']
     pi = ['wǒ', 'jiào', 'yán', 'yì']
 
-    indented_5 = f.next()\
+    indented_5 = f.readline()\
         .replace("\\n", "\n").replace("\\t", "\t").rstrip('\n')
-    indented_0 = f.next()\
+    indented_0 = f.readline()\
         .replace("\\n", "\n").replace("\\t", "\t").rstrip('\n')
-    indented_3 = f.next()\
+    indented_3 = f.readline()\
         .replace("\\n", "\n").replace("\\t", "\t").rstrip('\n')
-    zhuyin_both_pinyin_both = f.next()\
+    zhuyin_both_pinyin_both = f.readline()\
         .replace("\\n", "\n").replace("\\t", "\t").rstrip('\n')
-    pinyin_top = f.next()\
+    pinyin_top = f.readline()\
         .replace("\\n", "\n").replace("\\t", "\t").rstrip('\n')
-    zhuyin_top = f.next()\
+    zhuyin_top = f.readline()\
         .replace("\\n", "\n").replace("\\t", "\t").rstrip('\n')
-    pinyin_bottom = f.next()\
+    pinyin_bottom = f.readline()\
         .replace("\\n", "\n").replace("\\t", "\t").rstrip('\n')
 
     def test_indented_5(self):
