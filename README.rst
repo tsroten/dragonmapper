@@ -54,7 +54,7 @@ Features
     >>> print(h)
 
 .. image:: http://s33.postimg.org/nzsw0y4qn/Screenshot_from_2016_05_24_01_17_00.png
-        :target: http://postimg.org/image/6z9zs9rp7/http://postimg.org/image/6z9zs9rp7/
+        :target: http://postimg.org/image/6z9zs9rp7/
 
 
 Getting Started
