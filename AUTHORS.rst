@@ -10,4 +10,6 @@ Author and Maintainer
 Contributors
 ------------
 
-Tait Hoyem <https://github.com/TTWNO> — HTML output
+Tait Hoyem <https://github.com/TTWNO> — HTML Formatting
+
+Why not be the second? :-)
