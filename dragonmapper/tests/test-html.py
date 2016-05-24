@@ -39,11 +39,6 @@ class TestHtmlFuctions(unittest.TestCase):
             self.indented_5)
 
     def test_indented_0(self):
-        print(html.to_html(
-            self.s, bottom=self.pi,
-            right=self.zh, indentation=0))
-        print("--------------------")
-        print(self.indented_0)
         self.assertEqual(
             html.to_html(
                 self.s, bottom=self.pi,
