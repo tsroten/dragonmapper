@@ -59,15 +59,15 @@ def _html_add(s, tabs=0):
     _line_html += (("\n")+("\t"*(tabs+_indentation)))+s
 
 
-def _split_grammar(ph_s):
+def _split_grammar(zi_s):
 
     """
     Internal function to split grammar from the characters before it.
 
-    *ph_s* specifies the string to preform this action on.
+    *zi_s* specifies the string to preform this action on.
     """
 
-	return ph_s.replace(
+	return zi_s.replace(
 	'，', " ， ").replace(
 	'。', " 。").replace(
 	'：', " ： ").replace(
