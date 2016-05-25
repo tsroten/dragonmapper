@@ -59,6 +59,40 @@ def _html_add(s, tabs=0):
     _line_html += (("\n")+("\t"*(tabs+_indentation)))+s
 
 
+def _split_grammar(ph_s):
+
+    """
+    Internal function to split grammar from the characters before it.
+
+    *ph_s* specifies the string to preform this action on.
+    """
+
+	return ph_s.replace(
+	'，', " ， ").replace(
+	'。', " 。").replace(
+	'：', " ： ").replace(
+	'“', " “ ").replace(
+	'”', " ” ").replace(
+	'  ', " ").rstrip(" ")
+
+
+def _del_grammar(ph_s):
+
+    """
+    Ineternal function to strip grammar from phonetic string.
+
+    *ph_s* is the phonetic string to preform on
+    """
+
+	return ph.replace(
+	'，', " ").replace(
+	'。', " ").replace(
+	'：', " ").replace(
+	'“', " ").replace(
+	'”', " ").replace(
+	'  ', " ")
+
+
 def to_html(characters,
             bottom=None,
             right=None,
