@@ -42,7 +42,7 @@ def _stackify(s):
 
     temp_s = ""
     for c in s:
-        temp_s += c + "<br>"
+        temp_s += c + "<br />"
     return temp_s
 
 
