@@ -76,15 +76,15 @@ def _split_grammar(zi_s):
 	'  ', " ").rstrip(" ")
 
 
-def _del_grammar(ph_s):
+def _del_grammar(zi_s):
 
     """
-    Ineternal function to strip grammar from phonetic string.
+    Ineternal function to strip grammar from string.
 
-    *ph_s* is the phonetic string to preform on
+    *zi_s* is the string to preform on
     """
 
-	return ph.replace(
+	return zi.replace(
 	'，', " ").replace(
 	'。', " ").replace(
 	'：', " ").replace(
