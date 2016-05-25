@@ -62,7 +62,7 @@ def _html_add(s, tabs=0):
 def _split_grammar(zi_s):
 
     """
-    Internal function to split grammar from the characters before it.
+    Internal function to split grammar (with spaces) from the characters before it.
 
     *zi_s* specifies the string to preform this action on.
     """
