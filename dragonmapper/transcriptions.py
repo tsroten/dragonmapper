@@ -562,8 +562,7 @@ def _split_punctuation(zi_s):
        '：', " ： ").replace(
        '；', " ； ").replace(
        '“', " “ ").replace(
-       '”', " ” ").replace(
-       '  ', " ").rstrip(" ")
+       '”', " ” ").rstrip(' ')
 
 
 def _del_punctuation(zi_s):
