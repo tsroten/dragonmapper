@@ -47,9 +47,8 @@ Features
 .. code:: python
 
     >>> s = "我是加拿大人"
-    >>> zh = hanzi.to_zhuyin(s).split(' ')
     >>> zh
-    ['ㄨㄛˇ', 'ㄕˋ', 'ㄐㄧㄚ', 'ㄋㄚˊ', 'ㄉㄚˋ', 'ㄖㄣˊ']
+    'ㄨㄛˇ ㄕˋ ㄐㄧㄚ ㄋㄚˊ ㄉㄚˋ ㄖㄣˊ'
     >>> h = dragonmapper.html.to_html(s, right=zh)
     >>> print(h)
 * When put in an HTML file, with proper styling, it will look like this:
