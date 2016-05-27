@@ -75,7 +75,7 @@ def _split_punct(s):
     *s* specifies the string to preform this action on.
     """
 
-    return zi_s.replace(
+    return s.replace(
         '，', "  ").replace(
         '。', "  ").replace(
         '：', "  ").replace(
