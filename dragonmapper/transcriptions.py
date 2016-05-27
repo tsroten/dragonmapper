@@ -546,22 +546,3 @@ def identify(s):
         return IPA
     else:
         return UNKNOWN
-
-
-def split_puct(zi_s):
-
-    """
-    Will split punctuation (with spaces) for HTML formatting.
-
-    *zi_s* specifies the string to preform this action on.
-    """
-
-    return zi_s.replace(
-        '，', "  ").replace(
-        '。', "  ").replace(
-        '：', "  ").replace(
-        '；', "  ").replace(
-        '“', "  ").replace(
-        '”', "  ").replace(
-        "      ", "     ").replace(
-        "    ", "   ").rstrip(' ')
