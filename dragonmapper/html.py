@@ -14,6 +14,7 @@ _line_html = ''
 _puctuation = ['，', '。', '“', '”', '：', '；']
 _tones_marks = ['¯', 'ˊ', 'ˇ', 'ˋ', '˙', '1', '2', '3', '4', '5']
 
+
 def _identify(s):
 
     """
@@ -64,6 +65,25 @@ def _html_add(s, tabs=0):
     _line_html += (("\n")+("\t"*(tabs+_indentation)))+s
 
 
+def _split_punct(zi_s):
+
+    """
+    Internal function for spliting punctuation (with spaces) for HTML formatting.
+
+    *zi_s* specifies the string to preform this action on.
+    """
+
+    return zi_s.replace(
+        '，', "  ").replace(
+        '。', "  ").replace(
+        '：', "  ").replace(
+        '；', "  ").replace(
+        '“', "  ").replace(
+        '”', "  ").replace(
+        "      ", "     ").replace(
+        "    ", "   ").split(' ')
+
+
 def to_html(characters,
             bottom=None,
             right=None,
@@ -80,7 +100,7 @@ def to_html(characters,
     *bottom/right/left/bottom* will be displayed on their respective sides ...
      ... of the character
     *indentation* specifies how many extra tab spaces there should be.
-    *keep_puct* will make sure that punctuation is preserved.
+    *keep_puct* will make sure that punct is preserved.
     """
 
     global _indentation
@@ -94,22 +114,22 @@ def to_html(characters,
     if bottom is None:
         bottom = ["" for a, e in enumerate(characters)]
     elif keep_puct:
-        bottom = trans.del_split_punctuation(bottom).split(' ')
+        bottom = _split_punct(bottom)
 
     if right is None:
         right = ["" for a, e in enumerate(characters)]
     elif keep_puct:
-        right = trans.del_split_punctuation(right).split(' ')
+        right = _split_punct(right)
 
     if left is None:
         left = ["" for a, e in enumerate(characters)]
     elif keep_puct:
-        left = trans.del_split_punctuation(left).split(' ')
+        left = _split_punct(left)
 
     if top is None:
         top = ["" for a, e in enumerate(characters)]
     elif keep_puct:
-        top = trans.del_split_punctuation(top).split(' ')
+        top = _split_punct(top)
 
     for y in range(0, 3):
         _html_add("<tr>", 2)
