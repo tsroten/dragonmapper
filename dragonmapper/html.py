@@ -11,7 +11,7 @@ from dragonmapper import transcriptions as trans
 
 _indentation = 0
 _line_html = ''
-_puctuation = ['，', '。', '“', '”', '：', '；']
+_puctuation = ['，', '。', '“', '”', '：', '；', '？']
 _tones_marks = ['¯', 'ˊ', 'ˇ', 'ˋ', '˙', '1', '2', '3', '4', '5']
 
 
@@ -81,6 +81,7 @@ def _split_punct(zi_s):
         '；', "  ").replace(
         '“', "  ").replace(
         '”', "  ").replace(
+        "？", "  ").replace(
         "      ", "     ").replace(
         "    ", "   ").split(' ')
 
