@@ -47,14 +47,29 @@ Features
 .. code:: python
 
     >>> s = "我是加拿大人"
+    >>> zh = hanzi.to_zhuyin(s)
     >>> zh
     'ㄨㄛˇ ㄕˋ ㄐㄧㄚ ㄋㄚˊ ㄉㄚˋ ㄖㄣˊ'
     >>> h = dragonmapper.html.to_html(s, right=zh)
     >>> print(h)
 * When put in an HTML file, with proper styling, it will look like this:
 
-.. image:: http://s33.postimg.org/nzsw0y4qn/Screenshot_from_2016_05_24_01_17_00.png
-        :target: http://postimg.org/image/6z9zs9rp7/
+.. image:: https://s25.postimg.org/mu1vrnsf3/Screenshot_from_2016_05_24_01_17_00.png
+        :target: https://postimg.org/image/vcbbvzyxn/
+
+.. code:: python
+
+    >>> s = "我是加拿大人"
+    >>> zh = hanzi.to_zhuyin(s)
+    >>> pi = trans.zhuyin_to_pinyin(zh)
+    >>> pi
+    'wǒ shì jiā ná dà rén'
+    >>> h = dragonmapper.html.to_html(s, bottom=pi)
+    >>> print(h)
+* The intermediate switch to Zhuyin, is because of spacing. You can space out the characters instead.
+* Font: FZKai-Extended
+.. image:: https://s25.postimg.org/h4ln7cm8v/Screenshot_from_2016_05_27_09_20_06.png
+        :target: https://postimg.org/image/d88bbd197/
 
 
 Getting Started
