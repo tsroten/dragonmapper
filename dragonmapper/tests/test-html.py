@@ -91,17 +91,21 @@ class TestHtmlFuctions(unittest.TestCase):
         self.assertEqual(html._stackify("ni3"), "n<br />i<br />3<br />")
         self.assertEqual(html._stackify("ㄨㄛˇ"), "ㄨ<br />ㄛ<br />ˇ<br />")
         self.assertEqual(html._stackify("小狗"), "小<br />狗<br />")
-        self.assertEqual(html._stackify("phantom"),
+        self.assertEqual(
+            html._stackify("phantom"),
             "p<br />h<br />a<br />n<br />t<br />o<br />m<br />")
-        self.assertEqual(html._stackify("gxF52f"),
+        self.assertEqual(
+            html._stackify("gxF52f"),
             "g<br />x<br />F<br />5<br />2<br />f<br />")
 
     def test_split_punct(self):
         self.assertEqual(html._split_punct("你好嗎？"), ['你', '好', '嗎', ''])
-        self.assertEqual(html._split_punct("ㄨㄛˇ：ㄇㄚ ㄇㄚ"),
+        self.assertEqual(
+            html._split_punct("ㄨㄛˇ：ㄇㄚ ㄇㄚ"),
             ['ㄨㄛˇ', '', 'ㄇㄚ', 'ㄇㄚ'])
-        self.assertEqual(html._split_punct("我叫：“顏毅”"),
+        self.assertEqual(
+            html._split_punct("我叫：“顏毅”"),
             ['我', '叫', '', '', '顏', '毅', ''])
-        self.assertEqual(html._split_punct(
-            "ni3 shi4：wo3 de5 peng2 you5 ma5？",
+        self.assertEqual(
+            html._split_punct("ni3 shi4：wo3 de5 peng2 you5 ma5？"),
             ['ni3', 'shi4', '', 'wo3', 'de5', 'peng2', 'you5', 'ma', ''])
