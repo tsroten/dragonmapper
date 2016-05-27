@@ -176,6 +176,6 @@ class TestConvertFunctions(unittest.TestCase):
 
     def test_remove_punct(self):
         pinyin = "ni3 hao3，wo3 jiao4：“yan2 yi4”"
-        no_punct = "ni3 hao3 wo3 jiao4  yan2 yi4"
+        no_punct = "ni3 hao3 wo3 jiao4  yan2 yi4 "
 
         self.assertEqual(trans.remove_punct(pinyin), no_punct)
