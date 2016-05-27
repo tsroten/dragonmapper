@@ -22,6 +22,7 @@ def _identify(s):
 
     *s* is the string to identify.
     """
+
     if hanzi.has_chinese(s):
         return "hanzi"
     elif s in _puctuation:
@@ -65,13 +66,13 @@ def _html_add(s, tabs=0):
     _line_html += (("\n")+("\t"*(tabs+_indentation)))+s
 
 
-def _split_punct(zi_s):
+def _split_punct(s):
 
     """
     Internal function for spliting punctuation (with spaces
     ... only for HTML formatting.
 
-    *zi_s* specifies the string to preform this action on.
+    *s* specifies the string to preform this action on.
     """
 
     return zi_s.replace(
@@ -102,7 +103,7 @@ def to_html(characters,
     *bottom/right/left/bottom* will be displayed on their respective sides ...
      ... of the character
     *indentation* specifies how many extra tab spaces there should be.
-    *keep_puct* will make sure that punct is preserved.
+    *keep_puct* will make sure that punctuation is preserved.
     """
 
     global _indentation
