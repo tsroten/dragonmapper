@@ -548,49 +548,20 @@ def identify(s):
         return UNKNOWN
 
 
-def _split_punctuation(zi_s):
+def split_puct(zi_s):
 
     """
-    Internal function to split punctuation (with spaces) from the characters before it.
+    Will split punctuation (with spaces) for HTML formatting.
 
     *zi_s* specifies the string to preform this action on.
     """
 
     return zi_s.replace(
-	   '，', " ， ").replace(
-       '。', " 。").replace(
-       '：', " ： ").replace(
-       '；', " ； ").replace(
-       '“', " “ ").replace(
-       '”', " ” ").rstrip(' ')
-
-
-def _del_punctuation(zi_s):
-
-    """
-    Ineternal function to strip punctuation from string.
-
-    *zi_s* is the string to preform on
-    """
-
-    return zi_s.replace(
-        '，', " ").replace(
-        '。', " ").replace(
-        '：', " ").replace(
-        '；', " ").replace(
-        '“', " ").replace(
-        '”', " ").replace(
-        '  ', " ")
-
-
-def del_split_punctuation(s):
-
-    """
-    Wrapper function for _del_punctuation(_split_punctuation(s)). It will split the
-    ...puctuation and then strip it from the string.
-    This can be called from other programs as needed.
-
-    *s* is variable to do on.
-    """
-
-    return _del_punctuation(_split_punctuation(s))
+        '，', "  ").replace(
+        '。', "  ").replace(
+        '：', "  ").replace(
+        '；', "  ").replace(
+        '“', "  ").replace(
+        '”', "  ").replace(
+        "      ", "     ").replace(
+        "    ", "   ").rstrip(' ')
