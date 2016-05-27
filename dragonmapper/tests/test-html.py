@@ -99,13 +99,15 @@ class TestHtmlFuctions(unittest.TestCase):
             "g<br />x<br />F<br />5<br />2<br />f<br />")
 
     def test_split_punct(self):
-        self.assertEqual(html._split_punct("你好嗎？"), ['你', '好', '嗎', ''])
+        self.assertEqual(
+            html._split_punct("ni3 hao3 ma5？"),
+            ['ni3', 'hao3', 'ma5', '', ''])
         self.assertEqual(
             html._split_punct("ㄨㄛˇ：ㄇㄚ ㄇㄚ"),
             ['ㄨㄛˇ', '', 'ㄇㄚ', 'ㄇㄚ'])
         self.assertEqual(
-            html._split_punct("我叫：“顏毅”"),
-            ['我', '叫', '', '', '顏', '毅', ''])
+            html._split_punct("wo3 jiao4：“yan2 yi4”"),
+            ['wo3', 'jiao4', '', '', 'yan2', 'yi4', '', ''])
         self.assertEqual(
             html._split_punct("ni3 shi4：wo3 de5 peng2 you5 ma5？"),
-            ['ni3', 'shi4', '', 'wo3', 'de5', 'peng2', 'you5', 'ma', ''])
+            ['ni3', 'shi4', '', 'wo3', 'de5', 'peng2', 'you5', 'ma5', '', ''])
