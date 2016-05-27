@@ -546,3 +546,21 @@ def identify(s):
         return IPA
     else:
         return UNKNOWN
+
+def remove_punct(s):
+
+    """
+    Simple function to remove all punctuation from strings.
+    (More or less, to help with formatting strings for html.to_html())
+
+    *s* is the stinrg to preform on.
+    """
+
+    return s.replace(
+        '，', " ").replace(
+        '。', " ").replace(
+        '：', " ").replace(
+        '；', " ").replace(
+        '“', " ").replace(
+        '”', " ").replace(
+        "？", " ")
