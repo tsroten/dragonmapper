@@ -68,7 +68,8 @@ def _html_add(s, tabs=0):
 def _split_punct(zi_s):
 
     """
-    Internal function for spliting punctuation (with spaces) for HTML formatting.
+    Internal function for spliting punctuation (with spaces
+    ... only for HTML formatting.
 
     *zi_s* specifies the string to preform this action on.
     """
