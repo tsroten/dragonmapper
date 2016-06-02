@@ -2,6 +2,8 @@
 Default CSS style for dragonmapper
 **/
 
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro);
+
 .hanzi{
     font-size: 2em;
     line-height: 1em;
@@ -25,7 +27,7 @@ Default CSS style for dragonmapper
     line-height: 1em;
     /** Some fonts have exess space on accented pinyin character,
             setting the font fixes this problem. **/
-    font-family: Times, "Times New Roman", Georgia, serif;
+    font-family: 'Source Sans Pro', sans-serif;
     text-align: center;
     vertical-align: center;
 }
