@@ -235,8 +235,8 @@ lines of code.
 
 .. autofunction:: to_ipa
 
-HTML conversion: 
+HTML Conversion:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Creates some HTML from the characters, and transcription systems you have.
 
-.. autofunction:: to_html
+#.. autofunction:: to_html
