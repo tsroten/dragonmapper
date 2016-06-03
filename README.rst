@@ -53,11 +53,6 @@ Features
     >>> h = dragonmapper.html.to_html(s, right=zh)
     >>> print(h)
 
-* FZKai-Extended for characters, and zhuyin:
-    https://www.fontyukle.net/en/DownLoad-FZKai-Z03S.ttf
-* Source Sans Pro, Normal 400 (for Pinyin) [Google Fonts]:
-    https://www.google.com/fonts#QuickUsePlace:quickUse/Family:Source+Sans+Pro
-
 * When put in an HTML file, with proper styling, it will look like this:
 .. image:: http://s25.postimg.org/82l3nbfrz/Screenshot_from_2016_06_03_11_16_14.png
         :target: http://postimg.org/image/m90uijqmz/
@@ -83,6 +78,11 @@ Features
     >>> h = dragonmapper.html.to_html(s, bottom=pi, right=zh)
 .. image:: http://s25.postimg.org/9g854vpnj/Screenshot_from_2016_06_03_11_16_57.png
         :target: http://postimg.org/image/m90uijqmz/
+
+* FZKai-Extended for characters, and zhuyin:
+    https://www.fontyukle.net/en/DownLoad-FZKai-Z03S.ttf
+* Source Sans Pro, Normal 400 (for Pinyin) [Google Fonts]:
+    https://www.google.com/fonts#QuickUsePlace:quickUse/Family:Source+Sans+Pro
 
 
 Getting Started
