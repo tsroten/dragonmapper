@@ -5,6 +5,9 @@
 from __future__ import unicode_literals
 from dragonmapper import hanzi
 from dragonmapper import transcriptions as trans
+from zhon import pinyin
+from zhon import zhuyin
+
 
 """See recomended CSS style: DRAGONMAPPER_DIR/style.css"""
 
@@ -69,22 +72,39 @@ def _html_add(s, tabs=0):
 def _split_punct(s):
 
     """
-    Internal function for spliting punctuation (with spaces
-    ... only for HTML formatting.
+    Internal function for spliting by punctuation only for HTML formatting.
 
-    *s* specifies the string to preform this action on.
+    *s* specifies the list to preform this action on.
     """
 
-    return s.replace(
-        '，', "  ").replace(
-        '。', "  ").replace(
-        '：', "  ").replace(
-        '；', "  ").replace(
-        '“', "  ").replace(
-        '”', "  ").replace(
-        "？", "  ").replace(
-        "      ", "     ").replace(
-        "    ", "   ").split(' ')
+    temp = []
+
+    s = s.split(' ')
+
+    def update_temp(fct, blnks, temp):
+        temp.append(fct)
+        if blnks:
+            temp.append("")
+
+    for c in s:
+        full_char_temp = ""
+        did_early_append = False
+        for pc in c:
+            if (pc in zhuyin.characters or
+                    pc in pinyin.vowels or
+                    pc in pinyin.consonants or
+                    pc in _tones_marks or
+                    pc in [1,2,3,4,5]):
+                full_char_temp += pc
+            elif pc in _puctuation:
+                if full_char_temp != "":
+                    temp.append(full_char_temp)
+                    full_char_temp = ""
+                temp.append("")
+        if not did_early_append:
+            if full_char_temp != "":
+                temp.append(full_char_temp)
+    return temp
 
 
 def to_html(characters,

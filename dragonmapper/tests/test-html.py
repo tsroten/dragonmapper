@@ -10,7 +10,7 @@ from dragonmapper import html
 
 class TestHtmlFuctions(unittest.TestCase):
 
-    maxDiff = None
+    maxDiff = 20
 
     f = codecs.open("dragonmapper/data/test-html-data.txt", 'r', 'utf8')
 
@@ -21,6 +21,8 @@ class TestHtmlFuctions(unittest.TestCase):
     s2 = '你好，我媽媽對我叫“顏毅”。'
     zh2 = 'ㄋㄧˇ ㄏㄠˇ，ㄨㄛˇ ㄇㄚ ㄇㄚ ㄉㄨㄟˋ ㄨㄛˇ ㄐㄧㄠˋ：“ㄧㄢˊ ㄧˋ”'
     pi2 = 'nǐ hǎo，wǒ mā mā duì wǒ jiào：“yán yì”'
+
+    zh3 = "ㄨㄛˇ ㄉㄨㄟˋ ㄊㄚ ㄕㄨㄛ：“ㄋㄧˇ ㄇㄚ ㄇㄚ ㄉㄨㄟˋ ㄋㄧˇ ㄕㄨㄛ：“ㄋㄧˇ ㄅㄚˋ ㄅㄚˋ ㄉㄨㄟˋ ㄋㄧˇ ㄕㄨㄛ：“ㄋㄧˇ ㄏㄠˇ ㄋㄩˇ ㄦ˙”””"
 
     indented_5 = f.readline()\
         .replace("\\n", "\n").replace("\\t", "\t").rstrip('\n')
@@ -101,13 +103,20 @@ class TestHtmlFuctions(unittest.TestCase):
     def test_split_punct(self):
         self.assertEqual(
             html._split_punct("ni3 hao3 ma5？"),
-            ['ni3', 'hao3', 'ma5', '', ''])
+            ['ni3', 'hao3', 'ma5', ''])
         self.assertEqual(
             html._split_punct("ㄨㄛˇ：ㄇㄚ ㄇㄚ"),
             ['ㄨㄛˇ', '', 'ㄇㄚ', 'ㄇㄚ'])
         self.assertEqual(
             html._split_punct("wo3 jiao4：“yan2 yi4”"),
-            ['wo3', 'jiao4', '', '', 'yan2', 'yi4', '', ''])
+            ['wo3', 'jiao4', '', '', 'yan2', 'yi4', ''])
         self.assertEqual(
             html._split_punct("ni3 shi4：wo3 de5 peng2 you5 ma5？"),
-            ['ni3', 'shi4', '', 'wo3', 'de5', 'peng2', 'you5', 'ma5', '', ''])
+            ['ni3', 'shi4', '', 'wo3', 'de5', 'peng2', 'you5', 'ma5', ''])
+        self.assertEqual(
+            html._split_punct(
+                self.zh3),
+            ['ㄨㄛˇ', 'ㄉㄨㄟˋ', 'ㄊㄚ', 'ㄕㄨㄛ', '', '', 'ㄋㄧˇ', 'ㄇㄚ', 'ㄇㄚ',
+                'ㄉㄨㄟˋ', 'ㄋㄧˇ', 'ㄕㄨㄛ', '', '', 'ㄋㄧˇ', 'ㄅㄚˋ', 'ㄅㄚˋ',
+                'ㄉㄨㄟˋ', 'ㄋㄧˇ', 'ㄕㄨㄛ', '', '', 'ㄋㄧˇ', 'ㄏㄠˇ', 'ㄋㄩˇ',
+                'ㄦ˙', '', '', ''])
