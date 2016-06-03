@@ -53,8 +53,12 @@ Features
     >>> h = dragonmapper.html.to_html(s, right=zh)
     >>> print(h)
 
+* FZKai-Extended for characters, and zhuyin:
+    https://www.fontyukle.net/en/DownLoad-FZKai-Z03S.ttf
+* Source Sans Pro, Normal 400 (for Pinyin) [Google Fonts]:
+    https://www.google.com/fonts#QuickUsePlace:quickUse/Family:Source+Sans+Pro
+
 * When put in an HTML file, with proper styling, it will look like this:
-* Font: FZKai-Extended
 .. image:: http://s25.postimg.org/82l3nbfrz/Screenshot_from_2016_06_03_11_16_14.png
         :target: http://postimg.org/image/m90uijqmz/
 
@@ -69,8 +73,8 @@ Features
     >>> print(h)
 
 * The intermediate switch to Zhuyin, is because of spacing. You can space out the characters instead.
-.. image:: https://s25.postimg.org/h4ln7cm8v/Screenshot_from_2016_05_27_09_20_06.png
-        :target: https://postimg.org/image/d88bbd197/
+.. image:: http://s25.postimg.org/9vo0bn0yn/Screenshot_from_2016_06_03_11_16_39.png
+        :target: http://postimg.org/image/j3g8sc80r/
 
 * You can even mix-and-match the different phonetic systems:
 * right=, and top= are also available.
