@@ -52,10 +52,11 @@ Features
     'ㄨㄛˇ ㄕˋ ㄐㄧㄚ ㄋㄚˊ ㄉㄚˋ ㄖㄣˊ'
     >>> h = dragonmapper.html.to_html(s, right=zh)
     >>> print(h)
-* When put in an HTML file, with proper styling, it will look like this:
 
-.. image:: https://s25.postimg.org/mu1vrnsf3/Screenshot_from_2016_05_24_01_17_00.png
-        :target: https://postimg.org/image/vcbbvzyxn/
+* When put in an HTML file, with proper styling, it will look like this:
+* Font: FZKai-Extended
+.. image:: http://s25.postimg.org/82l3nbfrz/Screenshot_from_2016_06_03_11_16_14.png
+        :target: http://postimg.org/image/m90uijqmz/
 
 .. code:: python
 
@@ -66,10 +67,18 @@ Features
     'wǒ shì jiā ná dà rén'
     >>> h = dragonmapper.html.to_html(s, bottom=pi)
     >>> print(h)
+
 * The intermediate switch to Zhuyin, is because of spacing. You can space out the characters instead.
-* Font: FZKai-Extended
 .. image:: https://s25.postimg.org/h4ln7cm8v/Screenshot_from_2016_05_27_09_20_06.png
         :target: https://postimg.org/image/d88bbd197/
+
+* You can even mix-and-match the different phonetic systems:
+* right=, and top= are also available.
+.. code:: python
+
+    >>> h = dragonmapper.html.to_html(s, bottom=pi, right=zh)
+.. image:: http://s25.postimg.org/9g854vpnj/Screenshot_from_2016_06_03_11_16_57.png
+        :target: http://postimg.org/image/m90uijqmz/
 
 
 Getting Started
