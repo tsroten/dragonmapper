@@ -81,14 +81,8 @@ def _split_punct(s):
 
     s = s.split(' ')
 
-    def update_temp(fct, blnks, temp):
-        temp.append(fct)
-        if blnks:
-            temp.append("")
-
     for c in s:
         full_char_temp = ""
-        did_early_append = False
         for pc in c:
             if (pc in zhuyin.characters or
                     pc in pinyin.vowels or
@@ -101,9 +95,8 @@ def _split_punct(s):
                     temp.append(full_char_temp)
                     full_char_temp = ""
                 temp.append("")
-        if not did_early_append:
-            if full_char_temp != "":
-                temp.append(full_char_temp)
+        if full_char_temp != "":
+            temp.append(full_char_temp)
     return temp
 
 
