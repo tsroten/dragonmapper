@@ -104,8 +104,7 @@ def to_html(characters,
             right=None,
             left=None,
             top=None,
-            indentation=0,
-            keep_puct=True):
+            indentation=0):
 
     """
     Returns valid HTML for the Chinese characters, and (assumed) phonetic ...
@@ -113,9 +112,9 @@ def to_html(characters,
 
     *characters* will be displayed in the middle of each output table.
     *bottom/right/left/bottom* will be displayed on their respective sides ...
-     ... of the character
+     ... of the character. Strings from dragonmapper.transcriptions, ...
+     ... dragonmapper.hanzi.to_xxxyin, or an array/tuple are acceptable.
     *indentation* specifies how many extra tab spaces there should be.
-    *keep_puct* will make sure that punctuation is preserved.
     """
 
     global _indentation
@@ -128,22 +127,23 @@ def to_html(characters,
 
     if bottom is None:
         bottom = [""] * len(characters)
-    elif keep_puct:
+    # Signifies that bottom is not an array with 1-1 correspondence
+    elif len(bottom) > len(characters):
         bottom = _split_punct(bottom)
 
     if right is None:
         right = [""] * len(characters)
-    elif keep_puct:
+    elif len(right) > len(characters):
         right = _split_punct(right)
 
     if left is None:
         left = [""] * len(characters)
-    elif keep_puct:
+    elif len(left) > len(characters):
         left = _split_punct(left)
 
     if top is None:
         top = [""] * len(characters)
-    elif keep_puct:
+    elif len(top) > len(characters):
         top = _split_punct(top)
 
     for y in range(0, 3):
