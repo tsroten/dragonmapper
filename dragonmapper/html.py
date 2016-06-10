@@ -125,22 +125,22 @@ def to_html(characters,
     _html_add("<tbody>", 1)
 
     if bottom is None:
-        bottom = ["" for a, e in enumerate(characters)]
+        bottom = [""] * len(characters)
     elif keep_puct:
         bottom = _split_punct(bottom)
 
     if right is None:
-        right = ["" for a, e in enumerate(characters)]
+        right = [""] * len(characters)
     elif keep_puct:
         right = _split_punct(right)
 
     if left is None:
-        left = ["" for a, e in enumerate(characters)]
+        left = [""] * len(characters)
     elif keep_puct:
         left = _split_punct(left)
 
     if top is None:
-        top = ["" for a, e in enumerate(characters)]
+        top = [""] * len(characters)
     elif keep_puct:
         top = _split_punct(top)
 
