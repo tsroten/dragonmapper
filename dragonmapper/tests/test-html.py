@@ -10,7 +10,7 @@ from dragonmapper import html
 
 class TestHtmlFuctions(unittest.TestCase):
 
-    maxDiff = 20
+    maxDiff = None
 
     f = codecs.open("dragonmapper/data/test-html-data.txt", 'r', 'utf8')
 
@@ -91,15 +91,15 @@ class TestHtmlFuctions(unittest.TestCase):
         self.assertEqual(html._identify("："), 'punct')
 
     def test_stackify(self):
-        self.assertEqual(html._stackify("ni3"), "n<br />i<br />3<br />")
-        self.assertEqual(html._stackify("ㄨㄛˇ"), "ㄨ<br />ㄛ<br />ˇ<br />")
-        self.assertEqual(html._stackify("小狗"), "小<br />狗<br />")
+        self.assertEqual(html._stackify("ni3"), "n<br />i<br />3")
+        self.assertEqual(html._stackify("ㄨㄛˇ"), "ㄨ<br />ㄛ<br />ˇ")
+        self.assertEqual(html._stackify("小狗"), "小<br />狗")
         self.assertEqual(
             html._stackify("phantom"),
-            "p<br />h<br />a<br />n<br />t<br />o<br />m<br />")
+            "p<br />h<br />a<br />n<br />t<br />o<br />m")
         self.assertEqual(
             html._stackify("gxF52f"),
-            "g<br />x<br />F<br />5<br />2<br />f<br />")
+            "g<br />x<br />F<br />5<br />2<br />f")
 
     def test_split_punct(self):
         self.assertEqual(

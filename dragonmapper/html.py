@@ -50,10 +50,7 @@ def _stackify(s):
     *s* is the string to "stackify".
     """
 
-    temp_s = ""
-    for c in s:
-        temp_s += c + "<br />"
-    return temp_s
+    return "<br />".join(list(s))
 
 
 def _html_add(s, tabs=0):
