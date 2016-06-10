@@ -122,7 +122,7 @@ def to_html(characters,
     _line_html = ""
 
     _html_add("<table class=\"chinese-line\">")
-    _html_add("<tobdy>", 1)
+    _html_add("<tbody>", 1)
 
     if bottom is None:
         bottom = ["" for a, e in enumerate(characters)]
