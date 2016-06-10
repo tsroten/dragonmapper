@@ -87,8 +87,7 @@ def _split_punct(s):
             if (pc in zhuyin.characters or
                     pc in pinyin.vowels or
                     pc in pinyin.consonants or
-                    pc in _tones_marks or
-                    pc in [1, 2, 3, 4, 5]):
+                    pc in _tones_marks):
                 full_char_temp += pc
             elif pc in _puctuation:
                 if full_char_temp != "":
