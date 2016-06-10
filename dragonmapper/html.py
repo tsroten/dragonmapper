@@ -5,6 +5,7 @@
 from __future__ import unicode_literals
 from dragonmapper import hanzi
 from dragonmapper import transcriptions as trans
+import zhon
 from zhon import pinyin
 from zhon import zhuyin
 
@@ -14,7 +15,7 @@ from zhon import zhuyin
 
 _indentation = 0
 _line_html = ''
-_puctuation = ['，', '。', '“', '”', '：', '；', '？']
+_puctuation = tuple(zhon.hanzi.punctuation + zhon.pinyin.punctuation)
 _tones_marks = ['¯', 'ˊ', 'ˇ', 'ˋ', '˙', '1', '2', '3', '4', '5']
 
 
@@ -28,6 +29,8 @@ def _identify(s):
 
     if hanzi.has_chinese(s):
         return "hanzi"
+    elif s == "":
+        return "unknown"
     elif s in _puctuation:
         return "punct"
     elif s in _tones_marks:
