@@ -12,6 +12,32 @@ from zhon import zhuyin
 
 """See recomended CSS style: DRAGONMAPPER_DIR/style.css"""
 
+TOP_LEFT = 0
+TOP_MID = 1
+TOP_RIGHT = 2
+MID_LEFT = 3
+MID_MID = 4
+MID_RIGHT = 5
+LOW_LEFT = 6
+LOW_MID = 7
+LOW_RIGHT = 8
+
+TOP = TOP_MID
+LEFT = MID_LEFT
+CENTER = MID_MID
+RIGHT = MID_RIGHT
+BOTTOM = LOW_MID
+
+PUT_TEXT_PLACES = (TOP, LEFT, CENTER, RIGHT, BOTTOM)
+NEW_CHARCTER_PLACES = (TOP_RIGHT, MID_RIGHT, LOW_RIGHT)
+STACKED_SIDES = (LEFT, RIGHT)
+PLACES = (
+    TOP_LEFT, TOP_MID, TOP_RIGHT,
+    MID_LEFT, MID_MID, MID_RIGHT,
+    LOW_LEFT, LOW_MID, LOW_RIGHT,
+    TOP, LEFT, RIGHT, BOTTOM, CENTER,
+)
+places = PLACES
 
 _indentation = 0
 _line_html = ''
@@ -99,6 +125,53 @@ def _split_punct(s):
     return temp
 
 
+def _return_correct_side(x, y, t, l, c, r, b):
+
+    """
+    Returns what side is being referenced by the coordinates, and the ...
+    ... coresponding list.
+
+    *x, y* are the coordinates
+    *t, l, c, r, b* are top, left, center, right, and bottom, respectively.
+    """
+
+    if x == 0 and y == 0:
+        return ([], TOP_LEFT)
+    elif x == 1 and y == 0:
+        return (t, TOP)
+    elif x == 2 and y == 0:
+        return ([], TOP_RIGHT)
+    elif x == 0 and y == 1:
+        return (l, LEFT)
+    elif x == 1 and y == 1:
+        return (c, CENTER)
+    elif x == 2 and y == 1:
+        return (r, RIGHT)
+    elif x == 0 and y == 2:
+        return ([], LOW_LEFT)
+    elif x == 1 and y == 2:
+        return (b, BOTTOM)
+    elif x == 2 and y == 2:
+        return ([], LOW_RIGHT)
+
+
+def _fix_empty_arrays(a, length):
+
+    """
+    Returns array of length 'length' if it does not contain anything ...
+    ... otherwise returns _split_punct(a)
+
+    *a* is the array to proform the action on
+    *length* is the length
+    """
+
+    if a is None:
+        a = [""] * length
+    elif len(a) > length:
+        a = _split_punct(a)
+    return a
+
+
 def to_html(characters,
             bottom=None,
             right=None,
@@ -121,62 +194,35 @@ def to_html(characters,
     global _line_html
     _indentation = indentation
     _line_html = ""
+    proper_length = len(characters)
 
     _html_add("<table class=\"chinese-line\">")
     _html_add("<tbody>", 1)
 
-    if bottom is None:
-        bottom = [""] * len(characters)
-    # Signifies that bottom is not an array with 1-1 correspondence
-    elif len(bottom) > len(characters):
-        bottom = _split_punct(bottom)
-
-    if right is None:
-        right = [""] * len(characters)
-    elif len(right) > len(characters):
-        right = _split_punct(right)
-
-    if left is None:
-        left = [""] * len(characters)
-    elif len(left) > len(characters):
-        left = _split_punct(left)
-
-    if top is None:
-        top = [""] * len(characters)
-    elif len(top) > len(characters):
-        top = _split_punct(top)
+    top = _fix_empty_arrays(top, proper_length)
+    left = _fix_empty_arrays(left, proper_length)
+    right = _fix_empty_arrays(right, proper_length)
+    bottom = _fix_empty_arrays(bottom, proper_length)
 
     for y in range(0, 3):
         _html_add("<tr>", 2)
         char_num = 0
-        for i in range(0, len(characters)*3):
+        for i in range(0, (len(characters)*3)):
             x = i % 3
             text = ""
             text_type = "unknown"
-            # top
-            if x == 1 and y == 0:
-                text_type = _identify(top[char_num])
-                text = top[char_num]
-                char_num += 1
-            # left
-            elif x == 0 and y == 1:
-                text_type = _identify(left[char_num])
-                text = _stackify(left[char_num])
 
-            # center
-            elif x == 1 and y == 1:
-                text_type = _identify(characters[char_num])
-                text = characters[char_num]
+            current_side, side = _return_correct_side(
+                x, y, top, left, characters, right, bottom)
 
-            # right
-            elif x == 2 and y == 1:
-                text_type = _identify(right[char_num])
-                text = _stackify(right[char_num])
-                char_num += 1
-            # bottom
-            elif x == 1 and y == 2:
-                text_type = _identify(bottom[char_num])
-                text = bottom[char_num]
+            if side in PUT_TEXT_PLACES:
+                text_type = _identify(current_side[char_num])
+                if side in STACKED_SIDES:
+                    text = _stackify(current_side[char_num])
+                else:
+                    text = current_side[char_num]
+
+            if side in NEW_CHARCTER_PLACES:
                 char_num += 1
 
             _html_add("<td class=\"{0}\">".format(text_type), 3)
@@ -189,7 +235,7 @@ def to_html(characters,
     return _line_html
 
 if __name__ == '__main__':
-    zi = '你好，我叫顏毅。'
+    zi = '你好，我叫顏毅。我是加拿大人！'
     zh = hanzi.to_zhuyin(zi)
     pi = trans.zhuyin_to_pinyin(hanzi.to_zhuyin(zi))
     print(to_html(zi, bottom=pi, right=zh))
