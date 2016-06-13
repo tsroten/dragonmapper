@@ -130,3 +130,31 @@ class TestHtmlFuctions(unittest.TestCase):
             html.to_html(
                 self.s2, bottom=self.zh2_man),
             self.manual_pinyin)
+
+    def test_return_correct_sid(self):
+        self.assertEqual(
+            html._return_correct_side(
+                2, 0, [], [], [], [], []
+            ),
+            ([], html.places.TOP_RIGHT)
+        )
+        self.assertEqual(
+            html._return_correct_side(
+                2, 2, [], [], [], [], []
+            ),
+            ([], html.places.LOW_RIGHT)
+        )
+        self.assertEqual(
+            html._return_correct_side(
+                1, 2, [], [], [], [], []
+            ),
+            ([], html.places.BOTTOM)
+        )
+
+    def test_fix_empty_arrays(self):
+        self.assertEqual(
+            html._fix_empty_arrays(
+                None, 6
+            ),
+            [""] * 6
+        )
