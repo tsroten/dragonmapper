@@ -37,7 +37,6 @@ PLACES = (
     LOW_LEFT, LOW_MID, LOW_RIGHT,
     TOP, LEFT, RIGHT, BOTTOM, CENTER,
 )
-places = PLACES
 
 _indentation = 0
 _line_html = ''
