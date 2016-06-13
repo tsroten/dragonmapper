@@ -136,19 +136,19 @@ class TestHtmlFuctions(unittest.TestCase):
             html._return_correct_side(
                 2, 0, [], [], [], [], []
             ),
-            ([], html.PLACES.TOP_RIGHT)
+            ([], html.TOP_RIGHT)
         )
         self.assertEqual(
             html._return_correct_side(
                 2, 2, [], [], [], [], []
             ),
-            ([], html.PLACES.LOW_RIGHT)
+            ([], html.LOW_RIGHT)
         )
         self.assertEqual(
             html._return_correct_side(
                 1, 2, [], [], [], [], []
             ),
-            ([], html.PLACES.BOTTOM)
+            ([], html.BOTTOM)
         )
 
     def test_fix_empty_arrays(self):
