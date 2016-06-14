@@ -46,8 +46,8 @@ def _load_data():
     data = {}
     for name, file_name in (('pinyin_words', 'hanzi_pinyin_words.tsv'),
                             ('pinyin_characters', 'hanzi_pinyin_characters.tsv'),
-                            ('jyutping_words', 'new4-cantonese-words.tsv'),
-                            ('jyutping_characters', 'new4-cantonese-characters.tsv')):
+                            ('jyutping_words', 'hanzi_jyutping_words.tsv'),
+                            ('jyutping_characters', 'hanzi_jyutping_characters.tsv')):
         # Split the lines by tabs: [[hanzi, pinyin]...].
         lines = [line.split('\t') for line in
                  dragonmapper.data.load_data_file(file_name)]
@@ -60,6 +60,13 @@ _PINYIN_CHARACTERS = _HANZI_MAP['pinyin_characters']
 _PINYIN_WORDS = _HANZI_MAP['pinyin_words']
 _JYUTPING_CHARACTERS = _HANZI_MAP['jyutping_characters']
 _JYUTPING_WORDS = _HANZI_MAP['jyutping_words']
+
+
+def _hanzi_to_phons(hanzi, system):
+    if system == 'pinyin':
+        return _hanzi_to_pinyin(hanzi)
+    elif system == 'jyutping':
+        return _hanzi_to_jyutping(hanzi)
 
 
 def _hanzi_to_jyutping(hanzi):
@@ -100,6 +107,97 @@ def _enclose_readings(container, readings):
     return enclosed_readings
 
 
+
+def _to_phonetics(s, delimiter=' ', all_readings=False, container='[]',
+              accented=True, system='pinyin'):
+    """Convert a string's Chinese characters to phonetic readings.
+
+    *s* is a string containing Chinese characters.
+
+    *accented* is a
+    boolean value indicating whether to return accented or numbered Pinyin
+    readings.
+
+    *delimiter* is the character used to indicate word boundaries in *s*.
+    This is used to differentiate between words and characters so that a more
+    accurate reading can be returned.
+
+    *all_readings* is a boolean value indicating whether or not to return all
+    possible readings in the case of words/characters that have multiple
+    readings. *container* is a two character string that is used to
+    enclose words/characters if *all_readings* is ``True``. The default
+    ``'[]'`` is used like this: ``'[READING1/READING2]'``.
+
+    Characters not recognized as Chinese are left untouched.
+
+    """
+    hanzi = s
+    phons = ''
+    if system == 'pinyin':
+        _WORDS = _PINYIN_WORDS
+    elif system == "jyutping":
+        _WORDS = _JYUTPING_WORDS
+
+    # Process the given string.
+    while hanzi:
+
+        # Get the next match in the given string.
+        match = re.search('[^%s%s]+' % (delimiter, zhon.hanzi.punctuation),
+                          hanzi)
+
+        # There are no more matches, but the string isn't finished yet.
+        if match is None and hanzi:
+            phons += hanzi
+            break
+
+        match_start, match_end = match.span()
+
+        # Process the punctuation marks that occur before the match.
+        if match_start > 0:
+            phons += hanzi[0:match_start]
+
+        # Get the Chinese word/character readings.
+        readings = _hanzi_to_phons(match.group(), system)
+
+        # Process the returned word readings.
+        if match.group() in _WORDS:
+            if all_readings:
+                reading = _enclose_readings(container,
+                                            _READING_SEPARATOR.join(readings))
+            else:
+                reading = readings[0]
+            phons += reading
+
+        # Process the returned character readings.
+        else:
+            # Process each character individually.
+            for character in readings:
+                # Don't touch unrecognized characters.
+                if isinstance(character, str):
+                    phons += character
+                # Format multiple readings.
+                elif isinstance(character, list) and all_readings:
+                    phons += _enclose_readings(
+                        container, _READING_SEPARATOR.join(character))
+                # Select and format the most common reading.
+                elif isinstance(character, list) and not all_readings:
+                    # Add an apostrophe to separate syllables.
+                    if (phons and character[0][0] in zhon.pinyin.vowels and
+                            phons[-1] in zhon.pinyin.lowercase):
+                        phons += "'"
+                    phons += character[0]
+
+        # Move ahead in the given string.
+        hanzi = hanzi[match_end:]
+
+    if system == "jyutping":
+        return phons
+    if accented:
+        return phons
+    else:
+        return accented_to_numbered(phons)
+
+
 def to_pinyin(s, delimiter=' ', all_readings=False, container='[]',
               accented=True):
     """Convert a string's Chinese characters to Pinyin readings.
@@ -121,72 +219,12 @@ def to_pinyin(s, delimiter=' ', all_readings=False, container='[]',
     Characters not recognized as Chinese are left untouched.
 
     """
-    hanzi = s
-    pinyin = ''
-
-    # Process the given string.
-    while hanzi:
-
-        # Get the next match in the given string.
-        match = re.search('[^%s%s]+' % (delimiter, zhon.hanzi.punctuation),
-                          hanzi)
-
-        # There are no more matches, but the string isn't finished yet.
-        if match is None and hanzi:
-            pinyin += hanzi
-            break
-
-        match_start, match_end = match.span()
-
-        # Process the punctuation marks that occur before the match.
-        if match_start > 0:
-            pinyin += hanzi[0:match_start]
-
-        # Get the Chinese word/character readings.
-        readings = _hanzi_to_pinyin(match.group())
-
-        # Process the returned word readings.
-        if match.group() in _PINYIN_WORDS:
-            if all_readings:
-                reading = _enclose_readings(container,
-                                            _READING_SEPARATOR.join(readings))
-            else:
-                reading = readings[0]
-            pinyin += reading
-
-        # Process the returned character readings.
-        else:
-            # Process each character individually.
-            for character in readings:
-                # Don't touch unrecognized characters.
-                if isinstance(character, str):
-                    pinyin += character
-                # Format multiple readings.
-                elif isinstance(character, list) and all_readings:
-                    pinyin += _enclose_readings(
-                        container, _READING_SEPARATOR.join(character))
-                # Select and format the most common reading.
-                elif isinstance(character, list) and not all_readings:
-                    # Add an apostrophe to separate syllables.
-                    if (pinyin and character[0][0] in zhon.pinyin.vowels and
-                            pinyin[-1] in zhon.pinyin.lowercase):
-                        pinyin += "'"
-                    pinyin += character[0]
-
-        # Move ahead in the given string.
-        hanzi = hanzi[match_end:]
-
-    if accented:
-        return pinyin
-    else:
-        return accented_to_numbered(pinyin)
+    return _to_phonetics(s, delimiter, all_readings, container, accented)
 
 def to_jyutping(s, delimiter=' ', all_readings=False, container='[]'):
     """Convert a string's Chinese characters to jyutping readings.
 
-    *s* is a string containing Chinese characters. *accented* is a
-    boolean value indicating whether to return accented or numbered jyutping
-    readings.
+    *s* is a string containing Chinese characters.
 
     *delimiter* is the character used to indicate word boundaries in *s*.
     This is used to differentiate between words and characters so that a more
@@ -201,61 +239,9 @@ def to_jyutping(s, delimiter=' ', all_readings=False, container='[]'):
     Characters not recognized as Chinese are left untouched.
 
     """
-    hanzi = s
-    jyutping = ''
 
-    # Process the given string.
-    while hanzi:
-
-        # Get the next match in the given string.
-        match = re.search('[^%s%s]+' % (delimiter, zhon.hanzi.punctuation),
-                          hanzi)
-
-        # There are no more matches, but the string isn't finished yet.
-        if match is None and hanzi:
-            jyutping += hanzi
-            break
-
-        match_start, match_end = match.span()
-
-        # Process the punctuation marks that occur before the match.
-        if match_start > 0:
-            jyutping += hanzi[0:match_start]
-
-        # Get the Chinese word/character readings.
-        readings = _hanzi_to_jyutping(match.group())
-
-        # Process the returned word readings.
-        if match.group() in _JYUTPING_WORDS:
-            if all_readings:
-                reading = _enclose_readings(container,
-                                            _READING_SEPARATOR.join(readings))
-            else:
-                reading = readings[0]
-            jyutping += reading
-
-        # Process the returned character readings.
-        else:
-            # Process each character individually.
-            for character in readings:
-                # Don't touch unrecognized characters.
-                if isinstance(character, str):
-                    jyutping += character
-                # Format multiple readings.
-                elif isinstance(character, list) and all_readings:
-                    jyutping += _enclose_readings(
-                        container, _READING_SEPARATOR.join(character))
-                # Select and format the most common reading.
-                elif isinstance(character, list) and not all_readings:
-                    # Add an apostrophe to separate syllables.
-                    if (jyutping and character[0][0] in zhon.jyutping.vowels and
-                            jyutping[-1] in zhon.jyutping.lowercase):
-                        jyutping += "'"
-                    jyutping += character[0]
-
-        # Move ahead in the given string.
-        hanzi = hanzi[match_end:]
-    return jyutping
+    return _to_phonetics(s, delimiter, all_readings, container,
+        accented=False, system='jyutping')
 
 
 def to_zhuyin(s, delimiter=' ', all_readings=False, container='[]'):
