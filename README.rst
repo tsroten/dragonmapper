@@ -74,7 +74,7 @@ Features
         :target: http://postimg.org/image/j3g8sc80r/
 
 .. code:: python
-    
+
     >>> s = "我是加拿大人"
     >>> zh = hanzi.to_zhuyin(s)
     >>> pi = trans.zhuyin_to_pinyin(zh)
@@ -83,12 +83,6 @@ Features
 
 .. image:: http://s25.postimg.org/9g854vpnj/Screenshot_from_2016_06_03_11_16_57.png
         :target: http://postimg.org/image/m90uijqmz/
-
-* FZKai-Extended for characters, and zhuyin:
-    https://www.fontyukle.net/en/DownLoad-FZKai-Z03S.ttf
-* Source Sans Pro, Normal 400 (for Pinyin) [Google Fonts]:
-    https://www.google.com/fonts#QuickUsePlace:quickUse/Family:Source+Sans+Pro
-
 
 Getting Started
 ---------------
