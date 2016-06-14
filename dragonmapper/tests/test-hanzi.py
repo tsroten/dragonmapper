@@ -50,6 +50,15 @@ class TestConversionFunctions(unittest.TestCase):
         self.assertEqual(hanzi.to_pinyin('便宜', all_readings=True),
                          '[piànyi/biànyí]')
 
+    def test_word_readings_jyutping(self):
+        self.assertEqual(hanzi.to_jyutping('當'), 'dong1')
+        self.assertEqual(hanzi.to_jyutping('當', all_readings=True),
+                         '[dong1/dong3]')
+
+        self.assertEqual(hanzi.to_jyutping('上'), 'seung6')
+        self.assertEqual(hanzi.to_jyutping('上', all_readings=True),
+                         '[seung6/seung5]')
+
     def test_custom_container(self):
         apinyin = self.apinyin_readings.replace('[', '(').replace(']', ')')
         self.assertEqual(hanzi.to_pinyin(self.chinese, all_readings=True,
