@@ -45,9 +45,11 @@ def _load_data():
     """
     data = {}
     for name, file_name in (('pinyin_words', 'hanzi_pinyin_words.tsv'),
-                            ('pinyin_characters', 'hanzi_pinyin_characters.tsv'),
+                            ('pinyin_characters',
+                                'hanzi_pinyin_characters.tsv'),
                             ('jyutping_words', 'hanzi_jyutping_words.tsv'),
-                            ('jyutping_characters', 'hanzi_jyutping_characters.tsv')):
+                            ('jyutping_characters',
+                                'hanzi_jyutping_characters.tsv')):
         # Split the lines by tabs: [[hanzi, pinyin]...].
         lines = [line.split('\t') for line in
                  dragonmapper.data.load_data_file(file_name)]
@@ -76,7 +78,8 @@ def _hanzi_to_jyutping(hanzi):
     try:
         return _HANZI_MAP['jyutping_words'][hanzi]
     except KeyError:
-        return [_JYUTPING_CHARACTERS.get(character, character) for character in hanzi]
+        return [_JYUTPING_CHARACTERS.get(
+            character, character) for character in hanzi]
 
 
 def _hanzi_to_pinyin(hanzi):
@@ -95,7 +98,8 @@ def _hanzi_to_pinyin(hanzi):
     try:
         return _HANZI_MAP['pinyin_words'][hanzi]
     except KeyError:
-        return [_PINYIN_CHARACTERS.get(character, character) for character in hanzi]
+        return [_PINYIN_CHARACTERS.get(
+                character, character) for character in hanzi]
 
 
 def _enclose_readings(container, readings):
@@ -107,9 +111,8 @@ def _enclose_readings(container, readings):
     return enclosed_readings
 
 
-
-def _to_phonetics(s, delimiter=' ', all_readings=False, container='[]',
-              accented=True, system='pinyin'):
+def _to_phonetics(s, delimiter=' ', all_readings=False,
+                  container='[]', accented=True, system='pinyin'):
     """Convert a string's Chinese characters to phonetic readings.
 
     *s* is a string containing Chinese characters.
@@ -221,6 +224,7 @@ def to_pinyin(s, delimiter=' ', all_readings=False, container='[]',
     """
     return _to_phonetics(s, delimiter, all_readings, container, accented)
 
+
 def to_jyutping(s, delimiter=' ', all_readings=False, container='[]'):
     """Convert a string's Chinese characters to jyutping readings.
 
@@ -241,7 +245,7 @@ def to_jyutping(s, delimiter=' ', all_readings=False, container='[]'):
     """
 
     return _to_phonetics(s, delimiter, all_readings, container,
-        accented=False, system='jyutping')
+                         accented=False, system='jyutping')
 
 
 def to_zhuyin(s, delimiter=' ', all_readings=False, container='[]'):
