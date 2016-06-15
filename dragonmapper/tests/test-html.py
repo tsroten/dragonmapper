@@ -45,6 +45,7 @@ class TestHtmlFuctions(unittest.TestCase):
     zhuyin_top = fix_line(f.readline())
     pinyin_bottom = fix_line(f.readline())
     manual_pinyin = fix_line(f.readline())
+    jyutping_html = fix_line(f.readline())
 
     def test_indented_5(self):
         self.assertEqual(
@@ -129,7 +130,6 @@ class TestHtmlFuctions(unittest.TestCase):
                 'ㄦ˙', '', '', ''])
 
     def test_manual_phonetics_input(self):
-        print(html.to_html(self.s2, bottom=self.zh2_man).replace('\t', '\\t').replace('\n', '\\n'))
         self.assertEqual(
             html.to_html(
                 self.s2, bottom=self.zh2_man),
@@ -162,3 +162,9 @@ class TestHtmlFuctions(unittest.TestCase):
             ),
             [""] * 6
         )
+
+    def test_jyutping_in_html(self):
+        self.assertEqual(
+            html.to_html(
+                self.s2, top=self.jp2),
+            self.jyutping_html)
