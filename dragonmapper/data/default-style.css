@@ -22,7 +22,8 @@ Default CSS style for dragonmapper
     text-align: center;
     vertical-align: middle;
 }
-.pinyin{
+.pinyin,
+.jyutping{
     font-size: 1em;
     line-height: 1em;
     /** Some fonts have exess space on accented pinyin character,
