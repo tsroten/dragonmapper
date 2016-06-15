@@ -13,6 +13,7 @@ class TestIdentifyFunctions(unittest.TestCase):
     accented_pinyin = 'fāzhǎnnǐhǎo'
     zhuyin = 'ㄝ ㄦ ㄒㄧㄣ'
     ipa = 'fa˥ ʈʂan˧˩˧ ni˧˩˧ xɑʊ˧˩˧'
+    jyutping = 'faat3jin2nei5hou2'
     unknown = 'blahblah'
 
     def test_identify(self):
@@ -20,6 +21,7 @@ class TestIdentifyFunctions(unittest.TestCase):
         self.assertEqual(trans.identify(self.accented_pinyin), trans.PINYIN)
         self.assertEqual(trans.identify(self.zhuyin), trans.ZHUYIN)
         self.assertEqual(trans.identify(self.ipa), trans.IPA)
+        self.assertEqual(trans.identify(self.jyutping), trans.JYUTPING)
         self.assertEqual(trans.identify(self.unknown), trans.UNKNOWN)
 
     def test_is_pinyin(self):
@@ -27,6 +29,7 @@ class TestIdentifyFunctions(unittest.TestCase):
         self.assertTrue(trans.is_pinyin(self.accented_pinyin))
         self.assertFalse(trans.is_pinyin(self.zhuyin))
         self.assertFalse(trans.is_pinyin(self.ipa))
+        self.assertFalse(trans.is_pinyin(self.jyutping))
         self.assertFalse(trans.is_pinyin(self.unknown))
 
     def test_is_zhuyin(self):
@@ -34,6 +37,7 @@ class TestIdentifyFunctions(unittest.TestCase):
         self.assertFalse(trans.is_zhuyin(self.numbered_pinyin))
         self.assertFalse(trans.is_zhuyin(self.accented_pinyin))
         self.assertFalse(trans.is_zhuyin(self.ipa))
+        self.assertFalse(trans.is_zhuyin(self.jyutping))
         self.assertFalse(trans.is_zhuyin(self.unknown))
 
     def test_is_ipa(self):
@@ -41,6 +45,7 @@ class TestIdentifyFunctions(unittest.TestCase):
         self.assertFalse(trans.is_ipa(self.numbered_pinyin))
         self.assertFalse(trans.is_ipa(self.accented_pinyin))
         self.assertFalse(trans.is_ipa(self.zhuyin))
+        self.assertFalse(trans.is_ipa(self.jyutping))
         self.assertFalse(trans.is_ipa(self.unknown))
 
     def test_is_pinyin_compatible(self):
@@ -48,6 +53,7 @@ class TestIdentifyFunctions(unittest.TestCase):
         self.assertTrue(trans.is_pinyin_compatible(self.numbered_pinyin))
         self.assertTrue(trans.is_pinyin_compatible(self.accented_pinyin))
         self.assertFalse(trans.is_pinyin_compatible(self.zhuyin))
+        self.assertTrue(trans.is_pinyin_compatible(self.jyutping))
         self.assertTrue(trans.is_pinyin_compatible(self.unknown))
 
     def test_is_zhuyin_compatible(self):
@@ -55,7 +61,16 @@ class TestIdentifyFunctions(unittest.TestCase):
         self.assertFalse(trans.is_zhuyin_compatible(self.numbered_pinyin))
         self.assertFalse(trans.is_zhuyin_compatible(self.accented_pinyin))
         self.assertTrue(trans.is_zhuyin_compatible(self.zhuyin))
+        self.assertFalse(trans.is_zhuyin_compatible(self.jyutping))
         self.assertFalse(trans.is_zhuyin_compatible(self.unknown))
+
+    def test_is_jyutping(self):
+        self.assertFalse(trans.is_jyutping(self.ipa))
+        self.assertFalse(trans.is_jyutping(self.numbered_pinyin))
+        self.assertFalse(trans.is_jyutping(self.accented_pinyin))
+        self.assertFalse(trans.is_jyutping(self.zhuyin))
+        self.assertTrue(trans.is_jyutping(self.jyutping))
+        self.assertFalse(trans.is_jyutping(self.unknown))
 
 
 class TestConvertFunctions(unittest.TestCase):
