@@ -31,7 +31,7 @@ class TestHtmlFuctions(unittest.TestCase):
     s2 = '你好，我媽媽對我叫：“顏毅”。'
     zh2 = 'ㄋㄧˇ ㄏㄠˇ，ㄨㄛˇ ㄇㄚ ㄇㄚ ㄉㄨㄟˋ ㄨㄛˇ ㄐㄧㄠˋ：“ㄧㄢˊ ㄧˋ”'
     pi2 = 'nǐ hǎo，wǒ mā mā duì wǒ jiào：“yán yì”'
-    jp2 = 'nei5 hou2，ngo5 ma1 ma1 deui3 ngo5 giu3：“ngaan4 ngai6”。'
+    jp2 = 'nei5 hou2，ngo5 ma1 ma1 deoi3 ngo5 giu3：“ngaan4 ngai6”。'
     zh2_man = ['', '', '', '', '', '', '', '', '', '', '', 'yan2', 'yi4', '', '']
 
     zh3 = "ㄨㄛˇ ㄉㄨㄟˋ ㄊㄚ ㄕㄨㄛ：“ㄋㄧˇ ㄇㄚ ㄇㄚ ㄉㄨㄟˋ ㄋㄧˇ ㄕㄨㄛ：“ㄋㄧˇ " +\
