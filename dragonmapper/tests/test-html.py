@@ -17,11 +17,13 @@ class TestHtmlFuctions(unittest.TestCase):
     s = '我叫顏毅'
     zh = 'ㄨㄛˇ ㄐㄧㄠˋ ㄧㄢˊ ㄧˋ'
     pi = 'wǒ jiào yán yì'
+    jp = 'ngo5 giu3 ngaan4 ngai6'
 
-    s2 = '你好，我媽媽對我叫“顏毅”。'
+    s2 = '你好，我媽媽對我叫：“顏毅”。'
     zh2 = 'ㄋㄧˇ ㄏㄠˇ，ㄨㄛˇ ㄇㄚ ㄇㄚ ㄉㄨㄟˋ ㄨㄛˇ ㄐㄧㄠˋ：“ㄧㄢˊ ㄧˋ”'
     pi2 = 'nǐ hǎo，wǒ mā mā duì wǒ jiào：“yán yì”'
-    zh2_man = ['', '', '', '', '', '', '', '', '', '', 'yan2', 'yi4', '', '']
+    jp2 = 'nei5 hou2，ngo5 ma1 ma1 deui3 ngo5 giu3：“ngaan4 ngai6”。'
+    zh2_man = ['', '', '', '', '', '', '', '', '', '', '', 'yan2', 'yi4', '', '']
 
     zh3 = "ㄨㄛˇ ㄉㄨㄟˋ ㄊㄚ ㄕㄨㄛ：“ㄋㄧˇ ㄇㄚ ㄇㄚ ㄉㄨㄟˋ ㄋㄧˇ ㄕㄨㄛ：“ㄋㄧˇ " +\
         "ㄅㄚˋ ㄅㄚˋ ㄉㄨㄟˋ ㄋㄧˇ ㄕㄨㄛ：“ㄋㄧˇ ㄏㄠˇ ㄋㄩˇ ㄦ˙”””"
@@ -126,6 +128,7 @@ class TestHtmlFuctions(unittest.TestCase):
                 'ㄦ˙', '', '', ''])
 
     def test_manual_phonetics_input(self):
+        print(html.to_html(self.s2, bottom=self.zh2_man).replace('\t', '\\t').replace('\n', '\\n'))
         self.assertEqual(
             html.to_html(
                 self.s2, bottom=self.zh2_man),
