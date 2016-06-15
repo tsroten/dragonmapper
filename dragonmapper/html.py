@@ -35,7 +35,7 @@ STACKED_SIDES = (LEFT, RIGHT)
 _indentation = 0
 _line_html = ''
 _puctuation = tuple(zhon.hanzi.punctuation + zhon.pinyin.punctuation)
-_tones_marks = ['¯', 'ˊ', 'ˇ', 'ˋ', '˙', '1', '2', '3', '4', '5']
+_tones_marks = ['¯', 'ˊ', 'ˇ', 'ˋ', '˙', '1', '2', '3', '4', '5', '6']
 
 
 def _identify(s):
@@ -46,10 +46,10 @@ def _identify(s):
     *s* is the string to identify.
     """
 
-    if hanzi.has_chinese(s):
-        return "hanzi"
-    elif s == "":
+    if s == "":
         return "unknown"
+    elif hanzi.has_chinese(s):
+        return "hanzi"
     elif s in _puctuation:
         return "punct"
     elif s in _tones_marks:
@@ -58,6 +58,8 @@ def _identify(s):
         c = trans.identify(s)
         if c == trans.ZHUYIN:
             return "zhuyin"
+        elif c == trans.JYUTPING:
+            return "jyutping"
         elif c == trans.PINYIN:
             return "pinyin"
         elif c == trans.UNKNOWN:
