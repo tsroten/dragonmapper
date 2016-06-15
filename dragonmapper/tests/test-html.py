@@ -10,6 +10,15 @@ from dragonmapper import html
 
 class TestHtmlFuctions(unittest.TestCase):
 
+    def fix_line(s):
+        """
+        Returns string without useless characters
+
+        *s* is line from file
+        """
+        return s.replace("\\n", "\n").replace("\\t", "\t").rstrip('\n')
+
+
     maxDiff = None
 
     f = codecs.open("dragonmapper/data/test-html-data.txt", 'r', 'utf8')
@@ -28,22 +37,14 @@ class TestHtmlFuctions(unittest.TestCase):
     zh3 = "ㄨㄛˇ ㄉㄨㄟˋ ㄊㄚ ㄕㄨㄛ：“ㄋㄧˇ ㄇㄚ ㄇㄚ ㄉㄨㄟˋ ㄋㄧˇ ㄕㄨㄛ：“ㄋㄧˇ " +\
         "ㄅㄚˋ ㄅㄚˋ ㄉㄨㄟˋ ㄋㄧˇ ㄕㄨㄛ：“ㄋㄧˇ ㄏㄠˇ ㄋㄩˇ ㄦ˙”””"
 
-    indented_5 = f.readline()\
-        .replace("\\n", "\n").replace("\\t", "\t").rstrip('\n')
-    indented_0 = f.readline()\
-        .replace("\\n", "\n").replace("\\t", "\t").rstrip('\n')
-    indented_3 = f.readline()\
-        .replace("\\n", "\n").replace("\\t", "\t").rstrip('\n')
-    zhuyin_both_pinyin_both = f.readline()\
-        .replace("\\n", "\n").replace("\\t", "\t").rstrip('\n')
-    pinyin_top = f.readline()\
-        .replace("\\n", "\n").replace("\\t", "\t").rstrip('\n')
-    zhuyin_top = f.readline()\
-        .replace("\\n", "\n").replace("\\t", "\t").rstrip('\n')
-    pinyin_bottom = f.readline()\
-        .replace("\\n", "\n").replace("\\t", "\t").rstrip('\n')
-    manual_pinyin = f.readline()\
-        .replace("\\n", "\n").replace("\\t", "\t").rstrip('\n')
+    indented_5 = fix_line(f.readline())
+    indented_0 = fix_line(f.readline())
+    indented_3 = fix_line(f.readline())
+    zhuyin_both_pinyin_both = fix_line(f.readline())
+    pinyin_top = fix_line(f.readline())
+    zhuyin_top = fix_line(f.readline())
+    pinyin_bottom = fix_line(f.readline())
+    manual_pinyin = fix_line(f.readline())
 
     def test_indented_5(self):
         self.assertEqual(
