@@ -20,4 +20,5 @@ Attribution
 * Sun Jianai — FZKai-Extended font [used in pictures]
 * Google — [Source Sans Pro, Normal 400](https://www.google.com/fonts#QuickUsePlace:quickUse/Family:Source+Sans+Pro) [used for Pinyin font]
 * [Write Cantonese.com](https://writecantonese8.wordpress.com/) — [Cantonese CEDICT](http://dl.dropbox.com/u/32882273/yedict_20100108.u8)
-* [kodensha.jp](http://www.kodensha.jp/) — [Yale to Jyutping converter](http://www.kodensha.jp/webapp/cantonese/can_converter_e.htm)
+* [kodensha.jp](http://www.kodensha.jp/) — [Online Yale to Jyutping converter](http://www.kodensha.jp/webapp/cantonese/can_converter_e.htm)
+* [Jackson L. Lee](https://github.com/JacksonLee) — [PyCantonese](https://github.com/pycantonese/pycantonese) (Apache v2)
