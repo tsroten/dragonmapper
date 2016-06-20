@@ -158,3 +158,9 @@ class TestHtmlFuctions(unittest.TestCase):
             ),
             [""] * 6
         )
+
+    def test_is_phonetic_script(self):
+        self.assertEqual(html._is_phonetic_script("ni3"), True)
+        self.assertEqual(html._is_phonetic_script("老f22x9-\\"), False)
+        self.assertEqual(html._is_phonetic_script("ni˧˩˧ xɑʊ˧˩˧"), True)
+        self.assertEqual(html._is_phonetic_script("ㄨㄛˇ"), True)

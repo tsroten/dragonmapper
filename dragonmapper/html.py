@@ -29,8 +29,14 @@ RIGHT = MID_RIGHT
 BOTTOM = LOW_MID
 
 PUT_TEXT_PLACES = (TOP, LEFT, CENTER, RIGHT, BOTTOM)
-NEW_CHARCTER_PLACES = (TOP_RIGHT, MID_RIGHT, LOW_RIGHT)
-STACKED_SIDES = (LEFT, RIGHT)
+
+TOP_PLACES = (TOP_LEFT, TOP_MID, TOP_RIGHT)
+LEFT_PLACES = (TOP_LEFT, MID_LEFT, LOW_LEFT)
+RIGHT_PLACES = (TOP_RIGHT, MID_RIGHT, LOW_RIGHT)
+BOTTOM_PLACES = (LOW_LEFT, LOW_MID, LOW_RIGHT)
+
+STACKED_PLACES = (LEFT, RIGHT)
+
 
 _indentation = 0
 _line_html = ''
@@ -60,8 +66,23 @@ def _identify(s):
             return "zhuyin"
         elif c == trans.PINYIN:
             return "pinyin"
+        elif c == trans.IPA:
+            return "ipa"
         elif c == trans.UNKNOWN:
             return "unknown"
+
+def _is_phonetic_script(s):
+
+    """
+    Returns bool if s is any phonetic script.
+
+    *s* string to preform test on
+    """
+
+    i_s = _identify(s)
+    if i_s == "pinyin" or i_s == "zhuyin" or i_s == "ipa":
+        return True
+    return False
 
 
 def _stackify(s):
@@ -170,6 +191,7 @@ def to_html(characters,
             right=None,
             left=None,
             top=None,
+            minified=False,
             indentation=0):
 
     """
@@ -210,21 +232,42 @@ def to_html(characters,
 
             if side in PUT_TEXT_PLACES:
                 text_type = _identify(current_side[char_num])
-                if side in STACKED_SIDES:
+                if side in STACKED_PLACES:
                     text = _stackify(current_side[char_num])
                 else:
                     text = current_side[char_num]
 
-            if side in NEW_CHARCTER_PLACES:
-                char_num += 1
+            if text is not "":
+                if _is_phonetic_script(text):
+                    _html_add(
+                        "<td class=\"{0} {1} {2}\">".format(
+                            text_type, characters[char_num], 'phonetic-script'),
+                        3)
+                else:
+                    _html_add(
+                        "<td class=\"{0} {1}\">".format(
+                            text_type, characters[char_num]),
+                        3)
+            # If the text is blank
+            else:
+                _html_add(
+                    "<td class=\"{0}\">".format(
+                        text_type),
+                    3)
 
-            _html_add("<td class=\"{0}\">".format(text_type), 3)
+            if side in RIGHT_PLACES:
+                char_num += 1
+            
+
             _html_add("<span>{0}</span>".format(text), 4)
             _html_add("</td>", 3)
 
         _html_add("</tr>", 2)
     _html_add("</tbody>", 1)
     _html_add("</table>")
+
+    if minified:
+        return _line_html.replace('\t', '').replace('\n', '')
     return _line_html
 
 if __name__ == '__main__':
