@@ -71,6 +71,7 @@ def _identify(s):
         elif c == trans.UNKNOWN:
             return "unknown"
 
+
 def _is_phonetic_script(s):
 
     """
@@ -241,7 +242,9 @@ def to_html(characters,
                 if _is_phonetic_script(text):
                     _html_add(
                         "<td class=\"{0} {1} {2}\">".format(
-                            text_type, characters[char_num], 'phonetic-script'),
+                            text_type,
+                            characters[char_num],
+                            'phonetic-script'),
                         3)
                 else:
                     _html_add(
@@ -257,7 +260,6 @@ def to_html(characters,
 
             if side in RIGHT_PLACES:
                 char_num += 1
-            
 
             _html_add("<span>{0}</span>".format(text), 4)
             _html_add("</td>", 3)
