@@ -43,7 +43,6 @@ _line_html = ''
 _puctuation = tuple(zhon.hanzi.punctuation + zhon.pinyin.punctuation)
 _tones_marks = ['¯', 'ˊ', 'ˇ', 'ˋ', '˙', '1', '2', '3', '4', '5']
 
-
 def _identify(s):
 
     """
@@ -140,7 +139,7 @@ def _split_punct(s):
     return temp
 
 
-def _return_correct_side(x, y, t, l, c, r, b):
+def _return_correct_side(x, y, t, l, c, r, b, bl, br, tl, tr):
 
     """
     Returns what side is being referenced by the coordinates, and the ...
@@ -148,14 +147,15 @@ def _return_correct_side(x, y, t, l, c, r, b):
 
     *x, y* are the coordinates
     *t, l, c, r, b* are top, left, center, right, and bottom, respectively.
+    *bl, br, tl, and tr* are bottom left, bottom right, top left, and top right.
     """
 
     if x == 0 and y == 0:
-        return ([], TOP_LEFT)
+        return (tl, TOP_LEFT)
     elif x == 1 and y == 0:
         return (t, TOP)
     elif x == 2 and y == 0:
-        return ([], TOP_RIGHT)
+        return (tr, TOP_RIGHT)
     elif x == 0 and y == 1:
         return (l, LEFT)
     elif x == 1 and y == 1:
@@ -163,12 +163,39 @@ def _return_correct_side(x, y, t, l, c, r, b):
     elif x == 2 and y == 1:
         return (r, RIGHT)
     elif x == 0 and y == 2:
-        return ([], LOW_LEFT)
+        return (bl, LOW_LEFT)
     elif x == 1 and y == 2:
         return (b, BOTTOM)
     elif x == 2 and y == 2:
-        return ([], LOW_RIGHT)
+        return (br, LOW_RIGHT)
 
+def _get_side_string(s):
+    """
+    Returns side as string (for html-css referencing)
+
+    s is int constant
+    """
+
+    result = ""
+    if s == TOP_LEFT:
+        result = "top-left"
+    elif s == TOP_MID:
+        result = "top-mid top"
+    elif s == TOP_RIGHT:
+        result = "top-right"
+    elif s == MID_LEFT:
+        result = "mid-left left"
+    elif s == MID_MID:
+        result = "mid-mid center"
+    elif s == MID_RIGHT:
+        result = "mid-right right"
+    elif s == LOW_LEFT:
+        result = "low-left"
+    elif s == LOW_MID:
+        result = "low-mid bottom"
+    elif s == LOW_RIGHT:
+        result = "low-right"
+    return result
 
 def _fix_empty_arrays(a, length):
 
@@ -188,10 +215,14 @@ def _fix_empty_arrays(a, length):
 
 
 def to_html(characters,
+            bottom_left=None,
             bottom=None,
+            bottom_right=None,
             right=None,
             left=None,
+            top_left=None,
             top=None,
+            top_right=None,
             minified=False,
             indentation=0):
 
@@ -200,7 +231,7 @@ def to_html(characters,
      ... notations provided, on any given side.
 
     *characters* will be displayed in the middle of each output table.
-    *bottom/right/left/bottom* will be displayed on their respective sides ...
+    *bottom/right/left/bottom ...* will be displayed on their respective sides ...
      ... of the character. Strings from dragonmapper.transcriptions, ...
      ... dragonmapper.hanzi.to_xxxyin, or an array/tuple are acceptable.
     *indentation* specifies how many extra tab spaces there should be.
@@ -212,13 +243,25 @@ def to_html(characters,
     _line_html = ""
     proper_length = len(characters)
 
-    _html_add("<table class=\"chinese-line\">")
+    char_type = 'unknown'
+    if hanzi.is_traditional(characters) and hanzi.is_simplified(characters):
+        char_type = 'traditional-simplified-same'
+    elif hanzi.is_traditional(characters):
+        char_type = 'traditional'
+    elif hanzi.is_simplified(characters):
+        char_type = 'simplified'
+
+    _html_add("<table class=\"chinese-word {0} {1}\">".format("".join(characters), char_type))
     _html_add("<tbody>", 1)
 
+    top_left = _fix_empty_arrays(top_left, proper_length)
     top = _fix_empty_arrays(top, proper_length)
+    top_right = _fix_empty_arrays(top_right, proper_length)
     left = _fix_empty_arrays(left, proper_length)
     right = _fix_empty_arrays(right, proper_length)
+    bottom_left = _fix_empty_arrays(bottom_left, proper_length)
     bottom = _fix_empty_arrays(bottom, proper_length)
+    bottom_right = _fix_empty_arrays(bottom_right, proper_length)
 
     for y in range(0, 3):
         _html_add("<tr>", 2)
@@ -227,43 +270,41 @@ def to_html(characters,
             x = i % 3
             text = ""
             text_type = "unknown"
+            phonetic_script_string = ""
 
             current_side, side = _return_correct_side(
-                x, y, top, left, characters, right, bottom)
+                x, y, top, left, characters, right, bottom,
+                bottom_left, bottom_right, top_left, top_right
+            )
 
-            if side in PUT_TEXT_PLACES:
-                text_type = _identify(current_side[char_num])
-                if side in STACKED_PLACES:
-                    text = _stackify(current_side[char_num])
-                else:
-                    text = current_side[char_num]
-
-            if text is not "":
-                if _is_phonetic_script(text):
-                    _html_add(
-                        "<td class=\"{0} {1} {2}\">".format(
-                            text_type,
-                            characters[char_num],
-                            'phonetic-script'),
-                        3)
-                else:
-                    _html_add(
-                        "<td class=\"{0} {1}\">".format(
-                            text_type, characters[char_num]),
-                        3)
-            # If the text is blank
+            text_type = _identify(current_side[char_num])
+            if side in STACKED_PLACES:
+                text = _stackify(current_side[char_num])
             else:
+                text = current_side[char_num]
+
+            if _is_phonetic_script(text):
+                phonetic_script_string = " phonetic-script"
+
+            if text is "":
                 _html_add(
-                    "<td class=\"{0}\">".format(
-                        text_type),
+                    "<td><span class=\"{0} empty\"></span></td>".format(
+                        characters),
                     3)
+            else:
+                _html_add("<td>", 3)
+                _html_add(
+                    "<span class=\"{0}{1} {2} {3}\">{4}</span>".format(
+                        characters,
+                        phonetic_script_string,
+                        text_type,
+                        _get_side_string(side),
+                        text),
+                    4)
+                _html_add("</td>", 3)
 
             if side in RIGHT_PLACES:
                 char_num += 1
-
-            _html_add("<span>{0}</span>".format(text), 4)
-            _html_add("</td>", 3)
-
         _html_add("</tr>", 2)
     _html_add("</tbody>", 1)
     _html_add("</table>")
