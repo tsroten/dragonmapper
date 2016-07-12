@@ -43,6 +43,7 @@ _line_html = ''
 _puctuation = tuple(zhon.hanzi.punctuation + zhon.pinyin.punctuation)
 _tones_marks = ['¯', 'ˊ', 'ˇ', 'ˋ', '˙', '1', '2', '3', '4', '5']
 
+
 def _identify(s):
 
     """
@@ -147,7 +148,7 @@ def _return_correct_side(x, y, t, l, c, r, b, bl, br, tl, tr):
 
     *x, y* are the coordinates
     *t, l, c, r, b* are top, left, center, right, and bottom, respectively.
-    *bl, br, tl, and tr* are bottom left, bottom right, top left, and top right.
+    *bl, br, tl, and tr* are bottomleft, bottomright, topleft, and topright.
     """
 
     if x == 0 and y == 0:
@@ -168,6 +169,7 @@ def _return_correct_side(x, y, t, l, c, r, b, bl, br, tl, tr):
         return (b, BOTTOM)
     elif x == 2 and y == 2:
         return (br, LOW_RIGHT)
+
 
 def _get_side_string(s):
     """
@@ -196,6 +198,7 @@ def _get_side_string(s):
     elif s == LOW_RIGHT:
         result = "low-right"
     return result
+
 
 def _fix_empty_arrays(a, length):
 
@@ -231,8 +234,8 @@ def to_html(characters,
      ... notations provided, on any given side.
 
     *characters* will be displayed in the middle of each output table.
-    *bottom/right/left/bottom ...* will be displayed on their respective sides ...
-     ... of the character. Strings from dragonmapper.transcriptions, ...
+    *bottom/right/left/bottom ...* will be displayed on their respective ...
+     ... sides of the character. Strings from dragonmapper.transcriptions, ...
      ... dragonmapper.hanzi.to_xxxyin, or an array/tuple are acceptable.
     *indentation* specifies how many extra tab spaces there should be.
     """
@@ -251,7 +254,10 @@ def to_html(characters,
     elif hanzi.is_simplified(characters):
         char_type = 'simplified'
 
-    _html_add("<table class=\"chinese-word {0} {1}\">".format("".join(characters), char_type))
+    _html_add(
+        "<table class=\"chinese-word {0} {1}\">".format(
+            "".join(characters), char_type)
+    )
     _html_add("<tbody>", 1)
 
     top_left = _fix_empty_arrays(top_left, proper_length)
