@@ -134,19 +134,19 @@ class TestHtmlFuctions(unittest.TestCase):
     def test_return_correct_sid(self):
         self.assertEqual(
             html._return_correct_side(
-                2, 0, [], [], [], [], []
+                2, 0, [], [], [], [], [], [], [], [], []
             ),
             ([], html.TOP_RIGHT)
         )
         self.assertEqual(
             html._return_correct_side(
-                2, 2, [], [], [], [], []
+                2, 2, [], [], [], [], [], [], [], [], []
             ),
             ([], html.LOW_RIGHT)
         )
         self.assertEqual(
             html._return_correct_side(
-                1, 2, [], [], [], [], []
+                1, 2, [], [], [], [], [], [], [], [], []
             ),
             ([], html.BOTTOM)
         )
