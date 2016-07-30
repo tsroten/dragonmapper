@@ -140,7 +140,7 @@ def _split_punct(s):
     return temp
 
 
-def _return_correct_side(x, y, t, l, c, r, b, bl, br, tl, tr):
+def _return_correct_side(x, y, t, l, c, r, b):
 
     """
     Returns what side is being referenced by the coordinates, and the ...
@@ -148,28 +148,23 @@ def _return_correct_side(x, y, t, l, c, r, b, bl, br, tl, tr):
 
     *x, y* are the coordinates
     *t, l, c, r, b* are top, left, center, right, and bottom, respectively.
-    *bl, br, tl, and tr* are bottomleft, bottomright, topleft, and topright.
     """
 
-    if x == 0 and y == 0:
-        return (tl, TOP_LEFT)
-    elif x == 1 and y == 0:
+    # top
+    if x == 1 and y == 0:
         return (t, TOP)
-    elif x == 2 and y == 0:
-        return (tr, TOP_RIGHT)
+    # left
     elif x == 0 and y == 1:
         return (l, LEFT)
+    # characters/center
     elif x == 1 and y == 1:
         return (c, CENTER)
+    # right
     elif x == 2 and y == 1:
         return (r, RIGHT)
-    elif x == 0 and y == 2:
-        return (bl, LOW_LEFT)
+    # bottom
     elif x == 1 and y == 2:
         return (b, BOTTOM)
-    elif x == 2 and y == 2:
-        return (br, LOW_RIGHT)
-
 
 def _get_side_string(s):
     """
@@ -209,23 +204,18 @@ def _fix_empty_arrays(a, length):
     *a* is the array to proform the action on
     *length* is the length
     """
-
     if a is None:
         a = [""] * length
-    elif len(a) > length:
+    elif len(a) != length:
         a = _split_punct(a)
     return a
 
 
 def to_html(characters,
-            bottom_left=None,
             bottom=None,
-            bottom_right=None,
             right=None,
             left=None,
-            top_left=None,
             top=None,
-            top_right=None,
             minified=False,
             indentation=0):
 
@@ -246,6 +236,11 @@ def to_html(characters,
     _line_html = ""
     proper_length = len(characters)
 
+    top = _fix_empty_arrays(top, proper_length)
+    left = _fix_empty_arrays(left, proper_length)
+    right = _fix_empty_arrays(right, proper_length)
+    bottom = _fix_empty_arrays(bottom, proper_length)
+
     char_type = 'unknown'
     if hanzi.is_traditional(characters) and hanzi.is_simplified(characters):
         char_type = 'traditional-simplified-same'
@@ -260,15 +255,6 @@ def to_html(characters,
     )
     _html_add("<tbody>", 1)
 
-    top_left = _fix_empty_arrays(top_left, proper_length)
-    top = _fix_empty_arrays(top, proper_length)
-    top_right = _fix_empty_arrays(top_right, proper_length)
-    left = _fix_empty_arrays(left, proper_length)
-    right = _fix_empty_arrays(right, proper_length)
-    bottom_left = _fix_empty_arrays(bottom_left, proper_length)
-    bottom = _fix_empty_arrays(bottom, proper_length)
-    bottom_right = _fix_empty_arrays(bottom_right, proper_length)
-
     for y in range(0, 3):
         _html_add("<tr>", 2)
         char_num = 0
@@ -280,7 +266,6 @@ def to_html(characters,
 
             current_side, side = _return_correct_side(
                 x, y, top, left, characters, right, bottom,
-                bottom_left, bottom_right, top_left, top_right
             )
 
             text_type = _identify(current_side[char_num])
@@ -314,6 +299,64 @@ def to_html(characters,
         _html_add("</tr>", 2)
     _html_add("</tbody>", 1)
     _html_add("</table>")
+
+    if minified:
+        return _line_html.replace('\t', '').replace('\n', '')
+    return _line_html
+
+
+def to_ruby_html(characters,
+            bottom=None,
+            right=None,
+            left=None,
+            top=None,
+            minified=False,
+            indentation=0):
+
+    """
+    Returns valid HTML for the Chinese characters, and (assumed) phonetic ...
+     ... notations provided, on any given side.
+
+    *characters* will be displayed in the middle of each output table.
+    *bottom/right/left/bottom ...* will be displayed on their respective ...
+     ... sides of the character. Strings from dragonmapper.transcriptions, ...
+     ... dragonmapper.hanzi.to_xxxyin, or an array/tuple are acceptable.
+    *indentation* specifies how many extra tab spaces there should be.
+    """
+
+    global _indentation
+    global _line_html
+    _indentation = indentation
+    _line_html = ""
+    proper_length = len(characters)
+
+    top = _fix_empty_arrays(top, proper_length)
+    left = _fix_empty_arrays(left, proper_length)
+    right = _fix_empty_arrays(right, proper_length)
+    bottom = _fix_empty_arrays(bottom, proper_length)
+
+
+    char_type = 'unknown'
+    if hanzi.is_traditional(characters) and hanzi.is_simplified(characters):
+        char_type = 'traditional-simplified-same'
+    elif hanzi.is_traditional(characters):
+        char_type = 'traditional'
+    elif hanzi.is_simplified(characters):
+        char_type = 'simplified'
+
+    print(len(characters))
+    print(len(top))
+    _html_add(
+        "<ruby class=\"{0} chinese-word {1}\">".format(
+            "".join(characters), char_type)
+    )
+    print(characters)
+    print(top)
+    for i in range(len(characters)):
+        _html_add("<rb class=\"{0} hanzi\">{1}</rb>\
+                    <rt class=\"{0} phonetic-script pinyin\">{2}</rt>".format(
+                    characters, characters[i], top[i]), 1)
+    _html_add("</ruby>")
 
     if minified:
         return _line_html.replace('\t', '').replace('\n', '')
