@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-import codecs
 import unittest
 from dragonmapper import html
 
@@ -20,7 +19,10 @@ class TestHtmlFuctions(unittest.TestCase):
 <rb class="你好 hanzi">好</rb>\
 <rt class="你好 phonetic-script pinyin">hao3</rt></ruby>'
 
-
     def test_to_html(self):
-        self.assertEqual(html.to_html(self.zi, top=self.pinyin, minified=True),
-        self.ruby)
+        self.assertEqual(
+            html.to_html(
+                self.zi,
+                top=self.pinyin,
+                minified=True),
+            self.ruby)

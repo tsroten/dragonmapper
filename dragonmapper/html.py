@@ -15,14 +15,15 @@ CHINESE_TYPE_TRADITIONAL = 2
 CHINESE_TYPE_SAME = 3
 
 TYPE_TO_CSS_CLASS = {0: 'unknown',
-1: 'simplified',
-2: 'traditional',
-3: 'traditional-simplified-same'}
+                        1: 'simplified',
+                        2: 'traditional',
+                        3: 'traditional-simplified-same'}
 
 _indentation = 0
 _line_html = ''
 punctuation = tuple(zhon.hanzi.punctuation + zhon.pinyin.punctuation)
-_tones_marks = _tones_marks = ['¯', 'ˊ', 'ˇ', 'ˋ', '˙', '1', '2', '3', '4', '5']
+_tones_marks = ['¯', 'ˊ', 'ˇ', 'ˋ', '˙', '1', '2', '3', '4', '5']
+
 
 def _identify(s):
 
@@ -82,8 +83,6 @@ def is_what_type_of_chinese(s):
     return CHINESE_TYPE_UNKNOWN
 
 
-
-
 def to_html(characters,
             top=None,
             minified=False,
@@ -94,7 +93,7 @@ def to_html(characters,
         and phonetic notations provided.
 
     *characters* is an string of the Chinese characters.
-    *top* is an array that will be displayed on top of their respective characters.
+    *top* an array that will be displayed on top of the respective characters.
     TODO: Add support for more sides... Waiting on browser support.
     *indentation* specifies how many extra tabs there should be.
     """
