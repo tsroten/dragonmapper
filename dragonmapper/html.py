@@ -6,14 +6,23 @@ from __future__ import unicode_literals
 from dragonmapper import hanzi
 from dragonmapper import transcriptions as trans
 import zhon
-from zhon import pinyin
-from zhon import zhuyin
-
 
 """See recomended CSS style: DRAGONMAPPER_DIR/style.css"""
 
+CHINESE_TYPE_UNKNOWN = 0
+CHINESE_TYPE_SIMPLIFIED = 1
+CHINESE_TYPE_TRADITIONAL = 2
+CHINESE_TYPE_SAME = 3
+
+TYPE_TO_CSS_CLASS = {0: 'unknown',
+1: 'simplified',
+2: 'traditional',
+3: 'traditional-simplified-same'}
+
 _indentation = 0
 _line_html = ''
+punctuation = tuple(zhon.hanzi.punctuation + zhon.pinyin.punctuation)
+_tones_marks = _tones_marks = ['¯', 'ˊ', 'ˇ', 'ˋ', '˙', '1', '2', '3', '4', '5']
 
 def _identify(s):
 
@@ -42,6 +51,7 @@ def _identify(s):
         elif c == trans.UNKNOWN:
             return "unknown"
 
+
 def _html_add(s, tabs=0):
 
     """
@@ -54,17 +64,37 @@ def _html_add(s, tabs=0):
     global _line_html
     _line_html += (("\n")+("\t"*(tabs+_indentation)))+s
 
+
+def is_what_type_of_chinese(s):
+
+    """
+    Returns values for diffent kinds of Chinese, see CHINESE_TYPE_...
+
+    *s* character string
+    """
+
+    if hanzi.is_traditional(s) and hanzi.is_simplified(s):
+        return CHINESE_TYPE_SAME
+    elif hanzi.is_traditional(s):
+        return CHINESE_TYPE_TRADITIONAL
+    elif hanzi.is_simplified(s):
+        return CHINESE_TYPE_SIMPLIFIED
+    return CHINESE_TYPE_UNKNOWN
+
+
+
+
 def to_html(characters,
             top=None,
             minified=False,
             indentation=0):
 
     """
-    Returns valid HTML(5) for the Chinese characters,
+    Returns (probably) valid HTML(5) for the Chinese characters,
         and phonetic notations provided.
 
-    *characters* is an array of the Chinese characters.
-    *top* is an array that will be displayed on top of the characters.
+    *characters* is an string of the Chinese characters.
+    *top* is an array that will be displayed on top of their respective characters.
     TODO: Add support for more sides... Waiting on browser support.
     *indentation* specifies how many extra tabs there should be.
     """
@@ -73,17 +103,10 @@ def to_html(characters,
     global _line_html
     _indentation = indentation
     _line_html = ""
-    proper_length = len(characters)
 
-    phonetic_script_type = _identify(top)
+    phonetic_script_type = _identify("".join(top))
 
-    char_type = 'unknown'
-    if hanzi.is_traditional(characters) and hanzi.is_simplified(characters):
-        char_type = 'traditional-simplified-same'
-    elif hanzi.is_traditional(characters):
-        char_type = 'traditional'
-    elif hanzi.is_simplified(characters):
-        char_type = 'simplified'
+    char_type = TYPE_TO_CSS_CLASS[is_what_type_of_chinese(characters)]
 
     _html_add(
         "<ruby class=\"{0} chinese-word {1}\">".format(
@@ -91,8 +114,12 @@ def to_html(characters,
     )
     for i in range(len(characters)):
         _html_add("<rb class=\"{0} hanzi\">{1}</rb>\
-                    <rt class=\"{0} phonetic-script {2}\">{3}</rt>".format(
-                    characters, characters[i], top[i]), 1)
+<rt class=\"{0} phonetic-script {2}\">{3}</rt>".format(
+            characters,
+            characters[i],
+            phonetic_script_type,
+            top[i]
+        ), 1)
     _html_add("</ruby>")
 
     if minified:
