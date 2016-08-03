@@ -22,10 +22,7 @@ Features
   Phonetic Alphabet.
 * Identify a string as Traditional or Simplified Chinese, Pinyin, Zhuyin, or
   the International Phonetic Alphabet.
-* Output HTML based on the above.
-* [HTML] You can even mix-and-match the different phonetic systems:
-* [HTML] right=, and top= are also available.
-* [HTML] See data/default-style.css
+* Output HTML of characters with Pinyin attached to them.
 
 .. code:: python
 
@@ -51,38 +48,16 @@ Features
 
     >>> s = "我是加拿大人"
     >>> zh = hanzi.to_zhuyin(s)
-    >>> zh
-    'ㄨㄛˇ ㄕˋ ㄐㄧㄚ ㄋㄚˊ ㄉㄚˋ ㄖㄣˊ'
-    >>> h = dragonmapper.html.to_html(s, right=zh)
-    >>> print(h)
-
-.. image:: http://s25.postimg.org/82l3nbfrz/Screenshot_from_2016_06_03_11_16_14.png
-        :target: http://postimg.org/image/m90uijqmz/
-
-.. code:: python
-
-    >>> s = "我是加拿大人"
-    >>> zh = hanzi.to_zhuyin(s)
-    >>> pi = trans.zhuyin_to_pinyin(zh)
+    >>> pi = trans.zhuyin_to_pinyin(zh).split(' ')
     >>> pi
-    'wǒ shì jiā ná dà rén'
-    >>> h = dragonmapper.html.to_html(s, bottom=pi)
+    ['wǒ', 'shì', 'jiā', 'ná', 'dà', 'rén']
+    >>> h = dragonmapper.html.to_html(s, top=pi)
     >>> print(h)
 
 * The intermediate switch to Zhuyin, is because of spacing. You can space out the characters instead.
-.. image:: http://s25.postimg.org/9vo0bn0yn/Screenshot_from_2016_06_03_11_16_39.png
-        :target: http://postimg.org/image/j3g8sc80r/
-
-.. code:: python
-
-    >>> s = "我是加拿大人"
-    >>> zh = hanzi.to_zhuyin(s)
-    >>> pi = trans.zhuyin_to_pinyin(zh)
-    >>> h = dragonmapper.html.to_html(s, bottom=pi, right=zh)
-    >>> print(h)
-
-.. image:: http://s25.postimg.org/9g854vpnj/Screenshot_from_2016_06_03_11_16_57.png
-        :target: http://postimg.org/image/m90uijqmz/
+* Note: only top is aviable right now, as browsers do not currently support having it elsewhere.
+.. image:: https://s25.postimg.org/4s44wylcv/Screenshot_from_2016_08_03_15_59_03.png
+        :target: https://postimg.org/image/o9yscwiaj/
 
 Getting Started
 ---------------
