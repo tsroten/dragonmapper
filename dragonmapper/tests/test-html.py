@@ -1,5 +1,5 @@
-"""Unit tests for dragonmapper.html."""
 # -*- coding: utf-8 -*-
+"""Unit tests for dragonmapper.html."""
 from __future__ import unicode_literals
 import unittest
 from dragonmapper import html

@@ -7,7 +7,6 @@ import re
 import hanzidentifier
 import zhon.hanzi
 import zhon.pinyin
-import zhon.jyutping
 
 import dragonmapper.data
 from dragonmapper.transcriptions import (
