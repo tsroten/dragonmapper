@@ -2,8 +2,8 @@
 """Formatting Chinese into HTML with dragonmapper's functions"""
 
 
-import zhon
 from __future__ import unicode_literals
+import zhon
 from dragonmapper import hanzi
 from dragonmapper import transcriptions as trans
 
