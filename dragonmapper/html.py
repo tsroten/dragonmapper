@@ -2,12 +2,10 @@
 """Formatting Chinese into HTML with dragonmapper's functions"""
 
 
+import zhon
 from __future__ import unicode_literals
 from dragonmapper import hanzi
 from dragonmapper import transcriptions as trans
-import zhon
-
-"""See recomended CSS style: DRAGONMAPPER_DIR/style.css"""
 
 CHINESE_TYPE_UNKNOWN = 0
 CHINESE_TYPE_SIMPLIFIED = 1
@@ -15,9 +13,9 @@ CHINESE_TYPE_TRADITIONAL = 2
 CHINESE_TYPE_SAME = 3
 
 TYPE_TO_CSS_CLASS = {0: 'unknown',
-                        1: 'simplified',
-                        2: 'traditional',
-                        3: 'traditional-simplified-same'}
+                     1: 'simplified',
+                     2: 'traditional',
+                     3: 'traditional-simplified-same'}
 
 _indentation = 0
 _line_html = ''
@@ -26,9 +24,7 @@ _tones_marks = ['¯', 'ˊ', 'ˇ', 'ˋ', '˙', '1', '2', '3', '4', '5']
 
 
 def _identify(s):
-
-    """
-    Returns string of text type for HTML/CSS.
+    """ Returns string of text type for HTML/CSS.
 
     *s* is the string to identify.
     """
@@ -54,7 +50,6 @@ def _identify(s):
 
 
 def _html_add(s, tabs=0):
-
     """
     Wrapper for _line_html+="..."
 
@@ -67,7 +62,6 @@ def _html_add(s, tabs=0):
 
 
 def is_what_type_of_chinese(s):
-
     """
     Returns values for diffent kinds of Chinese, see CHINESE_TYPE_...
 
@@ -87,7 +81,6 @@ def to_html(characters,
             top=None,
             minified=False,
             indentation=0):
-
     """
     Returns (probably) valid HTML(5) for the Chinese characters,
         and phonetic notations provided.
@@ -117,8 +110,7 @@ def to_html(characters,
             characters,
             characters[i],
             phonetic_script_type,
-            top[i]
-        ), 1)
+            top[i]), 1)
     _html_add("</ruby>")
 
     if minified:

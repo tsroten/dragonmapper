@@ -7,6 +7,7 @@ import re
 import hanzidentifier
 import zhon.hanzi
 import zhon.pinyin
+import zhon.jyutping
 
 import dragonmapper.data
 from dragonmapper.transcriptions import (
@@ -34,7 +35,8 @@ _READING_SEPARATOR = '/'
 
 
 def _load_data():
-    """Load the word and character mapping data into a dictionary.
+    r"""
+    Load the word and character mapping data into a dictionary.
 
     In the data files, each line is formatted like this:
         HANZI   PINYIN_READING/PINYIN_READING
@@ -58,8 +60,9 @@ _CHARACTERS = _HANZI_PINYIN_MAP['characters']
 _WORDS = _HANZI_PINYIN_MAP['words']
 
 
-def _hanzi_to_pinyin(hanzi):
-    """Return the Pinyin reading for a Chinese word.
+def _hanzi_to_pinyin(hanzi, DICT=None):
+    """
+    Return the Pinyin reading for a Chinese word.
 
     If the given string *hanzi* matches a CC-CEDICT word, the return value is
     formatted like this: [WORD_READING1, WORD_READING2, ...]
@@ -71,10 +74,18 @@ def _hanzi_to_pinyin(hanzi):
     original character is returned, e.g. [[CHAR_READING1, ...], CHAR, ...]
 
     """
+    if DICT is None:
+        DICT = _HANZI_PINYIN_MAP
+
     try:
-        return _HANZI_PINYIN_MAP['words'][hanzi]
+        return DICT['words'][hanzi]
     except KeyError:
-        return [_CHARACTERS.get(character, character) for character in hanzi]
+        return [
+            DICT['characters'].get(
+                character,
+                character)
+            for character in hanzi
+        ]
 
 
 def _enclose_readings(container, readings):
@@ -88,7 +99,8 @@ def _enclose_readings(container, readings):
 
 def to_pinyin(s, delimiter=' ', all_readings=False, container='[]',
               accented=True):
-    """Convert a string's Chinese characters to Pinyin readings.
+    """
+    Convert a string's Chinese characters to Pinyin readings.
 
     *s* is a string containing Chinese characters. *accented* is a
     boolean value indicating whether to return accented or numbered Pinyin
@@ -169,7 +181,8 @@ def to_pinyin(s, delimiter=' ', all_readings=False, container='[]',
 
 
 def to_zhuyin(s, delimiter=' ', all_readings=False, container='[]'):
-    """Convert a string's Chinese characters to Zhuyin readings.
+    """
+    Convert a string's Chinese characters to Zhuyin readings.
 
     *s* is a string containing Chinese characters.
 
@@ -192,7 +205,8 @@ def to_zhuyin(s, delimiter=' ', all_readings=False, container='[]'):
 
 
 def to_ipa(s, delimiter=' ', all_readings=False, container='[]'):
-    """Convert a string's Chinese characters to IPA.
+    """
+    Convert a string's Chinese characters to IPA.
 
     *s* is a string containing Chinese characters.
 
@@ -212,3 +226,25 @@ def to_ipa(s, delimiter=' ', all_readings=False, container='[]'):
     numbered_pinyin = to_pinyin(s, delimiter, all_readings, container, False)
     ipa = pinyin_to_ipa(numbered_pinyin)
     return ipa
+
+
+def to_jyutping(s, delimiter=' ', all_readings=False, container='[]'):
+    """
+    Convert a string's Chinese characters to Jyutping.
+
+    *s* is a string containing Chinese characters.
+
+    *delimiter* is the character used to indicate word boundaries in *s*.
+    This is used to differentiate between words and characters so that a more
+    accurate reading can be returned.
+
+    *all_readings* is a boolean value indicating whether or not to return all
+    possible readings in the case of words/characters that have multiple
+    readings. *container* is a two character string that is used to
+    enclose words/characters if *all_readings* is ``True``. The default
+    ``'[]'`` is used like this: ``'[READING1/READING2]'``.
+
+    Characters not recognized as Chinese are left untouched.
+
+    """
+    pass
