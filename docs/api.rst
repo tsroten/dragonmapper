@@ -234,3 +234,9 @@ lines of code.
 .. autofunction:: to_zhuyin
 
 .. autofunction:: to_ipa
+
+HTML Conversion:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Creates some HTML from the characters, and transcription systems you have.
+
+#.. autofunction:: to_html

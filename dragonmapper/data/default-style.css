@@ -1,0 +1,40 @@
+/**
+Default CSS style for dragonmapper
+**/
+
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro);
+
+.hanzi{
+    font-size: 2em;
+    line-height: 1em;
+    text-align: center;
+    vertical-align: middle;
+}
+.punct{
+    font-size: 1.5em;
+    line-height: 1em;
+    text-align: center;
+    vertical-align: middle;
+}
+.zhuyin{
+    font-size: 0.6em;
+    line-height: 1em;
+    text-align: center;
+    vertical-align: middle;
+}
+.pinyin{
+    font-size: 1em;
+    line-height: 1em;
+    /** Some fonts have exess space on accented pinyin character,
+            setting the font fixes this problem. **/
+    font-family: 'Source Sans Pro', sans-serif;
+    text-align: center;
+    vertical-align: center;
+}
+.tone-mark{
+    font-size: 1em;
+    text-align: center;
+}
+.unknown{
+    visibility: collapse;
+}

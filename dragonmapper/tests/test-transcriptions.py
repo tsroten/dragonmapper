@@ -173,3 +173,15 @@ class TestConvertFunctions(unittest.TestCase):
         numbered = 'Ao4di4li4'
 
         self.assertEqual(numbered, trans.accented_to_numbered(accented))
+
+    def test_short_syllables(self):
+        pinyin = 'yo1'
+        zhuyin = 'ㄧㄛ'
+
+        self.assertEqual(zhuyin, trans.pinyin_to_zhuyin(pinyin))
+
+    def test_dia_conversion(self):
+        pinyin = 'dia3'
+        zhuyin = 'ㄉㄧㄚˇ'
+
+        self.assertEqual(zhuyin, trans.pinyin_to_zhuyin(pinyin))
