@@ -15,6 +15,7 @@ functions for Chinese text processing:
 
 .. code:: python
 
+    >>> import dragonmapper.hanzi
     >>> s = '我是一个美国人。'
     >>> dragonmapper.hanzi.is_simplified(s)
     True
@@ -25,6 +26,7 @@ functions for Chinese text processing:
 
 .. code:: python
 
+    >>> import dragonmapper.transcriptions
     >>> s = 'Wǒ shì yīgè měiguórén.'
     >>> dragonmapper.transcriptions.is_pinyin(s)
     True
