@@ -9,11 +9,13 @@ import zhon.zhuyin
 
 import dragonmapper.data
 
+import pycantonese as pc
 
 UNKNOWN = 0
 PINYIN = 1
 ZHUYIN = 2
 IPA = 3
+JYUTPING = 4
 
 _UNACCENTED_VOWELS = 'aeiou\u00FC'
 _ACCENTED_VOWELS = (''.join(set(zhon.pinyin.vowels.lower()).difference(
@@ -517,6 +519,14 @@ def is_ipa(s):
     return _is_pattern_match(re_pattern, s)
 
 
+def is_jyutping(s):
+    """Checks if *s* consists of valid Jyutping."""
+    try:
+        pc.jyutping2yale(s)
+        return True
+    except Exception as e:
+        return False
+
 def identify(s):
     """Identify a given string's transcription system.
 
@@ -544,5 +554,7 @@ def identify(s):
         return ZHUYIN
     elif is_ipa(s):
         return IPA
+    elif is_jyutping(s):
+        return JYUTPING
     else:
         return UNKNOWN

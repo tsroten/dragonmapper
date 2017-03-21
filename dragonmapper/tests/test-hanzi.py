@@ -21,6 +21,15 @@ class TestConversionFunctions(unittest.TestCase):
     npinyin_segmented_readings = '[ai4] [xi3huan5] [ai4]。'
     ipa = 'aɪ˥˩ ɕi˧˩˧ xwan aɪ˥˩。'
     zhuyin = 'ㄞˋ ㄒㄧˇ ㄏㄨㄢ˙ ㄞˋ。'
+    jyutping = 'oi3hei2fun1oi3。'
+    jyutping_segmented = 'oi3 hei2fun1 oi3。'
+
+    def test_jyutping(self):
+        self.assertEqual(hanzi.to_jyutping(self.chinese), self.jyutping)
+        self.assertEqual(
+            hanzi.to_jyutping(
+                self.chinese_segmented),
+            self.jyutping_segmented)
 
     def test_accented_pinyin(self):
         self.assertEqual(hanzi.to_pinyin(self.chinese), self.apinyin)
@@ -49,6 +58,15 @@ class TestConversionFunctions(unittest.TestCase):
         self.assertEqual(hanzi.to_pinyin('便宜'), 'piànyi')
         self.assertEqual(hanzi.to_pinyin('便宜', all_readings=True),
                          '[piànyi/biànyí]')
+
+    def test_word_readings_jyutping(self):
+        self.assertEqual(hanzi.to_jyutping('當'), 'dong1')
+        self.assertEqual(hanzi.to_jyutping('當', all_readings=True),
+                         '[dong1/dong3]')
+
+        self.assertEqual(hanzi.to_jyutping('上'), 'seung6')
+        self.assertEqual(hanzi.to_jyutping('上', all_readings=True),
+                         '[seung6/seung5]')
 
     def test_custom_container(self):
         apinyin = self.apinyin_readings.replace('[', '(').replace(']', ')')
