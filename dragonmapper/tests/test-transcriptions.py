@@ -173,3 +173,9 @@ class TestConvertFunctions(unittest.TestCase):
         numbered = 'Ao4di4li4'
 
         self.assertEqual(numbered, trans.accented_to_numbered(accented))
+
+    def test_issue_23(self):
+        pinyin = 'ó'
+        zhuyin = 'ㄛˊ'
+
+        self.assertEqual(zhuyin, trans.pinyin_to_zhuyin(pinyin))
