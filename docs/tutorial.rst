@@ -36,7 +36,7 @@ to Pinyin. We'll be using the function :func:`dragonmapper.hanzi.to_pinyin`.
 
 .. code:: python
 
-    >>> s = '这个字怎么念？'
+    >>> s = u'这个字怎么念？'
     >>> hanzi.to_pinyin(s)
     'zhègèzìzěnmeniàn？'
 
@@ -59,12 +59,12 @@ Chinese punctuation marks and Dragon Mapper will recognize the word boundaries.
 .. code:: python
 
     >>> # Sentence without word boundaries marked.
-    ... s = '这个很便宜。'
+    ... s = u'这个很便宜。'
     >>> hanzi.to_pinyin(s)
     'zhègèhěnbiànyi。'
 
     >>> # Sentence with word boundaries marked.
-    ... s_spaced = '这个 很 便宜。'
+    ... s_spaced = u'这个 很 便宜。'
     >>> hanzi.to_pinyin(s_spaced)
     'zhège hěn piànyi。'
 
@@ -91,7 +91,7 @@ string is compatible with. Let's take a look:
 
 .. code:: python
 
-    >>> s = '那辆车是我的。'
+    >>> s = u'那辆车是我的。'
     >>> hanzi.identify(s) is hanzi.SIMPLIFIED
     True
 
@@ -106,7 +106,7 @@ characters. Sometimes a string can be compatible with both character systems:
 
 .. code:: python
 
-    >>> s = '你好！'
+    >>> s = u'你好！'
     >>> hanzi.identify(s) is hanzi.BOTH
     True
 
@@ -121,7 +121,7 @@ Traditional Chinese and characters that exist exclusively in Simplified:
 
 .. code:: python
 
-    >>> s = 'Traditional: 車. Simplified: 车.'
+    >>> s = u'Traditional: 車. Simplified: 车.'
     >>> hanzi.identify(s) is hanzi.MIXED
     True
 
@@ -137,7 +137,7 @@ The last scenario is a string that doesn't contain any Chinese characters:
 
 .. code:: python
 
-    >>> s = 'Hello. My name is Thomas.'
+    >>> s = u'Hello. My name is Thomas.'
     >>> hanzi.identify(s) is hanzi.UNKNOWN
     True
 
@@ -164,7 +164,7 @@ Let's try to identify which transcription system a string is:
 
 .. code:: python
 
-    >>> s = 'Wǒ shì yīgè měiguórén.'
+    >>> s = u'Wǒ shì yīgè měiguórén.'
     >>> transcriptions.identify(s) is transcriptions.PINYIN
     True
     
@@ -178,7 +178,7 @@ Let's try to identify which transcription system a string is:
 
 .. code:: python
 
-    >>> s = 'ㄋㄧˇ ㄏㄠˇ'
+    >>> s = u'ㄋㄧˇ ㄏㄠˇ'
     >>> transcriptions.identify(s) is transcriptions.ZHUYIN
     True
 
@@ -197,7 +197,7 @@ on the syllable-level, consider validating it on a character-level with
 
 .. code:: python
 
-    >>> s = 'Wǒ shì yīgè měiguórén.'
+    >>> s = u'Wǒ shì yīgè měiguórén.'
     >>> transcriptions.is_pinyin_compatible(s)
     True
 
@@ -210,7 +210,7 @@ have a one-to-one correspondence. Let's see how Dragon Mapper handles it:
 
 .. code:: python
 
-    >>> zhuyin = 'ㄋㄧˇ ㄏㄠˇ'
+    >>> zhuyin = u'ㄋㄧˇ ㄏㄠˇ'
     >>> pinyin = transcriptions.zhuyin_to_pinyin(zhuyin)
     >>> ipa = transcriptions.zhuyin_to_ipa(zhuyin)
 
@@ -230,7 +230,7 @@ handy functions to help you:
 
 .. code:: python
 
-    >>> unknown = 'nǐhǎo'
+    >>> unknown = u'nǐhǎo'
     >>> transcriptions.to_zhuyin(unknown)
     'ㄋㄧˇ ㄏㄠˇ'
 
