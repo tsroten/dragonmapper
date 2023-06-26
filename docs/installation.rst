@@ -1,9 +1,7 @@
 Installation
 ============
 
-Installing Dragon Mapper is easy. Make sure you have Python 2.7 or 3 along
-with `Zhon <https://github.com/tsroten/zhon>`_ and
-`Hanzi Identifier <https://github.com/tsroten/hanzidentifier>`_. Then use
+Installing Dragon Mapper is easy. You can use
 `pip <https://pip.pypa.io>`_:
 
 .. code:: bash
@@ -19,9 +17,9 @@ Tarball Release
 
 If you'd rather install Dragon Mapper manually:
 
-1.  Download the most recent release from `Dragon Mapper's PyPi page <https://pypi.python.org/pypi/dragonmapper/>`_.
+1. Download the most recent release from `Dragon Mapper's PyPi page <https://pypi.python.org/pypi/dragonmapper/>`_.
 2. Unpack the tarball.
-3. From inside the directory ``dragonmapper-XX``, run ``python setup.py install``
+3. From inside the directory ``dragonmapper-XX``, run ``pip install .``
 
 That will install Dragon Mapper in your Python's ``site-packages`` directory.
 
@@ -43,20 +41,9 @@ directory.
 Running the Tests
 -----------------
 
-Running the tests is easy:
+Running the tests is easy. Make sure you have `hatch <https://hatch.pypa.io>`_
+installed.
 
 .. code-block:: bash
 
-    $ python setup.py test
-
-If you want to run the tests using multiple versions of Python, install and
-run tox:
-
-.. code-block:: bash
-
-    $ pip install tox
-    $ tox
-
-Dragon Mapper's ``tox.ini`` file is configured to run tests using Python 2.7, 3.3,
-and 3.4. It will also build the documentation (requires
-`Sphinx <https://www.sphinx-doc.org>`_).
+    $ hatch run test

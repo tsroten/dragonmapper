@@ -6,15 +6,6 @@ its two supported data formats: Chinese characters and Chinese transcriptions.
 Not all of Dragon Mapper's functions or their options are explained here. Be
 sure to read the :doc:`api` for further information.
 
-.. note::
-
-   Python 2 strings are not Unicode by default. Prefix the strings in these
-   code samples with 'u' to make them work correctly. For example,
-   ``u'这个字怎么念？'`` instead of ``'这个字怎么念？'``. See `Unicode Literals
-   in Python Source Code`_ for more information.
-
-.. _Unicode Literals in Python Source Code: https://docs.python.org/2/howto/unicode.html#unicode-literals-in-python-source-code
-
 Working with Chinese Characters
 -------------------------------
 

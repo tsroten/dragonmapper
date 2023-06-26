@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """Identification and conversion functions for Chinese transcriptions."""
 
-from __future__ import unicode_literals
 import re
 
 import zhon.pinyin

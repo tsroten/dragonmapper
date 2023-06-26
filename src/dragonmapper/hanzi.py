@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """Identification and transliteration functions for Chinese characters."""
 
-from __future__ import unicode_literals
 import re
 
 import hanzidentifier
@@ -24,11 +23,6 @@ identify = hanzidentifier.identify
 is_simplified = hanzidentifier.is_simplified
 is_traditional = hanzidentifier.is_traditional
 has_chinese = hanzidentifier.has_chinese
-
-try:
-    str = unicode
-except NameError:
-    pass
 
 _READING_SEPARATOR = "/"
 

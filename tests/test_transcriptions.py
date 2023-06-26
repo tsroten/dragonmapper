@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """Unit tests for dragonmapper.transcriptions."""
 
-from __future__ import unicode_literals
 import unittest
 
 from dragonmapper import transcriptions as trans
