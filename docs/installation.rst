@@ -4,14 +4,14 @@ Installation
 Installing Dragon Mapper is easy. Make sure you have Python 2.7 or 3 along
 with `Zhon <https://github.com/tsroten/zhon>`_ and
 `Hanzi Identifier <https://github.com/tsroten/hanzidentifier>`_. Then use
-`pip <http://www.pip-installer.org/>`_:
+`pip <https://pip.pypa.io>`_:
 
 .. code:: bash
 
     $ pip install dragonmapper
 
 That will download Dragon Mapper from
-`the Python Package Index <http://pypi.python.org/>`_ and install it in your
+`the Python Package Index <https://pypi.python.org/>`_ and install it in your
 Python's ``site-packages`` directory.
 
 Tarball Release
@@ -19,7 +19,7 @@ Tarball Release
 
 If you'd rather install Dragon Mapper manually:
 
-1.  Download the most recent release from `Dragon Mapper's PyPi page <http://pypi.python.org/pypi/dragonmapper/>`_.
+1.  Download the most recent release from `Dragon Mapper's PyPi page <https://pypi.python.org/pypi/dragonmapper/>`_.
 2. Unpack the tarball.
 3. From inside the directory ``dragonmapper-XX``, run ``python setup.py install``
 
@@ -29,7 +29,7 @@ Install the Development Version
 -------------------------------
 
 `Dragon Mapper's code <https://github.com/tsroten/dragonmapper>`_ is hosted at GitHub.
-To install the development version first make sure `Git <http://git-scm.org/>`_
+To install the development version first make sure `Git <https://git-scm.org/>`_
 is installed. Then run:
 
 .. code-block:: bash
@@ -59,4 +59,4 @@ run tox:
 
 Dragon Mapper's ``tox.ini`` file is configured to run tests using Python 2.7, 3.3,
 and 3.4. It will also build the documentation (requires
-`Sphinx <http://sphinx-doc.org>`_).
+`Sphinx <https://www.sphinx-doc.org>`_).

@@ -9,8 +9,8 @@ dragonmapper.hanzi
 Identification and transcription functions for Chinese characters.
 
 Importing this module takes a moment because it loads
-`CC-CEDICT <http://cc-cedict.org/wiki/>`_ and
-`Unihan <http://www.unicode.org/charts/unihan.html>`_ data into memory.
+`CC-CEDICT <https://cc-cedict.org/wiki/>`_ and
+`Unihan <https://www.unicode.org/charts/unihan.html>`_ data into memory.
 
 Identifying Chinese Characters
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -2,16 +2,16 @@
 Dragon Mapper
 =============
 
-.. image:: https://badge.fury.io/py/dragonmapper.png
-    :target: http://badge.fury.io/py/dragonmapper
-    
-.. image:: https://travis-ci.org/tsroten/dragonmapper.png?branch=develop
-        :target: https://travis-ci.org/tsroten/dragonmapper
+.. image:: https://badge.fury.io/py/dragonmapper.svg
+    :target: https://pypi.org/project/dragonmapper
+
+.. image:: https://github.com/tsroten/dragonmapper/actions/workflows/ci.yml/badge.svg
+    :target: https://github.com/tsroten/dragonmapper/actions/workflows/ci.yml
 
 Dragon Mapper is a Python library that provides identification and conversion
 functions for Chinese text processing.
 
-* Documentation: http://dragonmapper.rtfd.org
+* Documentation: https://tsroten.github.io/dragonmapper/
 * GitHub: https://github.com/tsroten/dragonmapper
 * Free software: MIT license
 
@@ -45,8 +45,8 @@ Features
 
 Getting Started
 ---------------
-* `Install Dragon Mapper <http://dragonmapper.readthedocs.org/en/latest/installation.html>`_
-* Read `Dragon Mapper's tutorial <http://dragonmapper.readthedocs.org/en/latest/tutorial.html>`_
+* `Install Dragon Mapper <https://tsroten.github.io/dragonmapper/installation.html>`_
+* Read `Dragon Mapper's tutorial <https://tsroten.github.io/dragonmapper/tutorial.html>`_
 * Report bugs and ask questions via `GitHub Issues <https://github.com/tsroten/dragonmapper>`_
-* Refer to the `API documentation <http://dragonmapper.readthedocs.org/en/latest/api.html>`_ when you need more technical information
-* `Contribute <http://dragonmapper.readthedocs.org/en/latest/contributing.html>`_ documentation, code, or feedback
+* Refer to the `API documentation <https://tsroten.github.io/dragonmapper/api.html>`_ when you need more technical information
+* `Contribute <https://tsroten.github.io/dragonmapper/contributing.html>`_ documentation, code, or feedback

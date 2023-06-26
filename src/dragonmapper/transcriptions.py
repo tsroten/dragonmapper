@@ -471,7 +471,7 @@ def is_pinyin(s):
     """Check if *s* consists of valid Pinyin."""
     re_pattern = ('(?:%(word)s|[ \t%(punctuation)s])+' %
                   {'word': zhon.pinyin.word,
-                   'punctuation': zhon.pinyin.punctuation})
+                   'punctuation': re.escape(zhon.pinyin.punctuation)})
     return _is_pattern_match(re_pattern, s)
 
 
@@ -485,7 +485,7 @@ def is_pinyin_compatible(s):
     :data:`zhon.pinyin.printable`.
 
     """
-    return _is_pattern_match('[%s]+' % zhon.pinyin.printable, s)
+    return _is_pattern_match('[%s]+' % re.escape(zhon.pinyin.printable), s)
 
 
 def is_zhuyin(s):
@@ -506,14 +506,14 @@ def is_zhuyin_compatible(s):
 
     """
     printable_zhuyin = zhon.zhuyin.characters + zhon.zhuyin.marks + ' '
-    return _is_pattern_match('[%s]+' % printable_zhuyin, s)
+    return _is_pattern_match('[%s]+' % re.escape(printable_zhuyin), s)
 
 
 def is_ipa(s):
     """Check if *s* consists of valid Chinese IPA."""
     re_pattern = ('(?:%(syllable)s|[ \t%(punctuation)s])+' %
                   {'syllable': _IPA_SYLLABLE,
-                   'punctuation': zhon.pinyin.punctuation})
+                   'punctuation': re.escape(zhon.pinyin.punctuation)})
     return _is_pattern_match(re_pattern, s)
 
 
