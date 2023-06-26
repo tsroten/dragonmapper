@@ -6,11 +6,11 @@ import os.path
 import pkgutil
 
 
-PACKAGE_NAME = 'dragonmapper'
-DATA_DIR = 'data'
+PACKAGE_NAME = "dragonmapper"
+DATA_DIR = "data"
 
 
-def load_data_file(filename, encoding='utf-8'):
+def load_data_file(filename, encoding="utf-8"):
     """Load a data file and return it as a list of lines.
 
     Parameters:
