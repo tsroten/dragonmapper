@@ -41,7 +41,7 @@ classifiers = [
     "Topic :: Text Processing :: Linguistic",
 ]
 dependencies = [
-    "hanzidentifier ~= 1.0",
+    "hanzidentifier ~= 1.2",
     "zhon ~= 2.0",
 ]
 
