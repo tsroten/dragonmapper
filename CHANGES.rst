@@ -3,6 +3,11 @@
 Change Log
 ----------
 
+TBD
+++++++++++++++++++
+
+* Adds transcription for "yo". Fixes #26.
+
 0.2.6 (2016-05-23)
 ++++++++++++++++++
 
