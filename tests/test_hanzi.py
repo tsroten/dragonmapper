@@ -68,3 +68,14 @@ class TestConversionFunctions(unittest.TestCase):
         """Incorrect readings for 女."""
         reading = hanzi.to_pinyin("女")
         self.assertEqual("nǚ", reading)
+
+    def test_issue_30(self):
+        """Check if lüè/nüè are correctly transcribed."""
+        self.assertEqual("zhànlüè", hanzi.to_pinyin("戰略"))
+        self.assertEqual("zhànlüè", hanzi.to_pinyin("战略"))
+        self.assertEqual("ㄓㄢˋ ㄌㄩㄝˋ", hanzi.to_zhuyin("戰略"))
+        self.assertEqual("bàonüè", hanzi.to_pinyin("暴虐"))
+        self.assertEqual("ㄅㄠˋ ㄋㄩㄝˋ", hanzi.to_zhuyin("暴虐"))
+        self.assertEqual("nüèshā", hanzi.to_pinyin("虐殺"))
+        self.assertEqual("nüèshā", hanzi.to_pinyin("虐杀"))
+        self.assertEqual("ㄋㄩㄝˋ ㄕㄚ", hanzi.to_zhuyin("虐殺"))
