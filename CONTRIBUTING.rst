@@ -92,7 +92,7 @@ Before you submit a pull request, check that it meets these guidelines:
 2. If the pull request adds functionality, the docs should be updated. Put
    your new functionality into a function with a docstring, and add the
    feature to the list in README.rst.
-3. The pull request should work for Python 3.7+. Check 
+3. The pull request should work for Python 3.8+. Check 
    https://github.com/tsroten/dragonmapper/actions/workflows/ci.yml
    and make sure that the tests pass for all supported Python versions.
 4. If you want to receive credit, add your name to `AUTHORS.rst`.
