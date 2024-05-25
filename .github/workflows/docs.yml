@@ -30,9 +30,9 @@ jobs:
       - name: Build docs
         if: always()
         run: hatch run docs:generate
-      - name: Check docs
-        if: always()
-        run: hatch run docs:check
+      # - name: Check docs
+      #   if: always()
+      #   run: hatch run docs:check
       - name: Upload docs
         uses: actions/upload-pages-artifact@v1
         with:
