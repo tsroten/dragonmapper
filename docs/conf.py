@@ -8,7 +8,7 @@
 project = 'Dragon Mapper'
 copyright = '2023, Thomas Roten'
 author = 'Thomas Roten'
-release = '0.2.6'
+release = '0.2.7'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

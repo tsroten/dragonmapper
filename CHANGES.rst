@@ -3,9 +3,11 @@
 Change Log
 ----------
 
-TBD
+0.2.7 (2024-05-25)
 ++++++++++++++++++
 
+* Removes Python 3.7 support.
+* Adds zhuyin for "dai". Fixes #22.
 * Adds transcription for "yo". Fixes #26.
 
 0.2.6 (2016-05-23)
