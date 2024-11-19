@@ -3,6 +3,11 @@
 Change Log
 ----------
 
+0.3.0 (2024-11-19)
+++++++++++++++++++
+* Removes Python 3.8 support.
+* Fixes transcriptions for "you" and "yong". Fixes #25.
+
 0.2.7 (2024-05-25)
 ++++++++++++++++++
 

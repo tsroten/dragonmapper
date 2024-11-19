@@ -6,9 +6,9 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 project = 'Dragon Mapper'
-copyright = '2023, Thomas Roten'
+copyright = '2024, Thomas Roten'
 author = 'Thomas Roten'
-release = '0.2.7'
+release = '0.3.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
