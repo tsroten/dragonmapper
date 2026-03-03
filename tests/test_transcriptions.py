@@ -63,6 +63,8 @@ class TestConvertFunctions(unittest.TestCase):
     accented_pinyin_spaced = "Wǒ shì yī gè měi guó rén."
     zhuyin = "ㄨㄛˇ ㄕˋ ㄧ ㄍㄜˋ ㄇㄟˇ ㄍㄨㄛˊ ㄖㄣˊ."
     ipa = "wɔ˧˩˧ ʂɨ˥˩ i˥ kɤ˥˩ meɪ˧˩˧ kwɔ˧˥ ʐən˧˥."
+    uppercase_accented_pinyin = "Ài Àn Ào Ái È Èr É Ér Ā Āi Ēn Ō Ōu"
+    uppercase_accented_zhuyin = "ㄞˋ ㄢˋ ㄠˋ ㄞˊ ㄜˋ ㄦˋ ㄜˊ ㄦˊ ㄚ ㄞ ㄣ ㄛ ㄡ"
 
     def test_numbered_to_accented(self):
         accented_pinyin = trans.to_pinyin(self.numbered_pinyin)
@@ -193,3 +195,17 @@ class TestConvertFunctions(unittest.TestCase):
         zhuyin = "ㄊㄟ"
 
         self.assertEqual(zhuyin, trans.pinyin_to_zhuyin(pinyin))
+
+    def test_uppercase_accented_pinyin_to_zhuyin(self):
+        zhuyin = trans.pinyin_to_zhuyin(self.uppercase_accented_pinyin)
+        self.assertEqual(zhuyin, self.uppercase_accented_zhuyin)
+
+    def test_pinying_v_to_zhuyin(self):
+        self.assertEqual(trans.pinyin_to_zhuyin("lvè"), "ㄌㄩㄝˋ")
+
+    def test_lowercase_accented_pinyin_to_zhuyin(self):
+        zhuyin = trans.pinyin_to_zhuyin(self.uppercase_accented_pinyin.lower())
+        self.assertEqual(zhuyin, self.uppercase_accented_zhuyin)
+
+    def test_pinying_u_with_diaeresis_to_zhuyin(self):
+        self.assertEqual(trans.pinyin_to_zhuyin("lüè"), "ㄌㄩㄝˋ")
